@@ -1,0 +1,92 @@
+/* CAROUSEL */
+.carousel-item {
+    margin-right:-80%;
+    position:relative;
+    top:8px;
+}
+
+/* NAVBAR */
+
+.navbar__logo {
+    height: 80px;
+    width: 200px;
+}
+
+.nav-link {
+    color:black;
+}
+
+.nav-active:hover{
+    border-top: 2px solid red;
+}
+
+.navbar__shop {
+    margin-left:190px;
+}
+
+/* BANNER */
+
+.home__banner_picture{
+    height:105vh;
+    width:100%;
+    object-fit:cover;
+}
+
+.home__header_btn {
+    position:absolute;
+    bottom:0;
+    left:200px;
+}
+
+/* MAIN */
+.home__main_picture{
+    height:100%;
+    width:100%;
+    border-radius: 5px;
+    object-fit:cover;
+    opacity:0.8;
+}
+
+.home__main_content {
+    height: 410px;
+    width: 330px;
+    position: relative;
+    box-shadow: 3px 3px 5px rgb(62, 78, 144);
+}
+
+.home__main_content button {
+    position:absolute;
+    bottom:15%;
+    left:45%;
+}
+.home__main_content p {
+    position:absolute;
+    bottom:25%;
+    left:20%;
+}
+
+/* SECTION */
+.home__section_title {
+    display:flex;
+    justify-content:space-between;
+}
+
+.home__section_product {
+    height:380px;
+    width:320px;
+    /* object-fit:content; */
+}
+
+/* ASSURANCE */
+
+.home__assurance_icon {
+    position:absolute;
+    top:55px;
+    left:205px;
+    color: white;
+}
+
+.home__assurance_logo {
+    height:150px;
+    width: 150px;
+}
