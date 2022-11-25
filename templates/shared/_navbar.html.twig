@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{{ path('home_index') }}">
-            <img src="./assets/img/logotype.png" class="navbar__logo"/>
+            <img src="../../../assets/img/logotype.png" class="navbar__logo"/>
         </a>
         <form class="d-flex me-5" role="search">
             <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
@@ -12,17 +12,13 @@
         </form>
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
+                {% for c in categoryRepository.findAll() %}
                 <li class="nav-item">
-                    <a class="nav-link nav-active" href="#">Homme
+                    <a class="nav-link nav-active" href="#">{{ c.name }}
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item nav-active">
-                    <a class="nav-link" href="#">Femme</a>
-                </li>
-                <li class="nav-item nav-active">
-                    <a class="nav-link" href="#">Accessoires</a>
-                </li>
+                {% endfor %}
                 <li class="nav-item navbar__shop">
                     <a class="nav-link" href="#">
                         <i class="fa-solid fa-user"></i>
@@ -37,3 +33,4 @@
         </div>
     </div>
 </nav>
+

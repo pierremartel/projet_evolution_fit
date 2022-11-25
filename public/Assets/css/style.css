@@ -7,6 +7,12 @@
 
 /* NAVBAR */
 
+/* .navbar {
+    position:fixed;
+    top:20;
+    z-index:-1;
+} */
+
 .navbar__logo {
     height: 80px;
     width: 200px;
@@ -27,7 +33,7 @@
 /* BANNER */
 
 .home__banner_picture{
-    height:105vh;
+    min-height:105vh;
     width:100%;
     object-fit:cover;
 }

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modification de {{ product.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Modification du produit {{ product.name }}</h1>
+            {{form_start(form)}}
+            {{form_errors(form)}}
+                <div class="row">   
+                    <div class="col-5">   
+                        {{form_row(form.name)}}
+                        {{form_row(form.description)}}
+                        {{form_row(form.price)}}
+                    </div> 
+                    <div class="col-5">   
+                        {{form_row(form.picture)}}
+                        {{form_row(form.size)}}
+                        {{form_row(form.category)}}
+                    </div> 
+                </div>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i>
+                Enregistrer
+            </button>
+
+            {{form_end(form)}}
+        
+    </div>
+{% endblock %}
