@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Catalogue des produits
+{% endblock %}
+
+{% block body %}
+
+    <header class="container d-flex justify-content-between mt-5">
+        <div class="">
+            <h1>Notre Boutique</h1>
+            <div class="underline_title"></div>
+        </div>
+        <a href="" class="">
+            <i class="fa-solid fa-sort-down"></i>
+        </a>
+    </header>
+    <main class="container">
+        <div class="count">
+            <h2 class="fs-5 my-4">Articles ({{ products.getTotalItemCount }})</h2>
+        </div>
+        <div class="row">
+            {% for p in products %}
+                <div class="col-3">
+                    {% include 'product/_product_card.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    {# PAGINATION #}
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(products) }}
+    </div>
+
+{% endblock %}

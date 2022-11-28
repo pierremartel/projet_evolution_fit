@@ -35,7 +35,6 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url(message="L'image défini n'est pas une url valide")
      */
     private $picture;
 
@@ -59,6 +58,11 @@ class Product
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -145,6 +149,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

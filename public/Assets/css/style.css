@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-    color:black;
+    color:#000;
 }
 
 .nav-active:hover{
@@ -95,4 +95,25 @@
 .home__assurance_logo {
     height:150px;
     width: 150px;
+}
+
+/* FOOTER */
+
+.home__footer {
+    background-color:#646E68;
+    color:#fff;
+}
+
+
+/* SHOP */
+
+.shop_picture {
+    height:380px;
+    width:320px;
+}
+
+.underline_title {
+    background-color: red;
+    width: 160px;
+    height:2px;
 }
