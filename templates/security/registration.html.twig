@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Formulaire d'inscription</h1>
+                <h2>Créer votre compte EvolutionFit</h2>
+
+                {# {% if error %}
+                    <div class="alert alert-danger"> {{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %} #}
+                {{ form_start(form) }}
+
+                {{ form_errors(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.plainPassword) }}
+
+                <span>S'inscrire à la newsletter?</span>
+
+                <button type="submit" class="btn btn-success">S'inscrire</button>
+
+                {{ form_end(form) }}
+
+                <p>Déjà inscrit ?</p>
+                <a href="">Connecter vous à votre compte !</a>
+
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

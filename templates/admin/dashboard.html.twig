@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des stocks{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'admin/_navDashboard.html.twig' %}
+            
+            <main class="col-9 p-5 admin__main">
+                <div class="d-flex justify-content-between">
+                    <h1>Produits</h1>
+                    <a href="{{ path('admin_product_create') }}" class="btn btn-outline-success">
+                        <i class="fa-regular fa-plus"></i>
+                    Ajouter un produit
+                    </a>
+                </div>
+
+                {# TABLES #}
+
+                <table class="table table-striped mt-5 bg-white">
+                    <thead class="table-dark ">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col" colspan="2">Image</th>
+                            <th scope="col" >Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in products %}
+                        <tr>
+                            <th scope="row">{{ p.id }}</th>
+                            <td>{{ p.name }}</td>
+                            <td colspan="2"><img src="{{ asset('uploads/images/') ~ p.picture }}" alt="" class="admin__main_picture"></td>
+                            <td>
+                                <a href="{{ path('admin_product_update', {'id':p.id}) }}" class="btn btn-success p-1 border rounded-2">Editer</a>
+                                <a href="" class="btn btn-info p-1 border rounded-2">Activer</a>
+                                <a href="{{ path('admin_product_delete', {'id':p.id}) }}" class="btn btn-danger p-1 border rounded-2">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </main>
+        </div>
+    </div>
+    
+
+{% endblock %}

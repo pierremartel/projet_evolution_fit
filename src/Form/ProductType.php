@@ -46,8 +46,6 @@ class ProductType extends AbstractType
             ])
             ->add('size', ChoiceType::class, [
                 'label' => 'Taille du produit',
-                'expanded' => true,
-                'multiple' => true,
                 'required' => false,
                 'placeholder' => '--Choisir une taille--',
                 'choices' => [

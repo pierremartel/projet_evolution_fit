@@ -1,9 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Nom du produit
+    {{ products.name }}
 {% endblock %}
 
 {% block body %}
-    <h1>Nom du produit</h1>
+
+    <div class="container mt-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('home_index') }}">
+                    Accueil
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('product_category', {'slug': products.category.slug}) }}">
+                    {{ products.category.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                {{ products.name }}
+            </li>
+        </ol>
+    </div>
+
+    <main class="container d-flex justify-content-around">
+        <div>
+            <img src="{{asset('uploads/images/') ~ products.picture }}" width="700px" height="850px" alt="Nom du produit">
+            <div class="row">
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+                
+            </div>
+        </div>
+        <section class="ms-5">
+            <h1>{{ products.name }}</h1>
+            <h2>{{ products.price }}€</h2>
+            <div class="mt-5">
+                <div class="show__product_size d-flex justify-content-between">
+                    <p>Taille</p>
+                    <a href="">Guide des tailles</a>
+                </div>
+                <button class="btn btn-outline-dark">S</button>
+                <button class="btn btn-outline-dark">M</button>
+                <button class="btn btn-outline-dark">L</button>
+                <button class="btn btn-outline-dark">XL</button>
+            </div>
+            <a href="" class="btn btn-warning mt-5 d-block fs-5">
+                <i class="fa-regular fa-plus"></i>
+                Ajouter au panier
+            </a>
+            <p class="mt-5">Description</p>
+            <p>{{ products.description }}</p>
+
+        </section>
+    </main>
+
+    
 {% endblock %}

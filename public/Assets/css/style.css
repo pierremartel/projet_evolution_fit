@@ -1,3 +1,19 @@
+/* ADMIN */
+
+.admin__main {
+    background-color:rgb(230, 220, 220);
+    box-shadow: 10px 3px 10px rgb(34, 30, 30);
+    border: 1px solid rgb(148, 143, 143);
+}
+.admin__aside {
+    background-color:rgb(184, 174, 174);
+    box-shadow: 10px 3px 10px rgb(34, 30, 30);
+}
+.admin__main_picture {
+    width: 100px;
+    height: 130px;
+}
+
 /* CAROUSEL */
 .carousel-item {
     margin-right:-80%;
@@ -6,12 +22,6 @@
 }
 
 /* NAVBAR */
-
-/* .navbar {
-    position:fixed;
-    top:20;
-    z-index:-1;
-} */
 
 .navbar__logo {
     height: 80px;
@@ -50,14 +60,14 @@
     width:100%;
     border-radius: 5px;
     object-fit:cover;
-    opacity:0.8;
+    /* opacity:0.6; */
 }
 
 .home__main_content {
-    height: 410px;
-    width: 330px;
+    height: 370px;
+    width: 320px;
     position: relative;
-    box-shadow: 3px 3px 5px rgb(62, 78, 144);
+    box-shadow: 3px 3px 5px rgb(111, 119, 148);
 }
 
 .home__main_content button {
@@ -67,8 +77,8 @@
 }
 .home__main_content p {
     position:absolute;
-    bottom:25%;
-    left:20%;
+    bottom:22%;
+    left:35%;
 }
 
 /* SECTION */
