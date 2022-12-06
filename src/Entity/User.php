@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -21,6 +22,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="L'adresse email est obligatoire !")
+     * @Assert\Email(message="L'adresse définit n'est pas une adresse valide")
+     * @Assert\Length(min=2, max=180, minMessage="Votre email doit avoir au minimum 2 caractères")
      */
     private $email;
 
@@ -29,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
-    private $plainPassword = null;
+    private ?string $plainPassword = null;
 
     /**
      * @var string The hashed password
@@ -39,11 +43,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire !")
+     * @Assert\Length(min=2, max=50, minMessage="Votre prénom doit avoir au minimum 2 caractères")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de famille est obligatoire !")
+     * @Assert\Length(min=2, max=50, minMessage="Votre nom doit avoir au minimum 2 caractères")
      */
     private $lastname;
 

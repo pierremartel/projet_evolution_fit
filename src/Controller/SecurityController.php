@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="security_login")
+     * @Route("/connexion", name="security_login")
      */
     public function login(AuthenticationUtils $utils): Response
     {
@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="security_logout")
+     * @Route("/déconnexion", name="security_logout")
      */
     public function logout()
     {
@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/registration", name="security_registration")
+     * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, EntityManagerInterface $em,
                                  UserPasswordHasherInterface $passwordHasher)
@@ -49,7 +49,9 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            
+            $form->setCreatedAt(new \DateTime());
+
+            // Hashage du mot de passe de l'utilisateur
             $user->setPassword(
             $passwordHasher->hashPassword(
                 $user,
@@ -58,7 +60,6 @@ class SecurityController extends AbstractController
             );
 
             $this->addFlash('success', 'Votre compte a bien été créé');
-            
             $em->persist($user);
             $em->flush();
 

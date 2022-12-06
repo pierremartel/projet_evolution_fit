@@ -4,16 +4,17 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col">
-                <h1>Formulaire d'inscription</h1>
-                <h2>Créer votre compte EvolutionFit</h2>
+            <div class="col-6">
+                <img src="./assets/img/registration.jpg" alt="" width="650px" height="900px" class="opacity-75">
+            </div>
+            <div class="col-5 p-5">
+                <h1 class="fs-3 text-center ">Créer votre compte EvolutionFit</h1>
+                <div class="underline_long "></div>
+                <h2 class="fs-6 mt-5 mb-4 text-center ">Veuillez saisir vos coordonnées</h2>
 
-                {# {% if error %}
-                    <div class="alert alert-danger"> {{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %} #}
-                {{ form_start(form) }}
+                {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
 
                 {{ form_errors(form) }}
                 {{ form_row(form.email) }}
@@ -21,15 +22,17 @@
                 {{ form_row(form.firstname) }}
                 {{ form_row(form.plainPassword) }}
 
-                <span>S'inscrire à la newsletter?</span>
+                <p class="text-end mb-5">S'inscrire à la newsletter?</p>
 
-                <button type="submit" class="btn btn-success">S'inscrire</button>
+                <div class="text-center mb-4">
+                    <button type="submit" class="btn btn-danger">S'inscrire</button>
+                </div>
 
                 {{ form_end(form) }}
 
-                <p>Déjà inscrit ?</p>
-                <a href="">Connecter vous à votre compte !</a>
-
+                <p class="text-center">Déjà inscrit ?
+                    <a href="{{ path('security_login') }}" class="text-danger text-uppercase">Connecter vous à votre compte !</a>
+                </p>
             </div>
         </div>
     </div>

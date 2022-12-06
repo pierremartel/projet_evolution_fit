@@ -29,7 +29,9 @@
         <div class="row">
             {% for p in products %}
                 <div class="col-3">
-                    {% include 'product/_product_card.html.twig' %}
+                    <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
+                        {% include 'product/_product_card.html.twig' %}
+                    </a>
                 </div>
             {% endfor %}
         </div>
