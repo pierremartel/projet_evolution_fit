@@ -5,9 +5,10 @@
 {% block body %}
 
     <header class="home__header mt-2">
-        <div class="container-fluid">
-            <img class="home__banner_picture" src="./assets/img/banner.jpg" alt="Photo de la baniere" >
-        </div>
+        {% include 'home/_carousel_banner.html.twig' %}
+        {# <div class="container-fluid home__banner_container">
+            <img class="home__banner_picture" src="./assets/img/ban.jpg" alt="Photo de la baniere" >
+        </div> #}
         <a href="{{ path('product_shop')}} " class="btn btn-dark home__header_btn p-4 ">Découvrez notre boutique</a>
     </header>
     <main class="home__main mt-5">

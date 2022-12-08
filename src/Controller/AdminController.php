@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Entity\ProductAttr;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ProductAttrRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +36,7 @@ class AdminController extends AbstractController
     public function create(EntityManagerInterface $em, SluggerInterface $slugger, Request $request) 
     {
         $product = new Product();
+        $quantity = new ProductAttr();
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -64,12 +67,23 @@ class AdminController extends AbstractController
             }
 
             $product->setSlug(strtolower($slugger->slug($product->getName())));
+            // On va chercher l'id de l'article et la qty correspondante défini dans le formulaire
+            // Pour ensuite l'envoyer dans la table 
+            $numberArticle = $form->get('quantity')->getData();
+            $quantity->setQuantity($numberArticle);
+            $quantity->setProduct($product);
+
+            // On va chercher la taille de l'article défini dans le formulaire
+            // Pour ensuite l'envoyer dans la table 
+            $sizeArticle = $form->get('size')->getData();
+            $quantity->setProductSize($sizeArticle);
+
             $em->persist($product);
+            $em->persist($quantity);
             $em->flush();
 
             $this->addFlash('success', "Le produit a bien été crée");
 
-            // MODIFIER LA REDIRECTION VERS PAGE PRODUIT
             return $this->redirectToRoute('admin_product');
         }
         
@@ -86,10 +100,12 @@ class AdminController extends AbstractController
      * @Route("/admin/product/update/{id}", name="admin_product_update", requirements={"id":"\d+"})
      */
     public function update($id, EntityManagerInterface $em, Request $request,
-                            SluggerInterface $slugger, ProductRepository $productRepository) 
+                            SluggerInterface $slugger, ProductRepository $productRepository,
+                            ProductAttrRepository $productAttrRepository) 
     {
         $product = $productRepository->find($id);
-
+        // $quantity = $productAttrRepository->findOneBy(['product' => $product]);
+        // dd($quantity);
         if(!$product){
             throw $this->createNotFoundException("Le produit n°$id n'existe pas");
         }
@@ -129,7 +145,6 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', "Le produit a bien été mis à jour");
 
-            // MODIFIER LA REDIRECTION VERS PAGE PRODUIT
             return $this->redirectToRoute('admin_product');
         }
 
@@ -143,7 +158,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/product/delete/{id}", name="admin_product_delete")
      */
-    public function delete(Product $product, EntityManagerInterface $em)
+    public function delete(Product $product,
+                            EntityManagerInterface $em)
     {
         $em->remove($product);
         $em->flush();

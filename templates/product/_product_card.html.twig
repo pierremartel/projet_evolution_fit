@@ -1,8 +1,10 @@
 <div class="shop__card">
     <div class="shop__card_picture position-relative">
         <img src="{{asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="shop_picture">
-        {% if p.status == 'Nouveauté' %}
+        {% if p.event == 'Nouveauté' %}
             <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Nouveautés</span>
+        {% elseif p.event == 'Promotion' %}
+            <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Soldes</span>
         {% endif %}
     </div>
     <div class="shop__card_body">

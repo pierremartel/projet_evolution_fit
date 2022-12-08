@@ -15,11 +15,11 @@
 }
 
 /* CAROUSEL */
-.carousel-item {
-    margin-right:-80%;
+/* .carousel-item { */
+    /* margin-right:-80%;
     position:relative;
-    top:8px;
-}
+    top:8px; */
+/* } */
 
 /* NAVBAR */
 
@@ -42,10 +42,17 @@
 
 /* BANNER */
 
+.home__banner_container {
+    width:100%;
+    height:700px;
+}
+
 .home__banner_picture{
-    min-height:105vh;
+    /* min-height:105vh; */
+    height:100%;
     width:100%;
     object-fit:cover;
+    object-position: center top;
 }
 
 .home__header_btn {

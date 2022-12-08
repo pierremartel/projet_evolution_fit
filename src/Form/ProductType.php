@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\ProductSize;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProductType extends AbstractType
@@ -44,17 +46,13 @@ class ProductType extends AbstractType
                     ])
                 ],
             ])
-            ->add('size', ChoiceType::class, [
+            ->add('size', EntityType::class, [
                 'label' => 'Taille du produit',
+                'mapped' => false,
                 'required' => false,
                 'placeholder' => '--Choisir une taille--',
-                'choices' => [
-                    'Aucun' => 'Aucun',
-                    'S' => 'S',
-                    'M' => 'M',
-                    'L' => 'L',
-                    'XL' => 'XL'
-                ]
+                'class' => ProductSize::class,
+                'choice_label' => 'size'
             ])
             ->add('price', MoneyType::class, [
                 'label' => 'Prix du produit',
@@ -72,8 +70,19 @@ class ProductType extends AbstractType
                 'label' => 'Status du produit',
                 'placeholder' => '--Choisir une status--',
                 'choices' => [
-                    'Disponible' => 'Disponible',
-                    'Epuisé' => 'Epuisé',
+                    'En stock' => true,
+                    'Epuisé' => false,
+                ]
+            ])
+            ->add('quantity', IntegerType::class, [
+                'label' => 'Quantités',
+                'mapped' => false,
+            ])
+            ->add('event', ChoiceType::class, [
+                'label' => 'Evénement',
+                'required' => false,
+                'placeholder' => '--Choisir un évenement--',
+                'choices' => [
                     'Nouveauté' => 'Nouveauté',
                     'Promotion' => 'Promotion'
                 ]

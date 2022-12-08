@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,11 +46,6 @@ class Product
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $size;
-
-    /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le produit doit contenir un prix fixe")
      */
@@ -60,9 +57,24 @@ class Product
     private $category;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
     private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProductAttr::class, mappedBy="product", orphanRemoval=true)
+     */
+    private $products;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $event;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,18 +129,6 @@ class Product
         return $this;
     }
 
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): self
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
     public function getPrice(): ?float
     {
         return $this->price;
@@ -153,14 +153,56 @@ class Product
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function isStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductAttr>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(ProductAttr $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(ProductAttr $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getProduct() === $this) {
+                $product->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEvent(): ?string
+    {
+        return $this->event;
+    }
+
+    public function setEvent(string $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

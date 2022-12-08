@@ -48,10 +48,13 @@
                     <p>Taille</p>
                     <a href="">Guide des tailles</a>
                 </div>
-                <button class="btn btn-outline-dark">S</button>
-                <button class="btn btn-outline-dark">M</button>
-                <button class="btn btn-outline-dark">L</button>
-                <button class="btn btn-outline-dark">XL</button>
+                {% for sizes in productSize %}
+                    {% if productAttr.quantity < 0 %}
+                    <button class="btn btn-outline-dark disabled">{{ sizes.size }}</button>
+                    {% else %}
+                    <button class="btn btn-outline-dark">{{ sizes.size }}</button>
+                    {% endif %}
+                {% endfor %}
             </div>
             <a href="" class="btn btn-warning mt-5 d-block fs-5">
                 <i class="fa-regular fa-plus"></i>

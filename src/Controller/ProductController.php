@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Entity\ProductSize;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ProductAttrRepository;
+use App\Repository\ProductSizeRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,16 +95,21 @@ class ProductController extends AbstractController
     /**
      * @Route("/collection/{category}/{slug}", name="product_show")
      */
-    public function show($slug, CategoryRepository $categoryRepository)
+    public function show($slug, ProductAttrRepository $productAttrRepository,
+                            ProductSizeRepository $productSizeRepository)
     {
         $products = $this->productRepository->findOneBy(['slug' => $slug]);
+        $productAttr = $productAttrRepository->findOneBy(['product' => $products]);
+        $productSize = $productSizeRepository->findAll();
 
         if(!$products){
             throw $this->createNotFoundException("Le produit demandé n'existe pas");
         }
         
         return $this->render('product/show.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'productAttr' => $productAttr,
+            'productSize' => $productSize
         ]);
     }
 }

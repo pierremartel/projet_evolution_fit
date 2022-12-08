@@ -16,17 +16,19 @@
                     {{form_start(form)}}
                     {{form_errors(form)}}
                         <div class="row">   
-                            <div class="col-5">   
-                                {{form_row(form.name)}}
-                                {{form_row(form.description)}}
-                                {{form_row(form.price)}}
-                            </div> 
-                            <div class="col-5">   
-                                {{form_row(form.picture)}}
-                                {{form_row(form.size)}}
-                                {{form_row(form.category)}}
-                                {{form_row(form.status)}}
-                            </div> 
+                            <div class="col">   
+                            {{form_row(form.name)}}
+                            {{form_row(form.category)}}
+                            {{form_row(form.quantity)}}
+                            {{form_row(form.status)}}
+                            {{form_row(form.price)}}
+                        </div> 
+                        <div class="col">
+                            {{form_row(form.description)}}   
+                            {{form_row(form.size)}}
+                            {{form_row(form.event)}}
+                            {{form_row(form.picture)}}
+                        </div> 
                         </div>
                     <button type="submit" class="btn btn-success mt-5">
                         <i class="fas fa-save"></i>
