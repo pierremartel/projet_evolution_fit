@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <header class="home__header mt-2">
+    <header class="home__header">
         {% include 'home/_carousel_banner.html.twig' %}
         {# <div class="container-fluid home__banner_container">
             <img class="home__banner_picture" src="./assets/img/ban.jpg" alt="Photo de la baniere" >
@@ -31,9 +31,12 @@
     <section class="home__section">
         <div class="container">
             <div class="home__section_title mt-5 mb-3">
-                <h1>Nos Nouveautés</h1>
-                <a href="{{ path('product_news') }}"><h2 class="fs-5">Voir plus</h2></a>
+                <h1>Nos Nouveautés
+                    <div class="underline_title"></div>
+                </h1>
+                <a href="{{ path('product_news') }}"><span class="fs-4">Voir plus</span></a>
             </div>
+            
             <div class="row">
                 {% for p in products %}
                 <div class="col col-xl-3">

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ products.name }}
+    {{ product.name }}
 {% endblock %}
 
 {% block body %}
@@ -14,19 +14,19 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ path('product_category', {'slug': products.category.slug}) }}">
-                    {{ products.category.name }}
+                <a href="{{ path('product_category', {'slug': product.category.slug}) }}">
+                    {{ product.category.name }}
                 </a>
             </li>
             <li class="breadcrumb-item active">
-                {{ products.name }}
+                {{ product.name }}
             </li>
         </ol>
     </div>
 
     <main class="container d-flex justify-content-around">
         <div>
-            <img src="{{asset('uploads/images/') ~ products.picture }}" width="700px" height="850px" alt="Nom du produit">
+            <img src="{{asset('uploads/images/') ~ product.picture }}" width="700px" height="850px" alt="{{ product.name }}">
             <div class="row">
                 <div class="col-4 mt-3">
                     <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
@@ -41,30 +41,72 @@
             </div>
         </div>
         <section class="ms-5">
-            <h1>{{ products.name }}</h1>
-            <h2>{{ products.price }}€</h2>
+            <h1>{{ product.name }}</h1>
+            <h2>{{ product.price }}€</h2>
             <div class="mt-5">
                 <div class="show__product_size d-flex justify-content-between">
                     <p>Taille</p>
                     <a href="">Guide des tailles</a>
                 </div>
-                {% for sizes in productSize %}
-                    {% if productAttr.quantity < 0 %}
-                    <button class="btn btn-outline-dark disabled">{{ sizes.size }}</button>
-                    {% else %}
-                    <button class="btn btn-outline-dark">{{ sizes.size }}</button>
-                    {% endif %}
-                {% endfor %}
+                    {{ form_start(form) }}
+                    {# {% for productAttr in productAttrs %} #}
+                        {# {% if productAttr.quantity > 0 %} #}
+                        <div class="d-flex">
+                            {{ form_row(form.size) }}
+                        </div>
+                        <div class="d-flex w-25 mt-5">
+                            <button class="btn btn-info w-25 h-25"><i class="fas fa-plus"></i></button>
+                            {{ form_row(form.quantity) }}
+                            <button class="btn btn-info w-25 h-25"><i class="fas fa-minus"></i></button>
+                        </div>
+
+                        {# <button class="btn btn-outline-dark">{{ productAttr.productSize.size }}</button> #}
+                        {# <input type="radio" name="size" id="size_{{ productAttr.productSize.size }}" value="{{ productAttr.productSize.size }}" class="product__select_size available">
+                        <label for="size_{{ productAttr.productSize.size }}">{{ productAttr.productSize.size }}</label> #}
+                        {# {% else %} #}
+                        {# <button class="btn btn-outline-dark disabled">{{ productAttr.productSize.size }}</button> #}
+                        {# <input type="radio" name="size" id="size_{{ productAttr.productSize.size }}" value="{{ productAttr.productSize.size }}" class="product__select_size">
+                        <label for="size_{{ productAttr.productSize.size }}" class="unavailable" >{{ productAttr.productSize.size }}</label> #}
+                        {# {% endif %} #}
+                    {# {% endfor %} #}
             </div>
-            <a href="" class="btn btn-warning mt-5 d-block fs-5">
+            <button type="submit" class="btn btn-warning mt-5 d-block fs-5"><i class="fa-regular fa-plus"></i>
+                Ajouter au panier</button>
+            {# <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-warning mt-5 d-block fs-5">
                 <i class="fa-regular fa-plus"></i>
                 Ajouter au panier
-            </a>
+            </a> #}
+            {{ form_end(form) }}
             <p class="mt-5">Description</p>
-            <p>{{ products.description }}</p>
+            <p>{{ product.description }}</p>
 
         </section>
     </main>
 
     
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        {# let size = ['S','M', 'L', 'XL' ]
+        for(var i = 0; i < size.length; i++){
+            console.log(size[i]);
+        }
+
+        $sizeSelected = document.getElementById('size_' + size[i]).checked
+        console.log($sizeSelected); #}
+        {# if($sizeSelected == true){
+            $sizeSelected = $sizeSelected;
+        } #}
+
+        {# function getSize() {
+            var size = document.getElementsByName('size');
+            for(i = 0; i < size.length; i++) {
+            if(size[i].checked)
+            size = size[i].value;
+
+            }console.log(size);
+        } #}
+        
+    </script>
 {% endblock %}

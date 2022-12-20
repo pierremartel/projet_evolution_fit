@@ -63,4 +63,13 @@ class ProductAttrRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    // public function findSizeByProduct($product_id, $product_size_id)
+    // {
+    //     return $this->createQueryBuilder('q')
+    //         ->andWhere('q.product = :product')
+    //         ->setParameter('product', $product_id)
+    //         ->andWhere('q.product_size = :product_size')
+    //         ->setParameter('product_size', $product_size_id);
+    // }
 }

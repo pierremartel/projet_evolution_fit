@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Form\ProductType;
-use App\Entity\ProductSize;
+
+use App\Form\SearchType;
+use App\Model\SearchData;
+use App\Entity\ProductAttr;
+use App\Form\ChoiceAttrType;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -95,21 +97,35 @@ class ProductController extends AbstractController
     /**
      * @Route("/collection/{category}/{slug}", name="product_show")
      */
-    public function show($slug, ProductAttrRepository $productAttrRepository,
-                            ProductSizeRepository $productSizeRepository)
+    public function show($slug, ProductAttrRepository $productAttrRepository
+                        )
     {
-        $products = $this->productRepository->findOneBy(['slug' => $slug]);
-        $productAttr = $productAttrRepository->findOneBy(['product' => $products]);
-        $productSize = $productSizeRepository->findAll();
+        $product = $this->productRepository->findOneBy(['slug' => $slug]);
+        
+        $productAttrs = $productAttrRepository->findBy(['product' => $product]);
 
-        if(!$products){
+
+        if(!$product){
             throw $this->createNotFoundException("Le produit demandé n'existe pas");
         }
+
+        $form = $this->createForm(ChoiceAttrType::class, null, [
+            'action' => $this->generateUrl('cart_add', ['id' => $product->getId()]),
+            // 'p' => $product->getId()
+        ]);
+        // $form->handleRequest($request);
+
+        // if($form->isSubmitted() && $form->isValid()) {
+        //     $s = $form['size']->getData();
+        //     dd($form);
+        // }
+        
         
         return $this->render('product/show.html.twig', [
-            'products' => $products,
-            'productAttr' => $productAttr,
-            'productSize' => $productSize
+            'product' => $product,
+            'productAttrs' => $productAttrs,
+            'form' => $form->createView(),
         ]);
     }
+    
 }

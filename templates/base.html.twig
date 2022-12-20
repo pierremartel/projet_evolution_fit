@@ -19,6 +19,7 @@
         {# NavBar #}
         {% include 'shared/_navbar.html.twig' %}
 
+        {# Message Flash #}
         {% for rubrique, messages in app.flashes %}
             <div class="alert alert-{{ rubrique }} text-center">
                 {% for message in messages %}
