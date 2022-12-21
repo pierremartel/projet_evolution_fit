@@ -9,48 +9,57 @@
         <h1>Votre panier</h1>
         <div class="underline_title mb-4"></div>
 
-        <table class="table table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Produit</th>
-                    <th></th>
-                    <th>Quantité</th>
-                    <th>SubTotal</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in items %}
+        {% if items | length > 0 %}
+
+            <table class="table table-striped">
+                <thead class="table-dark">
                     <tr>
-                        <td>
-                            <a href="{{ path('product_show', {'id':item.product.id, 'slug':item.product.slug, 'category':item.product.category.slug}) }}">
-                                <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="" class="admin__main_picture">
-                            </a>
-                        </td>
-                        <td>
-                            {{ item.product.name }}</br>
-                            Taille: {{ item.size }}</br>
-                            {{ item.product.price }}€
-                        </td>
-                        <td>
-                            {{ item.qty }}
-                        
-                        </td>
-                        <td>{{ item.qty * item.product.price }}€</td>
-                        <td>
-                            <a href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}"><i class="fa-solid fa-xmark fa-xl"></i></a>
-                        </td>
+                        <th>Produit</th>
+                        <th></th>
+                        <th>Quantité</th>
+                        <th>SubTotal</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">Total :</td>
-                    <td>{{ total }}€</td>
-                </tr>
-            </tfoot>
-        
-        </table>
-    </main>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('product_show', {'id':item.product.id, 'slug':item.product.slug, 'category':item.product.category.slug}) }}">
+                                    <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="" class="admin__main_picture">
+                                </a>
+                            </td>
+                            <td>
+                                {{ item.product.name }}</br>
+                                Taille: {{ item.size }}</br>
+                                {{ item.product.price }}€
+                            </td>
+                            <td>
+                                <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-minus"></i></a>
+                                {{ item.qty }}
+                                <a href="{{ path('cart_add', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-plus"></i></a>
+                            
+                            </td>
+                            <td>{{ item.qty * item.product.price }}€</td>
+                            <td>
+                                <a href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}"><i class="fa-solid fa-xmark fa-xl"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Total :</td>
+                        <td>{{ total }}€</td>
+                    </tr>
+                </tfoot>
+            
+            </table>
+        </main>
+
+    {% else %}
+        <h2>Le panier est vide !</h2>
+
+    {% endif %}
 
 {% endblock %}

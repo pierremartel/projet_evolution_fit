@@ -83,10 +83,8 @@ class CartService
             if(!$product){
                 continue;
             }
-            // dd($qty);
+            
             foreach($content as $size=> $qty){
-                // $productSize = $this->productSizeRepository->find($id);
-                // dd($id);
                 
                 $detailedCart[] = [
                     'product' => $product,
@@ -115,7 +113,7 @@ class CartService
     }
 
 
-    public function decrement(int $id) 
+    public function decrement(int $id, $size) 
     {
 
         $cart = $this->session->get('cart', []);
@@ -126,14 +124,14 @@ class CartService
 
         // Soit le produit est à 1, alors il faut simplement le supprimer
 
-        if($cart[$id] == 1){
-            // $this->remove($id);
+        if($cart[$id][$size] == 1){
+            $this->remove($id, $size);
             return;
         }
 
         // Soit le produit est à plus de 1, alors il faut le décrémenter
 
-        $cart[$id]--;
+        $cart[$id][$size]--;
 
         $this->session->set('cart', $cart);
     }

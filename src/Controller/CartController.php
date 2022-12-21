@@ -40,17 +40,24 @@ class CartController extends AbstractController
 
         $form = $this->createForm(ChoiceAttrType::class);
         $form->handleRequest($request);
+
         // $size = "M";
+        // On récupère la taille ($size) du produit dans l'url
+        $size = $request->query->get('size');
         if($form->isSubmitted() && $form->isValid()) {
             $size = $form["size"]->getData();
-            // $isScalar = is_scalar($size);
-            // $size->getSize();
+            
             // dd($size);
         }
+        
+
         $this->cartService->add($id, $size);
         
-        // dd($cartService);
         $this->addFlash('success', 'Le produit a bien été ajouté au panier !');
+
+        if ($request->query->get('size')){
+            return $this->redirectToRoute('cart_show');
+        }
 
         return $this->redirectToRoute('product_show', [
             'category' => $product->getCategory()->getSlug(),
@@ -80,7 +87,9 @@ class CartController extends AbstractController
      */
     public function delete($id, Request $request)
     {
+        // On récupère la taille ($size) du produit dans l'url
         $size = $request->query->get('size');
+
         $product = $this->productRepository->find($id);
         
         if(!$product) {
@@ -104,14 +113,16 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/decrement/{id}", name="cart_decrement", requirements={"id":"\d+"})
      */
-    public function decrement($id)
+    public function decrement($id, Request $request)
     {
         $product = $this->productRepository->find($id);
         if(!$product) {
             throw $this->createNotFoundException("Le produit $id n'existe pas et ne peut être décrémenté !");
         }
 
-        $this->cartService->decrement($id);
+        // On récupère la taille ($size) du produit dans l'url
+        $size = $request->query->get('size');
+        $this->cartService->decrement($id, $size);
 
         return $this->redirectToRoute("cart_show");
 

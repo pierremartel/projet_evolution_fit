@@ -3,15 +3,10 @@
 namespace App\Form;
 
 
-use App\Entity\ProductAttr;
-use App\Entity\ProductSize;
 use Symfony\Component\Form\AbstractType;
-use App\Repository\ProductAttrRepository;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ChoiceAttrType extends AbstractType
 {
@@ -31,11 +26,6 @@ class ChoiceAttrType extends AbstractType
             
                 
                 
-            ])
-            ->add('quantity', NumberType::class, [
-                'label' => false,
-                'attr' => ['class' => 'product_show_quantity'],
-                'empty_data' => 1
             ])
             // ->add('size', EntityType::class, [
             //     'class' => ProductAttr::class,
