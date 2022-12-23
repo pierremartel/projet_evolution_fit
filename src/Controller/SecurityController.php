@@ -45,6 +45,7 @@ class SecurityController extends AbstractController
     {
         $user = new User(); 
         $user->setRoles(['ROLE_USER']);
+        date_default_timezone_set('Europe/Paris');
         
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);

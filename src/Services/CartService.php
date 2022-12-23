@@ -49,12 +49,16 @@ class CartService
         // 6. Enregistrer le tableau mis à jour dans la session
 
         $this->session->set('cart', $cart);
-        // $this->session->remove('cart');
 
+    }
+
+
+    public function empty() {
+        $this->session->remove('cart');
     }
     
 
-    public function getTotal(): int {
+    public function getTotal() {
         $total = 0;
 
         foreach($this->session->get('cart', []) as $id => $content) {
@@ -68,12 +72,15 @@ class CartService
 
             $total += ($product->getPrice() * $qty);
             }
+            
         }
         return $total;
 
     }
 
-
+    /**
+     * @return CartItem[]
+     */
     public function getDetailedCartItems(): array {
         $detailedCart = [];
         

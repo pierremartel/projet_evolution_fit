@@ -46,7 +46,7 @@ class Product
     private $slug;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", scale="2")
      * @Assert\NotBlank(message="Le produit doit contenir un prix fixe")
      */
     private $price;
@@ -71,9 +71,15 @@ class Product
      */
     private $event;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="product")
+     */
+    private $purchaseItems;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->purchaseItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,6 +209,36 @@ class Product
     public function setEvent(string $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PurchaseItem>
+     */
+    public function getPurchaseItems(): Collection
+    {
+        return $this->purchaseItems;
+    }
+
+    public function addPurchaseItem(PurchaseItem $purchaseItem): self
+    {
+        if (!$this->purchaseItems->contains($purchaseItem)) {
+            $this->purchaseItems[] = $purchaseItem;
+            $purchaseItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseItem(PurchaseItem $purchaseItem): self
+    {
+        if ($this->purchaseItems->removeElement($purchaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseItem->getProduct() === $this) {
+                $purchaseItem->setProduct(null);
+            }
+        }
 
         return $this;
     }

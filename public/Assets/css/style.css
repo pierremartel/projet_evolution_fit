@@ -14,13 +14,6 @@
     height: 130px;
 }
 
-/* CAROUSEL */
-/* .carousel-item { */
-    /* margin-right:-80%;
-    position:relative;
-    top:8px; */
-/* } */
-
 /* NAVBAR */
 
 .navbar__logo {
@@ -205,5 +198,11 @@ input[type="radio"] {
     display:none;
 } */
 
+
+/* CART_CONFIRM */
+
+.cart__checkout_split {
+    border-left: 1px solid rgb(210, 202, 202);
+}
 
 

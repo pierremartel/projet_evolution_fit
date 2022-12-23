@@ -40,7 +40,7 @@
                                 <a href="{{ path('cart_add', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-plus"></i></a>
                             
                             </td>
-                            <td>{{ item.qty * item.product.price }}€</td>
+                            <td>{{ (item.qty * item.product.price) |number_format(2) }}€</td>
                             <td>
                                 <a href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}"><i class="fa-solid fa-xmark fa-xl"></i></a>
                             </td>
@@ -49,17 +49,42 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3">Total :</td>
-                        <td>{{ total }}€</td>
+                        <td colspan="2"></td>
+                        <td>Total :</td>
+                        <td>{{ total |number_format(2) }}€</td>
                     </tr>
                 </tfoot>
             
             </table>
-        </main>
 
-    {% else %}
-        <h2>Le panier est vide !</h2>
+            <div class="mt-4 mb-5">
+                <div class="d-flex">
+                    <i class="fa-brands fa-apple-pay fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-paypal fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-visa fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-amex fa-2xl"></i>
+                </div>
+                <div class="mt-4">
+                    <p>Livraison offerte dès 59€ d'achat en France Métropolitaine</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a href="{{ path('home_index') }}" class="btn btn-dark">
+                        <i class="fa-solid fa-arrow-left me-3"></i>
+                        Continuer vos achats
+                    </a>
+                </div>
+                <div class="">
+                    <a href="{{ path('purchase_confirm') }}" class="btn btn-warning">Acheter</a>
+                </div>
+            </div>
+        
+        {% else %}
+            <h2 class="fs-4">Le panier est vide !</h2>
 
-    {% endif %}
+        {% endif %}
+
+    </main>
 
 {% endblock %}

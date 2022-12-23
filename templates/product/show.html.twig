@@ -9,12 +9,12 @@
     <div class="container mt-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{{ path('home_index') }}">
+                <a href="{{ path('home_index') }}" class="text-decoration-none">
                     Accueil
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ path('product_category', {'slug': product.category.slug}) }}">
+                <a href="{{ path('product_category', {'slug': product.category.slug}) }}" class="text-decoration-none">
                     {{ product.category.name }}
                 </a>
             </li>

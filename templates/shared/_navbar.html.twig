@@ -23,6 +23,7 @@
                     </a>
                 </li>
                 {% endfor %}
+                
 
                 <li class="nav-item navbar__shop">
                     <a class="nav-link" href="{{ path('security_login') }}" title="mon compte">
@@ -35,6 +36,14 @@
                         ({{ cartService.getDetailedCartItems | length }})
                     </a>
                 </li>
+                {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('purchase_index') }}" title="mes commandes">
+                                <i class="fa-solid fa-store fa-xl"></i>
+                            </a>
+                        </li>
+                {% endif %}
+                
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('admin_product') }}" title="dashboard">
