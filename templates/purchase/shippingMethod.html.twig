@@ -1,0 +1,147 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Méthode d'expédition
+{% endblock %}
+
+{% block body %}
+
+    <main class="container mt-5">
+        <div class="row d-flex">
+            <section class="col-7">
+                <div class="cart__checkout_title d-flex justify-content-evenly mb-4">
+                    {#  File d'ariane #}
+                    <div class="container mt-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('cart_show') }}" class="text-decoration-none">
+                                    Panier
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('purchase_confirm') }}" class="text-decoration-none">
+                                    Adresse
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="#" class="breadcrumb-item active text-decoration-none">
+                                    Livraison
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-decoration-none">
+                                    Paiement
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                
+                    <h1 class="fs-4 mb-5 me-5">
+                        Méthode<br/> d'expédition 
+                        <div class="underline_title"></div>
+                    </h1>
+                </div>
+
+                {# Rappel Coordonées #}
+                <div class="border border-dark border-opacity-50 w-75 rounded mb-5">
+                    <table class="table mb-0 ">
+                        <tbody>
+                            <tr>
+                                <td>Contact</td>
+                                <td>{{ purchase.email }}</td>
+                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                            </tr>
+                            <tr>
+                                <td>Expédier à</td>
+                                <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
+                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr>
+
+                {# Form type d'expédition #}
+                {# <h2 class="fs-4 mt-5 mb-2">Méthode d'expédition</h2>
+                {{ form_start(form) }}
+
+                    <div class="border border-dark border-opacity-50 rounded p-3 mb-3">
+                        {{ form_widget(form.shippingMethod)}}
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ path('purchase_confirm') }}" class="btn btn-dark">
+                            <i class="fa-solid fa-arrow-left me-3"></i>
+                                Revenir aux informations
+                        </a>
+                        <button class="btn btn-success">Continuer vers le paiement</button>
+                    </div>
+
+                {{ form_end(form) }} #}
+                
+            </section>
+
+            <aside class="col-5 cart__checkout_split">
+                <div class="h-50 overflow-auto">
+                    {% for item in items %}
+                        <div class="d-flex position-relative">
+                            <div class="position-relative me-4 mb-3">
+                                <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="{{item.product.name}}" class="admin__main_picture">
+                                <span class="position-absolute top-0 start-0 bg-primary opacity-50 text-light fs-5">{{ item.qty }}</span>
+                            </div>
+                            <div class="">
+                                <p>{{ item.product.name }}</p>
+                                <p>Taille: {{ item.size }}</p>
+                            </div>
+                            <div class="position-absolute top-0 end-0">
+                                <p>{{ item.qty * item.product.price }}€</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <p>Subtotal</p>
+                        <p class="fw-bold text-primary">{{ total }} €</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Livraison</p>
+                        <p>Calculer à l'étape suivante</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold text-primary">
+                    <p>Total</p>
+                    <p>{{ total }} €</p>
+                </div>
+
+            </aside>
+        </div>
+    
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        let price = document.getElementById("value");
+        console.log(price);
+        let radios = document.getElementsByName('shipping_method[shippingMethod]')
+        console.log(radios);
+
+        let valeur ;
+        for(const radio of radios){
+            radio.addEventListener('change',function(e){
+            if (this.checked) {
+                if(this.value === 'Standard'){
+                    valeur = '5,00€'
+                }else{
+                    valeur = '10,00€'
+                }
+            console.log(valeur);
+            }
+            price.innerHTML = valeur;
+        });
+        }
+    </script>
+{% endblock %}

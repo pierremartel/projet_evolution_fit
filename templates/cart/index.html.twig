@@ -26,13 +26,13 @@
                         <tr>
                             <td>
                                 <a href="{{ path('product_show', {'id':item.product.id, 'slug':item.product.slug, 'category':item.product.category.slug}) }}">
-                                    <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="" class="admin__main_picture">
+                                    <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="" class="cart__main_picture">
                                 </a>
                             </td>
                             <td>
                                 {{ item.product.name }}</br>
                                 Taille: {{ item.size }}</br>
-                                {{ item.product.price }}€
+                                {{ item.product.price | number_format(2) }}€
                             </td>
                             <td>
                                 <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-minus"></i></a>

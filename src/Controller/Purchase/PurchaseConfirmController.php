@@ -6,6 +6,7 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseItem;
 use App\Services\CartService;
 use App\Form\CartConfirmationType;
+use App\Services\PurchasePersister;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,16 +16,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PurchaseConfirmController extends AbstractController
 {
 
+    protected $purchasePersister;
+
+    public function __construct(PurchasePersister $purchasePersister)
+    {
+        $this->purchasePersister = $purchasePersister;
+    }
+
     /**
      * @Route("/purchase/confirm", name="purchase_confirm")
      * @IsGranted("ROLE_USER", message="Vous devez être connecté pour confirmer votre commande")
      */
     public function confirm(Request $request, EntityManagerInterface $em, CartService $cartService)
     {
-        $user = $this->getUser();
-        date_default_timezone_set('Europe/Paris');
         
-
         $cartItems = $cartService->getDetailedCartItems();
         $total = $cartService->getTotal();
 
@@ -43,32 +48,11 @@ class PurchaseConfirmController extends AbstractController
             /** @var Purchase */
             $purchase = $form->getData();
 
-            // On lie la purchase à l'user actuellement connecté et on ajoute la date de création de la purchase
-            $purchase->setUser($user);
-            $purchase->setPurchasedAt( new \DateTime);
-            $purchase->setTotal($total);
+            $this->purchasePersister->storePurchase($purchase);
 
-            $em->persist($purchase);
-
-            // On lie les produits du panier à la purchase (CartService)
-            foreach($cartItems as $cartItem){
-                // dd($cartItem);
-                $purchaseItem = new PurchaseItem;
-                $purchaseItem->setPurchase($purchase)
-                            ->setProduct($cartItem['product'])
-                            ->setProductName($cartItem['product']->getName())
-                            ->setProductPrice($cartItem['product']->getPrice())
-                            ->setQuantity($cartItem['qty'])
-                            ->setTotal($total);
-
-                $em->persist($purchaseItem);
-            }
-
-            $em->flush();
-
-            $cartService->empty();
-
-            $this->addFlash('success', 'La commande a bien été enregistrée');
+            return $this->redirectToRoute('Purchase_showCardForm', [
+                'id' => $purchase->getId(),
+            ]);
         
         }
 

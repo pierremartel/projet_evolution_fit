@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Commande payée et confirmée
+{% endblock %}
+
+{% block body %}
+    <main class="container mt-5 d-flex flex-column justify-content-center w-50">
+        <div class="mb-5 text-success d-flex flex-column">
+            <i class="fa-solid fa-circle-check fa-2xl align-self-center mb-4"></i>
+            <h1 class="text-success align-self-center">Commande confirmée</h1>
+        </div>
+        <div>
+            <h2 class="fs-4">Merci pour votre commande !</h2>
+            <h3 class="fs-5">Vous allez reçevoir un email de confirmationb de votre commande
+             ainsi qu'un lien pour suivre sa progression</h3>
+            <p>Cliquer <a href="{{ path('purchase_index')}}">ici</a> pour visualiser votre commande</p>
+        </div>
+    
+    </main>
+{% endblock %}

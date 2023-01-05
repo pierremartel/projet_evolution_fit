@@ -10,8 +10,8 @@
     box-shadow: 10px 3px 10px rgb(34, 30, 30);
 }
 .admin__main_picture {
-    width: 100px;
-    height: 130px;
+    width: 80px;
+    height: 90px;
 }
 
 /* NAVBAR */
@@ -169,8 +169,6 @@ input[type="radio"].available:hover + label {
 
 
 
-
-
 .radio {
     background-color:rgb(231, 231, 231);
     display: flex;
@@ -198,6 +196,13 @@ input[type="radio"] {
     display:none;
 } */
 
+
+/* CART */
+
+.cart__main_picture {
+    width: 140px;
+    height: 170px;
+}
 
 /* CART_CONFIRM */
 

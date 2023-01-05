@@ -34,7 +34,7 @@ class PurchaseItem
     private $productName;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", scale="2")
      */
     private $productPrice;
 

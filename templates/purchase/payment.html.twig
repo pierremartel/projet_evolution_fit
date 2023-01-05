@@ -1,0 +1,146 @@
+{% extends "base.html.twig" %}
+
+{% block title %} 
+    Paiement de la commande avec Stripe
+{% endblock %}
+
+{% block body %}
+
+    <main class="container mt-5">
+        <div class="row d-flex">
+            <section class="col-7">
+                <div class="cart__checkout_title d-flex justify-content-evenly mb-4">
+                    {#  File d'ariane #}
+                    <div class="container mt-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('cart_show') }}" class="text-decoration-none">
+                                    Panier
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('purchase_confirm') }}" class="text-decoration-none">
+                                    Adresse
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-decoration-none">
+                                    Livraison
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item  active">
+                                <a href="#" class="breadcrumb-item active text-decoration-none">
+                                    Paiement
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                
+                    <h1 class="fs-4 mb-5 me-5">
+                        Mode de<br/> paiement
+                        <div class="underline_title"></div>
+                    </h1>
+                </div>
+
+                {# Rappel Coordonées #}
+                <div class="border border-dark border-opacity-50 w-75 rounded mb-5">
+                    <table class="table mb-0 ">
+                        <tbody>
+                            <tr>
+                                <td>Contact</td>
+                                <td>{{ purchase.email }}</td>
+                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                            </tr>
+                            <tr>
+                                <td>Expédier à</td>
+                                <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
+                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="fs-5 mb-3">Toutes les transactions sont sécurisées et chiffrées.</p>
+
+                {# FORM DE PAYMENT #}
+                <form id="payment-form">
+                    <div id="payment-element" class="mb-5">
+                        <!--Stripe.js injects the Payment Element-->
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ path('purchase_confirm') }}" class="btn btn-dark">
+                            <i class="fa-solid fa-arrow-left me-3"></i>
+                            Revenir à l'expédition
+                        </a>
+                        <button id="submit" class="btn btn-success">
+                            <div class="spinner hidden" id="spinner"></div>
+                            <span id="button-text">Payer maintenant !</span>
+                        </button>
+                    </div>
+                    <div id="payment-message" class="hidden"></div>
+                </form>
+                
+            </section>
+
+            <aside class="col-5 cart__checkout_split">
+                <div class="h-50 overflow-auto">
+                    {% for item in items %}
+                        <div class="d-flex position-relative">
+                            <div class="position-relative me-4 mb-3">
+                                <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="{{item.product.name}}" class="admin__main_picture">
+                                <span class="position-absolute top-0 start-0 bg-primary opacity-50 text-light fs-5">{{ item.qty }}</span>
+                            </div>
+                            <div class="">
+                                <p>{{ item.product.name }}</p>
+                                <p>Taille: {{ item.size }}</p>
+                            </div>
+                            <div class="position-absolute top-0 end-0">
+                                <p>{{ item.qty * item.product.price }}€</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <p>Subtotal</p>
+                        <p class="fw-bold text-primary">{{ total }} €</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Livraison</p>
+                        <p>Calculer à l'étape suivante</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold text-primary">
+                    <p>Total</p>
+                    <p>{{ total }} €</p>
+                </div>
+
+            </aside>
+        </div>
+    
+    </main>
+    {# <form id="payment-form">
+      <div id="payment-element"> #}
+        <!--Stripe.js injects the Payment Element-->
+      {# </div>
+      <button id="submit" class="btn btn-success">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Payer maintenant !</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form> #}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        const clientSecret = '{{ clientSecret }}';
+        const redirectAfterSuccessUrl = "{{ url('purchase_payment_success', {'id':purchase.id}) }}"
+    </script>
+
+    <script src="/assets/js/payment.js"></script>
+{% endblock %}
