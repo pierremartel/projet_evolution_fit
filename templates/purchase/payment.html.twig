@@ -56,6 +56,11 @@
                                 <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
                                 <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
                             </tr>
+                            <tr>
+                                <td>Méthode</td>
+                                <td>{{ purchase.purchaseShipping.name }}, {{ purchase.purchaseShipping.price }} €</td>
+                                <td><a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="text-decoration-none">Modifier</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -68,7 +73,7 @@
                         <!--Stripe.js injects the Payment Element-->
                     </div>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ path('purchase_confirm') }}" class="btn btn-dark">
+                        <a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="btn btn-dark">
                             <i class="fa-solid fa-arrow-left me-3"></i>
                             Revenir à l'expédition
                         </a>
@@ -95,7 +100,7 @@
                                 <p>Taille: {{ item.size }}</p>
                             </div>
                             <div class="position-absolute top-0 end-0">
-                                <p>{{ item.qty * item.product.price }}€</p>
+                                <p>{{ (item.qty * item.product.price) | number_format(2) }}€</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -104,17 +109,17 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <p>Subtotal</p>
-                        <p class="fw-bold text-primary">{{ total }} €</p>
+                        <p class="fw-bold text-primary">{{ total | number_format(2) }} €</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Livraison</p>
-                        <p>Calculer à l'étape suivante</p>
+                        <p>{{ purchase.purchaseShipping.price }} €</p>
                     </div>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between fw-bold text-primary">
                     <p>Total</p>
-                    <p>{{ total }} €</p>
+                    <p>{{ (total + purchase.purchaseShipping.price) | number_format(2) }} €</p>
                 </div>
 
             </aside>

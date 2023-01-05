@@ -79,7 +79,7 @@
                                 <p>Taille: {{ item.size }}</p>
                             </div>
                             <div class="position-absolute top-0 end-0">
-                                <p>{{ item.qty * item.product.price }}€</p>
+                                <p>{{ (item.qty * item.product.price) | number_format(2) }}€</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -88,7 +88,7 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <p>Subtotal</p>
-                        <p class="fw-bold text-primary">{{ total }} €</p>
+                        <p class="fw-bold text-primary">{{ total | number_format(2) }} €</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Livraison</p>
@@ -98,7 +98,7 @@
                 <hr>
                 <div class="d-flex justify-content-between fw-bold text-primary">
                     <p>Total</p>
-                    <p>{{ total }} €</p>
+                    <p>{{ total | number_format(2) }} €</p>
                 </div>
 
             </aside>

@@ -35,6 +35,7 @@ class PurchasePaymentSuccessController extends AbstractController
 
         // 2. Je la fait passer au status Payée ( = PAID)
         $purchase->setStatus(Purchase::STATUS_PAID);
+        $purchase->setTotal($purchase->getTotal() + ($purchase->getPurchaseShipping()->getPrice()));
         $em->flush();
 
         // 3. Je vide le panier

@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="L'adresse email est obligatoire !")
      * @Assert\Email(message="L'adresse définit n'est pas une adresse valide")
-     * @Assert\Length(min=2, max=180, minMessage="Votre email doit avoir au minimum 2 caractères")
+     * @Assert\Length(min=2, max=180, minMessage="Votre email doit comporter au minimum 2 caractères")
      */
     private $email;
 
@@ -46,14 +46,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le prénom est obligatoire !")
-     * @Assert\Length(min=2, max=50, minMessage="Votre prénom doit avoir au minimum 2 caractères")
+     * @Assert\Length(min=2, max=50, minMessage="Votre prénom doit comporter au minimum 2 caractères")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le nom de famille est obligatoire !")
-     * @Assert\Length(min=2, max=50, minMessage="Votre nom doit avoir au minimum 2 caractères")
+     * @Assert\Length(min=2, max=50, minMessage="Votre nom doit comporter au minimum 2 caractères")
      */
     private $lastname;
 

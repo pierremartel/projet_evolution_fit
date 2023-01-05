@@ -6,6 +6,7 @@ use App\Repository\PurchaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PurchaseRepository::class)
@@ -24,26 +25,34 @@ class Purchase
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre nom de famille est obligatoire !")
+     * @Assert\Length(min=2, max=50, minMessage="Votre nom doit comporter au minimum 2 caractères")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre prénom est obligatoire !")
+     * @Assert\Length(min=2, max=50, minMessage="Votre prénom doit comporter au minimum 2 caractères")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre adresse est obligatoire !")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre code postal est obligatoire !")
+     * @Assert\Length(min=5, minMessage="Votre code postal doit comporter au minimum 5 caractères")
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre ville est obligatoire !")
      */
     private $city;
 
@@ -79,8 +88,16 @@ class Purchase
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Votre adresse email est obligatoire !")
+     * @Assert\Email(message="L'adresse définit n'est pas une adresse valide")
+     * @Assert\Length(min=2, max=180, minMessage="Votre email doit comporter au minimum 2 caractères")
      */
     private $email;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=PurchaseShipping::class, inversedBy="purchases")
+     */
+    private $purchaseShipping;
 
     public function __construct()
     {
@@ -250,6 +267,18 @@ class Purchase
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPurchaseShipping(): ?PurchaseShipping
+    {
+        return $this->purchaseShipping;
+    }
+
+    public function setPurchaseShipping(?PurchaseShipping $purchaseShipping): self
+    {
+        $this->purchaseShipping = $purchaseShipping;
 
         return $this;
     }

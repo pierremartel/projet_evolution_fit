@@ -16,12 +16,14 @@ class PurchasePaymentController extends AbstractController
      * @Route("/purchase/pay/{id}", name="Purchase_showCardForm", requirements={"id": "\d+"})
      * @IsGranted("ROLE_USER", message="Vous ne pouvez accéder à cette page si le formulaire de commande n'est pas remplie")
      */
-    public function showCardForm($id, PurchaseRepository $purchaseRepository, CartService $cartService)
+    public function showCardForm($id, PurchaseRepository $purchaseRepository, 
+                                CartService $cartService)
     {
         $cartItems = $cartService->getDetailedCartItems();
         $total = $cartService->getTotal();
 
         $purchase = $purchaseRepository->find($id);
+        $taxeShipping = ($purchase->getPurchaseShipping()->getPrice()) * 100;
 
         if(
             !$purchase ||
@@ -36,7 +38,7 @@ class PurchasePaymentController extends AbstractController
 
         // Create a PaymentIntent with amount and currency
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $purchase->getTotal()*100,
+            'amount' => ($purchase->getTotal()*100) + $taxeShipping,
             'currency' => 'eur',
         ]);
 

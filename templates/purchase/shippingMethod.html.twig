@@ -63,21 +63,21 @@
                 <hr>
 
                 {# Form type d'expédition #}
-                {# <h2 class="fs-4 mt-5 mb-2">Méthode d'expédition</h2>
+                <h2 class="fs-4 mt-5 mb-2">Méthode d'expédition</h2>
                 {{ form_start(form) }}
 
                     <div class="border border-dark border-opacity-50 rounded p-3 mb-3">
-                        {{ form_widget(form.shippingMethod)}}
+                        {{ form_widget(form)}}
                     </div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ path('purchase_confirm') }}" class="btn btn-dark">
                             <i class="fa-solid fa-arrow-left me-3"></i>
                                 Revenir aux informations
                         </a>
-                        <button class="btn btn-success">Continuer vers le paiement</button>
+                        <button type="submit" class="btn btn-success">Continuer vers le paiement</button>
                     </div>
 
-                {{ form_end(form) }} #}
+                {{ form_end(form) }}
                 
             </section>
 
@@ -94,7 +94,7 @@
                                 <p>Taille: {{ item.size }}</p>
                             </div>
                             <div class="position-absolute top-0 end-0">
-                                <p>{{ item.qty * item.product.price }}€</p>
+                                <p>{{ (item.qty * item.product.price) | number_format(2) }}€</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -103,17 +103,17 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <p>Subtotal</p>
-                        <p class="fw-bold text-primary">{{ total }} €</p>
+                        <p class="fw-bold text-primary">{{ total | number_format(2) }} €</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Livraison</p>
-                        <p>Calculer à l'étape suivante</p>
+                        <p id="value">Définir la méthode d'expédition</p>
                     </div>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between fw-bold text-primary">
                     <p>Total</p>
-                    <p>{{ total }} €</p>
+                    <p id="totalPrice">{{ total  | number_format(2) }} €</p>
                 </div>
 
             </aside>
@@ -124,23 +124,31 @@
 
 {% block javascripts %}
     <script type="text/javascript">
+        const total = '{{ total | number_format(2) }}';
+        console.log(total);
+
         let price = document.getElementById("value");
         console.log(price);
-        let radios = document.getElementsByName('shipping_method[shippingMethod]')
+        let totalPrice = document.getElementById("totalPrice");
+        console.log(totalPrice);
+        let radios = document.getElementsByName('shipping_method[name]')
         console.log(radios);
 
         let valeur ;
         for(const radio of radios){
             radio.addEventListener('change',function(e){
             if (this.checked) {
-                if(this.value === 'Standard'){
-                    valeur = '5,00€'
+                if(this.value === '1'){
+                    valeur = 5.00.toFixed(2)
                 }else{
-                    valeur = '10,00€'
+                    valeur = 10.00.toFixed(2)
                 }
-            console.log(valeur);
             }
-            price.innerHTML = valeur;
+            console.log(valeur);
+
+            price.innerHTML = valeur + "€";
+            totalPrice.innerHTML = (parseFloat(total) + parseFloat(valeur)).toFixed(2) + "€";
+            
         });
         }
     </script>
