@@ -35,9 +35,9 @@
                             <td>{{ p.name }}</td>
                             <td colspan="2"><img src="{{ asset('uploads/images/') ~ p.picture }}" alt="" class="admin__main_picture"></td>
                             <td>
-                                <a href="{{ path('admin_product_update', {'id':p.id}) }}" class="btn btn-success p-1 border rounded-2">Editer</a>
-                                <a href="" class="btn btn-info p-1 border rounded-2">Activer</a>
-                                <a href="{{ path('admin_product_delete', {'id':p.id}) }}" class="btn btn-danger p-1 border rounded-2">Supprimer</a>
+                                <a href="{{ path('admin_product_update', {'id':p.id}) }}" class="btn btn-success p-1 border rounded-2" id="btn_e">Editer</a>
+                                <button class="btn btn-info p-1 border rounded-2" id="btn_d">Désactiver</button>
+                                <a href="{{ path('admin_product_delete', {'id':p.id}) }}" class="btn btn-danger p-1 border rounded-2" id="btn_s">Supprimer</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -48,5 +48,23 @@
         </div>
     </div>
     
+
+{% endblock %}
+
+{% block javascripts %}
+    {# <script type="text/javascript">
+        let btn_e = document.getElementById("btn_e");
+        let btn_d = document.getElementById('btn_d');
+        let btn_s = document.getElementById('btn_s');
+        console.log(btn_e);
+        
+        btn_d.addEventListener("click",function(e) {
+            if(btn_d.innerHTML == "ACTIVER"){
+                btn_d.childNodes[0].nodeValue = "DESACTIVER";
+            }
+            btn_d.childNodes[0].nodeValue = "ACTIVER";
+            
+        })
+    </script> #}
 
 {% endblock %}

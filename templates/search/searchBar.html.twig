@@ -1,16 +1,12 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Hello SearchController!{% endblock %}
-
-
-{% block body %}
-
-    {# {{ form(form) }} #}
-
-    {# {% for product in products %}
-        <p>{{ product.name }}</p>
-    {% endfor %} #}
-
-{% endblock %}
+    {{ form_start(searchForm) }}
+        <div class="d-flex">
+            {{ form_widget(searchForm.name) }}
+            <button class="btn btn-danger ms-1" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    {{ form_end(searchForm) }}
+    
 
 

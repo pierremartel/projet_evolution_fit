@@ -5,6 +5,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -22,7 +23,12 @@ class ChoiceAttrType extends AbstractType
                 ],
                 'label' => false,
                 'expanded' => true,
-                'attr' => ['class' => 'radio']
+                'attr' => ['class' => 'radio'],
+                // 'constraints' => [
+                //     new NotNull([
+                //         'message' => "Vous devez choisir une taille"
+                //     ]),
+                // ],
             
                 
                 

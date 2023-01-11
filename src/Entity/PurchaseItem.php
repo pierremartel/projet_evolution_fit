@@ -18,7 +18,7 @@ class PurchaseItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="purchaseItems")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="purchaseItems",)
      */
     private $product;
 

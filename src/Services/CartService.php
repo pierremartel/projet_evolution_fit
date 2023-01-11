@@ -92,7 +92,6 @@ class CartService
             }
             
             foreach($content as $size=> $qty){
-                
                 $detailedCart[] = [
                     'product' => $product,
                     'size' => $size,
@@ -100,11 +99,10 @@ class CartService
                 ];
             }
         }
-
+        
         // dd($detailedCart);
         return $detailedCart;
     }
-
 
     public function remove(int $id, $size) 
     {

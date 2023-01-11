@@ -36,7 +36,7 @@ class AdminController extends AbstractController
     public function create(EntityManagerInterface $em, SluggerInterface $slugger, Request $request) 
     {
         $product = new Product();
-        $quantity = new ProductAttr();
+        $productAttr = new ProductAttr();
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -70,16 +70,18 @@ class AdminController extends AbstractController
             // On va chercher l'id de l'article et la qty correspondante défini dans le formulaire
             // Pour ensuite l'envoyer dans la table 
             $numberArticle = $form->get('quantity')->getData();
-            $quantity->setQuantity($numberArticle);
-            $quantity->setProduct($product);
-
+            $productAttr->setQuantity($numberArticle);
+            $productAttr->setProduct($product);
+            
             // On va chercher la taille de l'article défini dans le formulaire
             // Pour ensuite l'envoyer dans la table 
             $sizeArticle = $form->get('size')->getData();
-            $quantity->setProductSize($sizeArticle);
+            $productAttr->setProductSize($sizeArticle);
+            
+            // dd($productAttr);
 
             $em->persist($product);
-            $em->persist($quantity);
+            $em->persist($productAttr);
             $em->flush();
 
             $this->addFlash('success', "Le produit a bien été crée");
@@ -104,8 +106,9 @@ class AdminController extends AbstractController
                             ProductAttrRepository $productAttrRepository) 
     {
         $product = $productRepository->find($id);
-        // $quantity = $productAttrRepository->findOneBy(['product' => $product]);
-        // dd($quantity);
+        // $productAttr = $productAttrRepository->findBy(['id' => $product->getId()]);
+        // dd($productAttr);
+
         if(!$product){
             throw $this->createNotFoundException("Le produit n°$id n'existe pas");
         }

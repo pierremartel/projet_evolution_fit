@@ -1,23 +1,25 @@
 <?php 
 
-namespace App\Controller\Purchase;
+namespace App\Controller;
 
+use App\Repository\PurchaseRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class PurchaseListController extends AbstractController
+class ProfilController extends AbstractController
 {
     
     /**
-     * @Route("/purchases", name="purchase_index")
+     * @Route("/account", name="profil_account")
      * @IsGranted("ROLE_USER", message="Vous devez être connecté pour accéder à vos commandes")
      */
-    public function index()
+    public function account(PurchaseRepository $purchaseRepository)
     {
         // 1. Nous devons nous assurer que la personne est connectée (sinon redirect page d'accueil)
         $user = $this->getUser();
+        $purchases = $purchaseRepository->findBy(['user' => $user], ['id' => 'DESC']);
 
         // (= IsGranted)
         // if(!$user){
@@ -26,10 +28,11 @@ class PurchaseListController extends AbstractController
 
         // 2. Nous voulons savoir QUI est connectée
         // 3. Nous voulons passer l'utilisateur connecté à twig afin d'afficher ses commandes
-        return $this->render('purchase/index.html.twig', [
-            'purchases' => $user->getPurchases(),
-        ]);
 
+        return $this->render('profil/account.html.twig', [
+            // 'purchases' => $user->getPurchases(),
+            'purchases' => $purchases
+        ]);
     }
 
     

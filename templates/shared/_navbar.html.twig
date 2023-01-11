@@ -1,20 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light p-0 nav__position">
+    <div class="container-fluid ">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{{ path('home_index') }}">
             <img src="../../../assets/img/logotype.png" class="navbar__logo"/>
         </a>
-        <form class="d-flex me-5" role="search">
-            <input class="me-2 nav__searchbar" type="search" aria-label="Search">
-            <button class="btn btn-light me-5" type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
 
+        {# Rendu du formulaire de recherche #}
+        <div class="navbar__form">
+            {{ 
+                render(controller('App\\Controller\\SearchController::searchbar')) 
+            }}
+        </div>
         <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav d-flex align-items-center">
                 {% for c in categoryRepository.findAll() %}
                 <li class="nav-item">
                     <a class="nav-link nav-active" 
@@ -24,25 +24,27 @@
                 </li>
                 {% endfor %}
                 
-
-                <li class="nav-item navbar__shop">
-                    <a class="nav-link" href="{{ path('security_login') }}" title="mon compte">
-                        <i class="fa-regular fa-user fa-xl"></i>
-                    </a>
+                <li class="nav-item navbar__position_icon">
+                    {% if app.user %}
+                        <a class="nav-link" href="{{ path('profil_account') }}" title="mon compte">
+                            <i class="fa-regular fa-user fa-xl"></i>
+                            
+                        </a>
+                    {% else %}    
+                        <a class="nav-link" href="{{ path('security_login') }}" title="mon compte">
+                            <i class="fa-regular fa-user fa-xl"></i>
+                            
+                        </a>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('cart_show') }}" title="panier">
+                        <span class="navbar__shop_number">
+                            {{ cartService.getDetailedCartItems | length }}
+                        </span>
                         <i class="fa-sharp fa-solid fa-bag-shopping fa-xl"></i>
-                        ({{ cartService.getDetailedCartItems | length }})
                     </a>
                 </li>
-                {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('purchase_index') }}" title="mes commandes">
-                                <i class="fa-solid fa-store fa-xl"></i>
-                            </a>
-                        </li>
-                {% endif %}
                 
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">

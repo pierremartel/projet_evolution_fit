@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
-use App\Form\SearchType;
+
+use App\Form\PropertySearchType;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SearchController extends AbstractController
@@ -13,35 +16,48 @@ class SearchController extends AbstractController
 
     protected $productRepository;
 
-    public function __construct(ProductRepository $productRepository){
+    public function __construct(ProductRepository $productRepository)
+    {
         $this->productRepository = $productRepository;
     }
 
-    /**
-     * @Route("/search", name="app_search")
-     */
-    public function index(): Response
+
+    public function searchbar(UrlGeneratorInterface $urlGenerator)
     {
-        return $this->render('search/index.html.twig', [
+
+        $form = $this->createForm(PropertySearchType::class, null, [
+            'action' => $urlGenerator->generate('search_result')
+        ]);
+        
+        return $this->render('search/searchBar.html.twig', [
+            'searchForm' => $form->createView(),
         ]);
     }
 
 
-    // /**
-    //  * @Route("/searchbar/{research}", name="search_searchbar")
-    //  */
-    // public function searchbar(string $research)
-    // {
-    //     $form = $this->createForm(SearchType::class, null, [
-    //         // 'action' => $this->generateUrl('handleSearch')
-    //     ]);
-    //     $products = $this->productRepository->findAll();
+    /**
+     * @Route("/search", name="search_result")
+     */
+    public function result(Request $request)
+    {
+        // $searchResult = [];
+        $search = "";
+        
+        // if($search !== " "){
+        //     return $this->redirectToRoute('home_index');
+        // }else { 
+            // }
+            $search = $request->request->get('property_search')['name'];
+        
+        
+        if($search){
+            $searchResult = $this->productRepository->findProductByName($search);
+        }
 
-
-    //     return $this->render('search/searchBar.html.twig', [
-    //         // 'form' => $form->createView(),
-    //         'products' => $products
-    //     ]);
-    // }
+        return $this->render('search/searchResult.html.twig', [
+            'searchResult' => $searchResult,
+            'search' => $search
+        ]);
+    }
 
 }

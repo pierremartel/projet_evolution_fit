@@ -24,34 +24,38 @@
         </ol>
     </div>
 
-    <main class="container d-flex justify-content-around">
-        <div>
-            <img src="{{asset('uploads/images/') ~ product.picture }}" width="700px" height="850px" alt="{{ product.name }}">
-            <div class="row">
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-                
+    <main class="container d-flex justify-content-around">  
+        <div class="w-50">
+            <div class="">
+                <img src="{{asset('uploads/images/') ~ product.picture }}" width="700px" height="850px" alt="{{ product.name }}">
             </div>
+            {# <div class="row">
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+                <div class="col-4 mt-3">
+                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
+                </div>
+            </div> #}
         </div>
-        <section class="ms-5">
+        <section class="w-50 product__show_details">
             <h1>{{ product.name }}</h1>
             <h2>{{ product.price }}€</h2>
             <div class="mt-5">
                 <div class="show__product_size d-flex justify-content-between">
-                    <p>Taille</p>
-                    <a href="">Guide des tailles</a>
+                    <p>Selectionner la taille</p>
+                    <a id="size_guide">Guide des tailles</a>
+                    <div id="show_guide">
+                        <img src="../../Assets/img/guide_taille.png" width="900px" height="600px" alt="Guide des tailles">
+                        <i class="fa-solid fa-xmark fa-xl position-absolute" id="closed_guide"></i>
+                    </div>
+
                 </div>
                     {{ form_start(form) }}
-                    {# {% for productAttr in productAttrs %} #}
-                        {# {% if productAttr.quantity > 0 %} #}
-                        <div class="d-flex">
+                        <div class="d-flex product__show_size">
                             {{ form_row(form.size) }}
                         </div>
                         
@@ -65,12 +69,9 @@
                         {# {% endif %} #}
                     {# {% endfor %} #}
             </div>
-            <button type="submit" class="btn btn-warning mt-5 d-block fs-5"><i class="fa-regular fa-plus"></i>
-                Ajouter au panier</button>
-            {# <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-warning mt-5 d-block fs-5">
-                <i class="fa-regular fa-plus"></i>
-                Ajouter au panier
-            </a> #}
+            <button type="submit" class="btn btn-warning mt-5 d-block fs-5" id="change_size">
+                Selectionner une taille
+            </button>
             {{ form_end(form) }}
             <p class="mt-5">Description</p>
             <p>{{ product.description }}</p>
@@ -82,26 +83,41 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        {# let size = ['S','M', 'L', 'XL' ]
-        for(var i = 0; i < size.length; i++){
-            console.log(size[i]);
-        }
+    <script type="text/javascript">
+        let sizes = document.getElementsByName('choice_attr[size]');
+        let checks = document.getElementsByClassName('form-check-label');
+        let btn = document.getElementById("change_size");
+        let sizeGuide = document.getElementById("size_guide");
+        let showGuide = document.getElementById("show_guide");
+        let closedGuide = document.getElementById("closed_guide");
 
-        $sizeSelected = document.getElementById('size_' + size[i]).checked
-        console.log($sizeSelected); #}
-        {# if($sizeSelected == true){
-            $sizeSelected = $sizeSelected;
-        } #}
+        console.log(btn);
+        console.log(sizes);
+        console.log(checks);
 
-        {# function getSize() {
-            var size = document.getElementsByName('size');
-            for(i = 0; i < size.length; i++) {
-            if(size[i].checked)
-            size = size[i].value;
+         {# for(size of sizes){ 
+                for(check of checks){
+            check.addEventListener("click", function(e){ 
+                check.style.backgroundColor = "black"; 
+            })
+                }
+         }  #}
 
-            }console.log(size);
-        } #}
+        {# Modification du texte du boutton lors de la sélection de la taille #}
+         for(size of sizes){
+            size.addEventListener("click", function(e){ 
+                btn.childNodes[0].nodeValue = " + Ajouter au panier";
+            })
+
+         }
+
+        {# Modal Guide des tailles #}
+         sizeGuide.addEventListener("click", function(e){
+            showGuide.style.display = "block";
+         })
+         closedGuide.addEventListener("click", function(e){
+            showGuide.style.display = "none";
+         })
         
     </script>
 {% endblock %}

@@ -55,7 +55,7 @@ class ProductController extends AbstractController
      */
     public function news(Request $request)
     {
-        $products = $this->productRepository->findBy(['status' => 'Nouveauté']);
+        $products = $this->productRepository->findBy(['event' => 'Nouveauté']);
          // Mise en place de la pagination
          $products = $this->paginator->paginate(
             $products, // Requête contenant les données à paginer (ici nos produits)

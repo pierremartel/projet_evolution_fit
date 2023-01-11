@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Mon compte
+{% endblock %}
+
+{% block body %}
+
+    <main class="container mt-5">
+        <h1 class="text-center mb-5">Le Dashboard de {{ app.user.firstname }}</h1>
+        <div class="row">
+            <aside class="col-2 h-100 bg-warning border rounded border-light p-4 border-opacity-50 text-center">
+                <div class="d-flex flex-column">
+                    <p class="text-uppercase">{{ app.user.firstname }} {{ app.user.lastname }}</p>
+                    <p class="mb-5 text-primary">{{ app.user.email }}</p>
+                    <a href="{{ path('home_index') }}" class="btn btn-primary mb-5 border rounded">Retourner à la boutique</a>
+                    <a href="{{ path('security_logout') }}">Déconnexion</a>
+                </div>
+            </aside>
+
+            <div class="col-10">
+                <h2 class="fs-5 ms-4">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
+                <hr class="mb-4">
+
+                {% if purchases | length > 0 %}
+                    <table class="table table-striped table-bordered">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Numéro</th>
+                                <th>Adresse</th>
+                                <th>Date de commande</th>
+                                <th>Produit(s)</th>
+                                <th>Total*</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in purchases %}
+                                {% if p.status is same as 'PAID' %}
+                                    <tr>
+                                        <td>#{{ p.id }}</td>
+                                        <td>{{ p.address }}<br/> {{ p.postalCode }}, {{ p.city }}</td>
+                                        <td>{{ p.purchasedAt | date('d/m/y H:i') }}</td>
+                                        <td>
+                                            <ul>
+                                                {% for item in p.purchaseItems %}
+                                                    <li>
+                                                        {{ item.quantity }}x {{ item.productName }} ( {{ (item.quantity * item.productPrice) | number_format(2) }} €)
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td>{{ p.total  | number_format(2) }} €</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                <span>* frais de livraison inclus </span>
+                {% else %}
+                    <h2 class="ms-4 fs-5 text-capitalize">Vous n'avez pas encore passé une commande !</h2>
+                {% endif %}
+
+            </div>
+            
+        </div>
+
+    </main>
+
+{% endblock %}
