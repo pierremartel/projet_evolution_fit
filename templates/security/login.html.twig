@@ -22,8 +22,10 @@
                 {{ form_errors(form) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.password) }}
-
-                <p class="text-end mb-5">Mot de passe oublié?</p>
+                
+                <div class="text-end">
+                    <a href="{{ path('security_forget_password') }}" class="mb-5 d-inline-block">Mot de passe oublié?</a>
+                </div>
 
                 <div class="text-center mb-4">
                     <button type="submit" class="btn btn-danger">Connexion</button>
