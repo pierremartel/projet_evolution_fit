@@ -212,7 +212,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isNewsletter(): ?bool
+    public function getNewsletter(): ?bool
     {
         return $this->newsletter;
     }

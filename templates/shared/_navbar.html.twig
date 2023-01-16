@@ -28,7 +28,7 @@
                     {% if app.user %}
                         <a class="nav-link" href="{{ path('profil_account') }}" title="mon compte">
                             <i class="fa-regular fa-user fa-xl"></i>
-                            
+                            <p>{{ app.user.firstname }}</p>
                         </a>
                     {% else %}    
                         <a class="nav-link" href="{{ path('security_login') }}" title="mon compte">

@@ -6,20 +6,40 @@
 
 {% block body %}
 
-    <main class="container mt-5">
-        <h1 class="text-center mb-5">Le Dashboard de {{ app.user.firstname }}</h1>
+    <div class="container mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home_index') }}" class="text-decoration-none">Accueil</a></li>
+            <li class="breadcrumb-item active">Mon compte</li>
+        </ol>
+    </div>
+
+    <main class="container mt-3">
         <div class="row">
-            <aside class="col-2 h-100 bg-danger border rounded border-light p-4 border-opacity-50 text-center">
+            <aside class="col-2 h-100 bg-light border rounded border-light p-4 border-opacity-50 text-center">
                 <div class="d-flex flex-column">
-                    <p class="text-uppercase">{{ app.user.firstname }} {{ app.user.lastname }}</p>
-                    <p class="mb-5 text-primary">{{ app.user.email }}</p>
-                    <a href="{{ path('home_index') }}" class="btn btn-primary mb-5 border rounded">Retourner à la boutique</a>
-                    <a href="{{ path('security_logout') }}">Déconnexion</a>
+                    <div>
+                        <p>Bonjour,<br>{{ app.user.firstname }} <span class="text-uppercase">{{ app.user.lastname }}</span></p>
+                        <p class="mb-4 text-primary">{{ app.user.email }}</p>
+                    </div>
+                    <hr>
+                    <a href="{{ path('home_index') }}" class="mb-3 text-decoration-none profil__account_link">Retourner à la boutique</a>
+                    <a href="" class="mb-3 text-decoration-none profil__account_link">Mon profil</a>
+                    <a href="{{ path('security_logout') }}" class="profil__account_link">Déconnexion</a>
+                    <div class="border border-dark rounded-1 mt-4">
+                        <p>Besoin d'aide ?</p>
+                        <p>
+                            09 08 07 06 05<br>
+                            du lundi au vendredi<br>
+                            de 9H à 18H<br>
+                            ou <a href="{{ path('contact_index') }}">par email</a>
+                        </p>
+                    </div>
                 </div>
             </aside>
 
-            <div class="col-10">
-                <h2 class="fs-5 ms-4">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
+            <div class="col-10 profil__account_dashboard">
+                <h1 class="text-center mb-3 profil__account_title bg-danger">Le Dashboard de {{ app.user.firstname }}</h1>
+                <h2 class="fs-6 ms-4">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
                 <hr class="mb-4">
 
                 {% if purchases | length > 0 %}
@@ -44,12 +64,12 @@
                                             <ul>
                                                 {% for item in p.purchaseItems %}
                                                     <li>
-                                                        {{ item.quantity }}x {{ item.productName }} ( {{ (item.quantity * item.productPrice) | number_format(2) }} €)
+                                                        {{ item.quantity }}x {{ item.productName }} ({{ (item.quantity * item.productPrice) | number_format(2) }}€)
                                                     </li>
                                                 {% endfor %}
                                             </ul>
                                         </td>
-                                        <td>{{ p.total  | number_format(2) }} €</td>
+                                        <td>{{ p.total  | number_format(2) }}€</td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}

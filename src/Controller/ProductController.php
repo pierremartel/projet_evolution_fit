@@ -113,12 +113,6 @@ class ProductController extends AbstractController
             'action' => $this->generateUrl('cart_add', ['id' => $product->getId()]),
             // 'p' => $product->getId()
         ]);
-        // $form->handleRequest($request);
-
-        // if($form->isSubmitted() && $form->isValid()) {
-        //     $s = $form['size']->getData();
-        //     dd($form);
-        // }
         
         
         return $this->render('product/show.html.twig', [

@@ -44,6 +44,16 @@
         <section class="w-50 product__show_details">
             <h1>{{ product.name }}</h1>
             <h2>{{ product.price }}€</h2>
+            <span class="d-flex">
+                {% if product.status %}
+                    <i class="fa-solid fa-circle text-success product__show_status"></i>
+                    <p class="ms-2 fw-bold">En stock</p>
+                {% else %}
+                    <i class="fa-solid fa-circle text-danger product__show_status"></i>
+                    <p class="ms-2 fw-bold">Epuisé</p>
+                {% endif %}
+            </span>
+
             <div class="mt-5">
                 <div class="show__product_size d-flex justify-content-between">
                     <p>Selectionner la taille</p>
@@ -91,17 +101,22 @@
         let showGuide = document.getElementById("show_guide");
         let closedGuide = document.getElementById("closed_guide");
 
-        console.log(btn);
-        console.log(sizes);
-        console.log(checks);
+        {# console.log(btn);
+        console.log(checks); #}
+        {# console.log(sizes); #}
 
-         {# for(size of sizes){ 
-                for(check of checks){
-            check.addEventListener("click", function(e){ 
-                check.style.backgroundColor = "black"; 
-            })
-                }
-         }  #}
+        //for($i = 0; $i < checks.length; $i++){ 
+            //checks[$i].addEventListener("click", function(e){
+                //console.log(e.srcElement.classList[2] == "select_size");
+                //console.log(checks);
+               // if(e.target ){
+                    //e.target.classList.add("select__size");
+                //}else{
+                    //e.target.classList.remove("select__size");
+                //}
+            //})
+        //}
+
 
         {# Modification du texte du boutton lors de la sélection de la taille #}
          for(size of sizes){

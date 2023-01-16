@@ -40,18 +40,22 @@ class SearchController extends AbstractController
      */
     public function result(Request $request)
     {
-        // $searchResult = [];
         $search = "";
         
-        // if($search !== " "){
-        //     return $this->redirectToRoute('home_index');
-        // }else { 
-            // }
+        //Si l'user va sur la route '/search' sans passer par la barre de recherche
+        if($request->request->get('property_search') > 0){
             $search = $request->request->get('property_search')['name'];
+        }else {
+            $this->addFlash('warning', 'Une erreur est survenue');
+            return $this->redirectToRoute('home_index');
+        }
         
-        
+        //Si la recherche contient un élément, on renvoie cet élément, 
+        //sinon on renvoie tout les produits
         if($search){
             $searchResult = $this->productRepository->findProductByName($search);
+        }else {
+            $searchResult = $this->productRepository->findAll();
         }
 
         return $this->render('search/searchResult.html.twig', [

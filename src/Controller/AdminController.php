@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Entity\ProductAttr;
+use App\Form\ProductAttrType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProductAttrRepository;
@@ -106,18 +107,23 @@ class AdminController extends AbstractController
                             ProductAttrRepository $productAttrRepository) 
     {
         $product = $productRepository->find($id);
-        // $productAttr = $productAttrRepository->findBy(['id' => $product->getId()]);
-        // dd($productAttr);
+        // dd($product);
+        $productAttr = $productAttrRepository->findOneByProduct(['product' => $product->getId()]);
+        $currentSize = $productAttr->getProductSize()->getSize();
 
         if(!$product){
             throw $this->createNotFoundException("Le produit n°$id n'existe pas");
         }
 
         $form = $this->createForm(ProductType::class, $product);
+        $formProductAttr = $this->createForm(ProductAttrType::class, $productAttr);
+
 
         $form->handleRequest($request);
+        $formProductAttr->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            if($formProductAttr->isSubmitted() && $formProductAttr->isValid()){
 
             // On récupère le contenu de l'image passée dans le formulaire
             $picture = $form->get('picture')->getData();
@@ -143,17 +149,22 @@ class AdminController extends AbstractController
                 $product->setPicture($newFilename);
             }
 
+            $productAttr->setProductSize($formProductAttr->get('newSize')->getData());  
             $product->setSlug(strtolower($slugger->slug($product->getName())));
+            
             $em->flush();
 
             $this->addFlash('success', "Le produit a bien été mis à jour");
 
             return $this->redirectToRoute('admin_product');
+            }
         }
 
         return $this->render('admin/update.html.twig', [
             'product' => $product,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formProductAttr' => $formProductAttr->createView(),
+            'currentSize' => $currentSize,
         ]);
     }
 

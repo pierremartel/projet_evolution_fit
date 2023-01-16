@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\ProductSize;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -46,14 +48,14 @@ class ProductType extends AbstractType
                     ])
                 ],
             ])
-            ->add('size', EntityType::class, [
-                'label' => 'Taille du produit',
-                'mapped' => false,
-                'required' => false,
-                'placeholder' => '--Choisir une taille--',
-                'class' => ProductSize::class,
-                'choice_label' => 'size'
-            ])
+            // ->add('size', EntityType::class, [
+            //     'label' => 'Taille du produit',
+            //     'mapped' => false,
+            //     'required' => false,
+            //     'placeholder' => '--Choisir une taille--',
+            //     'class' => ProductSize::class,
+            //     'choice_label' => 'size'
+            // ])
             ->add('price', MoneyType::class, [
                 'label' => 'Prix du produit',
                 'required' => false
@@ -74,10 +76,10 @@ class ProductType extends AbstractType
                     'Epuisé' => false,
                 ]
             ])
-            ->add('quantity', IntegerType::class, [
-                'label' => 'Quantités',
-                'mapped' => false,
-            ])
+            // ->add('quantity', IntegerType::class, [
+            //     'label' => 'Quantités',
+            //     'mapped' => false,
+            // ])
             ->add('event', ChoiceType::class, [
                 'label' => 'Evénement',
                 'required' => false,
@@ -87,13 +89,36 @@ class ProductType extends AbstractType
                     'Promotion' => 'Promotion'
                 ]
             ])
-        ;
+
+            ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+            $form = $event->getForm();
+
+            $product = $event->getData();
+
+            if($product->getId() === null) {
+                $form->add('size', EntityType::class, [
+                    'label' => 'Taille du produit',
+                    'mapped' => false,
+                    'required' => false,
+                    'placeholder' => '--Choisir une taille--',
+                    'class' => ProductSize::class,
+                    'choice_label' => 'size'
+                ])
+                ->add('quantity', NumberType::class, [
+                    'label' => 'Quantités',
+                    'mapped' => false,
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
+            'csrf_protection' => false,
         ]);
     }
 }

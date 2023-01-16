@@ -6,15 +6,18 @@
 
 {% block body %}
     <main class="container mt-5 d-flex flex-column justify-content-center w-50">
-        <div class="mb-5 text-success d-flex flex-column">
+        <div class="mb-5 text-success text-center border border-dark rounded-2 pt-5 pb-3">
             <i class="fa-solid fa-circle-check fa-2xl align-self-center mb-4"></i>
-            <h1 class="text-success align-self-center">Commande confirmée</h1>
+            <h1>Merci {{ purchase.firstname }} {{ purchase.lastname }}</h1>
+            <p class="text-success align-self-center fw-bold">Votre commande a bien été enregistrée</p>
         </div>
         <div>
-            <h2 class="fs-4">Merci pour votre commande !</h2>
-            <h3 class="fs-5">Vous allez reçevoir un email de confirmationb de votre commande
-             ainsi qu'un lien pour suivre sa progression</h3>
-            <p>Cliquer <a href="{{ path('profil_account')}}">ici</a> pour visualiser votre commande</p>
+            <p class="fs-5 fw-semibold">Vous allez reçevoir un email de confirmation de votre commande
+             ainsi qu'un lien pour suivre sa progression .</hp>
+            <p class="fw-semibold">Cliquer <a href="{{ path('profil_account')}}">ici</a> pour visualiser votre commande .</p>
+            <div class="text-center mt-5">
+                <a href="{{ path('product_shop') }}" class="text-decoration-none btn btn-primary">Retour à la boutique</a>
+            </div>
         </div>
     
     </main>

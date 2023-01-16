@@ -11,7 +11,7 @@
 
         {% if items | length > 0 %}
 
-            <table class="table table-striped">
+            <table class="table">
                 <thead class="table-dark">
                     <tr>
                         <th>Produit</th>
@@ -35,14 +35,25 @@
                                 {{ item.product.price | number_format(2) }}€
                             </td>
                             <td>
-                                <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-minus"></i></a>
-                                {{ item.qty }}
-                                <a href="{{ path('cart_add', {'id':item.product.id, 'size':item.size}) }}" class="btn btn-sm btn-info"><i class="fas fa-plus"></i></a>
-                            
+                                <div class="border border-dark d-flex justify-content-around w-50 px-2 py-2">
+                                    <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="text-decoration-none me-2" >
+                                        <i class="fa-solid fa-minus fa-sm"></i>
+                                    </a>
+                                    <p class="mb-0 fs-5">{{ item.qty }}</p>
+                                    <a href="{{ path('cart_add', {'id':item.product.id, 'size':item.size}) }}" class="text-decoration-none ms-2" >
+                                        <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                </div>
                             </td>
                             <td>{{ (item.qty * item.product.price) |number_format(2) }}€</td>
-                            <td>
+                            {# <td>
                                 <a href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}"><i class="fa-solid fa-xmark fa-xl"></i></a>
+                            </td> #}
+                            <td class="box b1 d-inline-block p-3">
+                                <a class="container-ligne" href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}">
+                                    <div class="ligne bg-dark"></div>
+                                    <div class="ligne bg-dark"></div>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -87,4 +98,26 @@
 
     </main>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+     const boxes = document.querySelectorAll(".box");
+     {# console.log(boxes); #}
+
+    boxes.forEach(box => {
+
+        box.addEventListener("mouseover", e => {
+        e.target.classList.add('active');
+        e.target.classList.remove('unactive');
+        } )
+        box.addEventListener("mouseleave", e => {
+            e.target.classList.remove('active');
+            e.target.classList.add('unactive');
+        } )
+    })
+
+    
+    
+    </script>
 {% endblock %}

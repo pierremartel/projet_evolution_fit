@@ -5,6 +5,7 @@ namespace App\Controller\Purchase;
 use App\Entity\Purchase;
 use App\Services\CartService;
 use App\Repository\PurchaseRepository;
+use App\Services\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,7 +19,8 @@ class PurchasePaymentSuccessController extends AbstractController
      * @IsGranted("ROLE_USER")
      */
     public function success($id, PurchaseRepository $purchaseRepository, 
-                            EntityManagerInterface $em, CartService $cartService)
+                            EntityManagerInterface $em, CartService $cartService,
+                            SendMailService $mailService)
     {
         // 1. Je récupère ma commande
 
@@ -41,7 +43,19 @@ class PurchasePaymentSuccessController extends AbstractController
         // 3. Je vide le panier
         $cartService->empty();
 
+        //On envoie le mail de confirmation de la commande
+        $user = $this->getUser();
+        $mailService->send(
+            'no-reply@evolution-fit.fr',
+            $user->getEmail(),
+            'Confirmation de votre compte sur le site EvolutionFit',
+            'success_purchase',
+            compact('user', 'purchase')// compact() remplace un tableau clé => valeur
+        );
+
         // 4. Je redirige le user vers une page de succès
-        return $this->render('purchase/successPayment.html.twig');
+        return $this->render('purchase/successPayment.html.twig', [
+            'purchase' => $purchase
+        ]);
     }
 }

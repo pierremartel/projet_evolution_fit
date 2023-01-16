@@ -12,30 +12,42 @@
             <main class="col-9 p-5 admin__main">
                 <h1>Modification du produit: {{ product.name }}</h1>
                 <div class="underline_title text-center mb-5"></div>
-
+                    {# <div>Taille du produit : {{currentSize}}</div> #}
                     {{form_start(form)}}
+                    
                     {{form_errors(form)}}
-                        <div class="row">   
-                            <div class="col">   
-                            {{form_row(form.name)}}
-                            {{form_row(form.category)}}
-                            {{form_row(form.quantity)}}
-                            {{form_row(form.status)}}
-                            {{form_row(form.price)}}
-                        </div> 
-                        <div class="col">
-                            {{form_row(form.description)}}   
-                            {{form_row(form.size)}}
-                            {{form_row(form.event)}}
-                            {{form_row(form.picture)}}
-                        </div> 
-                        </div>
-                    <button type="submit" class="btn btn-success mt-5">
-                        <i class="fas fa-save"></i>
-                        Enregistrer
-                    </button>
+                        {{form_start(formProductAttr)}}
+                            <div class="row">   
+                                <div class="col">   
+                                {{form_row(form.name)}}
+                                {{form_row(form.category)}}
+                                {# {{form_row(form.quantity)}} #}
+                                {{form_row(formProductAttr.quantity)}}
+                                {{form_row(form.status)}}
+                                {{form_row(form.price)}}
+                            </div> 
+                            <div class="col">
+                                {{form_row(form.description)}}   
+                                {# {{form_row(form.size)}} #}
+                                {{form_row(formProductAttr.newSize)}}
+                                {{form_row(form.event)}}
+                                {{form_row(form.picture)}}
+                                
+                            </div> 
 
+                            </div>
+                        <button type="submit" class="btn btn-success mt-5">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                        {{form_end(formProductAttr)}}
                     {{form_end(form)}}
+
+                    {# {{form(formProductAttr)}} #}
+                    
+                    {# {# {{form_row(formProductAttr.productSize)}} #}
+                    
+
             </main>
         </div>  
     </div>

@@ -1,0 +1,41 @@
+<p>Bonjour {{ user.firstname }} {{ user.lastname }}, </p>
+<p>Votre commande nº{{ purchase.id }}</p>
+<p>Nous vous remercions pour votre commande.<br>
+Nous vous confirmons avoir bien reçu votre paiement.</p>
+<p>Dès que votre colis sera prêt à être expédié, nous vous en informerons par email.</p>
+<p>​​​​​​​Un membre de notre équipe vous signalera par e-mail le départ du colis de notre centre d'expédition.
+En attendant, voici le récapitulatif de vos achats</p>
+
+<div>
+    <h2>Adresse de livraison</h2>
+    <p>{{ purchase.lastname}} {{ purchase.firstname}}</p>
+    <p>{{ purchase.address}} </br> {{ purchase.postalCode}}, {{ purchase.city}}</p>
+</div>
+
+<table>
+    <thead>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Total</th>
+    </thead>
+    <tbody>
+        {% for item in purchase.purchaseItems %}
+            <tr>
+                <td>{{ item.productName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.productPrice }} €</td>
+                <td>{{ item.total }} €</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total :</td>
+            <td>
+                {{ purchase.total }} €
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

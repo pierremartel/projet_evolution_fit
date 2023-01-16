@@ -34,6 +34,5 @@ class ProfilController extends AbstractController
             'purchases' => $purchases
         ]);
     }
-
     
 }
