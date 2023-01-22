@@ -41,8 +41,6 @@ class PurchasePaymentController extends AbstractController
             'amount' => ($purchase->getTotal()*100) + $taxeShipping,
             'currency' => 'eur',
         ]);
-
-
         // On envoie à la vue la donnée "client_secret" contenue dans l'objet $paymentIntent
         // nécessaire pour stripe pour définir l'id de ce payement crée
 

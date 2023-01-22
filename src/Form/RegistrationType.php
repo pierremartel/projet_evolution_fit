@@ -23,11 +23,15 @@ class RegistrationType extends AbstractType
                 'label' => 'Adresse email',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Adresse@gmail.com'
+                    'placeholder' => 'Adresse@gmail.com',
+                    'class' => 'input__design'
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'options' => ['attr' => 
+                    ['class' => 'input__design', 'placeholder' => 'Tapez votre mot de passe']
+                ],
                 'first_options' => [
                     'label' => 'Mot de passe'
                 ],
@@ -50,14 +54,16 @@ class RegistrationType extends AbstractType
                 'label' => 'Prénom',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Tapez votre prénom'
+                    'placeholder' => 'Tapez votre prénom',
+                    'class' => 'input__design'
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom de famille',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Tapez votre nom de famille'
+                    'placeholder' => 'Tapez votre nom de famille',
+                    'class' => 'input__design'
                 ]
             ])
             ->add('newsletter', CheckboxType::class, [

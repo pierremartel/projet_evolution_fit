@@ -19,14 +19,16 @@ class ContactType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom*',
                 'attr' => [
-                    'placeholder' => 'Entrer votre nom'
+                    'placeholder' => 'Entrer votre nom',
+                    'class' => 'input__design'
                 ],
                 'required' => false
             ])
             ->add('email',  EmailType::class, [
                 'label' => 'Email*',
                 'attr' => [
-                    'placeholder' => 'Entrer votre adresse email'
+                    'placeholder' => 'Entrer votre adresse email',
+                    'class' => 'input__design'
                 ],
                 'required' => false
             ])
@@ -42,19 +44,22 @@ class ContactType extends AbstractType
                     'Recrutement' => 'Recrutement',
                     'Autre' => 'Autre'
                 ],
-                'required' => false
+                'required' => false,
+                'attr' => ['class' => 'input__design']
             ])
             ->add('purchase', TextType::class, [
                 'label' => 'Numéro de commande',
                 'attr' => [
-                    'placeholder' => 'Entrer votre numéro de commande ( ex : #125 )'
+                    'placeholder' => 'Entrer votre numéro de commande ( ex : #125 )',
+                    'class' => 'input__design'
                 ],
                 'required' => false
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message*',
                 'attr' => [
-                    'placeholder' => 'Entrer le détail de votre demande'
+                    'placeholder' => 'Entrer le détail de votre demande',
+                    'class' => 'input__design'
                 ],
                 'required' => false
             ])

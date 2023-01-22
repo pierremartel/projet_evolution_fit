@@ -7,6 +7,7 @@ use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Entity\ProductAttr;
 use App\Form\ChoiceAttrType;
+use App\Services\FilterService;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,11 +25,14 @@ class ProductController extends AbstractController
 {
     protected $productRepository;
     protected $paginator;
+    protected $filterService;
     
-    public function __construct(ProductRepository $productRepository, PaginatorInterface $paginator)
+    public function __construct(ProductRepository $productRepository, PaginatorInterface $paginator,
+                                FilterService $filterService)
     {
         $this->productRepository = $productRepository;
         $this->paginator = $paginator;
+        $this->filterService = $filterService;
     }
 
     /**
@@ -36,19 +40,38 @@ class ProductController extends AbstractController
      */
     public function shop(Request $request)
     {
+        
         $products = $this->productRepository->findAll();
+
+        //Mise en place du système de filtre
+        $value = '';
+        //Je vérifie si l'on a un élément dans la requête
+        if($request->query->has('sort_product')){
+            if($request->query->get('sort_product') == 'titre-ascendant'){
+                $products = $this->productRepository->findProductByNameAsc($value);  
+            }elseif($request->query->get('sort_product') == 'titre-descendant'){
+                $products = $this->productRepository->findProductByNameDesc($value); 
+            } 
+
+            if($request->query->get('sort_product') == 'prix-ascendant'){
+                $products = $this->productRepository->findProductByPriceAsc($value);  
+            }elseif($request->query->get('sort_product') == 'prix-descendant'){
+                $products = $this->productRepository->findProductByPriceDesc($value); 
+            } 
+        }
 
         // Mise en place de la pagination
         $products = $this->paginator->paginate(
             $products, // Requête contenant les données à paginer (ici nos produits)
             $request->query->getInt('page', 1), //Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            8 //nombre de résultats par page
+            20 //nombre de résultats par page
         );
 
         return $this->render('product/shop.html.twig', [
             'products' => $products
         ]);
     }
+
 
     /**
      * @Route("/news", name="product_news")
@@ -79,6 +102,22 @@ class ProductController extends AbstractController
         if(!$category){
             throw $this->createNotFoundException("La catégorie demandée n'existe pas");
         }
+
+        //Mise en place du système de filtre
+        //Je vérifie si l'on a un élément dans la requête
+        if($request->query->has('sort_product')){
+            if($request->query->get('sort_product') == 'titre-ascendant'){
+                $products = $this->productRepository->findBy(['category' => $category], ['name' => 'ASC']);  
+            }elseif($request->query->get('sort_product') == 'titre-descendant'){
+                $products = $this->productRepository->findBy(['category' => $category], ['name' => 'DESC']);  
+            } 
+
+            if($request->query->get('sort_product') == 'prix-ascendant'){
+                $products = $this->productRepository->findBy(['category' => $category], ['price' => 'ASC']);   
+            }elseif($request->query->get('sort_product') == 'prix-descendant'){
+                $products = $this->productRepository->findBy(['category' => $category], ['price' => 'DESC']);   
+            } 
+        }        
 
         // Mise en place de la pagination
         $products = $this->paginator->paginate(

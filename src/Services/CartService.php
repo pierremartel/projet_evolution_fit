@@ -67,12 +67,10 @@ class CartService
             if(!$product){
                 continue;
             }
-
             foreach($content as $size=> $qty){
 
             $total += ($product->getPrice() * $qty);
             }
-            
         }
         return $total;
 

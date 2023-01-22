@@ -5,31 +5,27 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-3">
+    <div class="container container__tablette mt-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('home_index') }}" class="text-decoration-none">Accueil</a></li>
             <li class="breadcrumb-item active">Nouveautés</li>
         </ol>
     </div>
 
-    <header class="container d-flex justify-content-between mt-3">
+    <header class="container container__tablette d-flex justify-content-between mt-3">
         <div class="">
             <h1 class="text-capitalize">Nos Nouveautés</h1>
             <div class="underline_title"></div>
         </div>
-        <a href="" class="text-decoration-none fw-bold">
-            Filtre
-            <i class="fa-solid fa-sort-down ms-1"></i>
-        </a>
     </header>
 
-    <main class="container mb-5">
+    <main class="container container__tablette mb-5">
         <div class="count">
             <h2 class="fs-5 my-4">Articles ({{ products.getTotalItemCount }})</h2>
         </div>
         <div class="row">
             {% for p in products %}
-                <div class="col-3">
+                <div class="col col-sm-6 col-md-4 col-lg-3">
                     <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
                         {% include 'product/_product_card.html.twig' %}
                     </a>

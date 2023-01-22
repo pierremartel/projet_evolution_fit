@@ -67,6 +67,54 @@ class ProductRepository extends ServiceEntityRepository
        ;
    }
 
+   //Recherche par nom ascendant
+   public function findProductByNameAsc($value): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.name like :val')
+           ->setParameter('val', '%' . $value . '%')
+           ->orderBy('p.name', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+   //Recherche par nom descendant
+   public function findProductByNameDesc($value): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.name like :val')
+           ->setParameter('val', '%' . $value . '%')
+           ->orderBy('p.name', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+   //Recherche par prix ascendant
+   public function findProductByPriceAsc($value): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.price like :val')
+           ->setParameter('val', '%' . $value . '%')
+           ->orderBy('p.price', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+   //Recherche par prix descendant
+   public function findProductByPriceDesc($value): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.price like :val')
+           ->setParameter('val', '%' . $value . '%')
+           ->orderBy('p.price', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    public function findOneBySomeField($value): ?Product
 //    {
 //        return $this->createQueryBuilder('p')

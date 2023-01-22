@@ -6,39 +6,36 @@
 
 {% block body %}
 
-    <div class="container mt-3">
+    <div class="container container__tablette mt-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('home_index') }}" class="text-decoration-none">Accueil</a></li>
             <li class="breadcrumb-item active">Mon compte</li>
         </ol>
     </div>
 
-    <main class="container mt-3">
+    <main class="container container__tablette mt-4">
         <div class="row">
-            <aside class="col-2 h-100 bg-light border rounded border-light p-4 border-opacity-50 text-center">
-                <div class="d-flex flex-column">
+            <aside class="col col-md-12 col-lg-2 col-md-12 border border-light rounded p-4 border-opacity-50 text-center profil__account_aside">
+                <div class="d-flex flex-md-row flex-lg-column justify-content-between">
                     <div>
-                        <p>Bonjour,<br>{{ app.user.firstname }} <span class="text-uppercase">{{ app.user.lastname }}</span></p>
-                        <p class="mb-4 text-primary">{{ app.user.email }}</p>
+                        <h1 class="fs-5 text-capitalize mb-2">Bonjour,<br>{{ app.user.firstname }} <span class="text-uppercase">{{ app.user.lastname }}</span></h1>
+                        <p class="mb-2 text-primary">{{ app.user.email }}</p>
                     </div>
                     <hr>
-                    <a href="{{ path('home_index') }}" class="mb-3 text-decoration-none profil__account_link">Retourner à la boutique</a>
-                    <a href="" class="mb-3 text-decoration-none profil__account_link">Mon profil</a>
-                    <a href="{{ path('security_logout') }}" class="profil__account_link">Déconnexion</a>
-                    <div class="border border-dark rounded-1 mt-4">
-                        <p>Besoin d'aide ?</p>
-                        <p>
-                            09 08 07 06 05<br>
-                            du lundi au vendredi<br>
-                            de 9H à 18H<br>
-                            ou <a href="{{ path('contact_index') }}">par email</a>
-                        </p>
+                    <div class="d-flex flex-column">
+                        <div class="text-primary">
+                            <p class="">
+                                <a href="{{ path('contact_index') }}" class="text-decoration-none profil__account_link">Besoin d'aide ?</a>
+                            </p>
+                        </div>
+                        <a href="{{ path('home_index') }}" class="text-decoration-none profil__account_link mb-2">Retourner à la boutique</a>
+                        <a href="{{ path('security_logout') }}" class="profil__account_link">Déconnexion</a>
                     </div>
                 </div>
             </aside>
-
-            <div class="col-10 profil__account_dashboard">
-                <h1 class="text-center mb-3 profil__account_title bg-danger">Le Dashboard de {{ app.user.firstname }}</h1>
+            <div class="col col-lg-1"></div>
+            <div class="col col-md-12 col-lg-9 profil__account_dashboard">
+                <h1 class="text-center mb-3 profil__account_title">Le Dashboard de {{ app.user.firstname }}</h1>
                 <h2 class="fs-6 ms-4">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
                 <hr class="mb-4">
 

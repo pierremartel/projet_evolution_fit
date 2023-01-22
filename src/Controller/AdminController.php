@@ -18,12 +18,25 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class AdminController extends AbstractController
 {
+    protected $em;
+    protected $productRepository;
+    protected $slugger;
+
+    public function __construct(ProductRepository $productRepository, EntityManagerInterface $em,
+                                SluggerInterface $slugger)
+    {
+        $this->productRepository = $productRepository;
+        $this->em = $em;
+        $this->slugger = $slugger;
+    }
+
+
     /**
      * @Route("/admin/product", name="admin_product")
      */
-    public function product(ProductRepository $productRepository)
+    public function product()
     {
-        $products = $productRepository->findAll();
+        $products = $this->productRepository->findAll();
 
         return $this->render('admin/dashboard.html.twig', [
             'products' => $products,
@@ -34,7 +47,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/product/create", name="admin_product_create")
      */
-    public function create(EntityManagerInterface $em, SluggerInterface $slugger, Request $request) 
+    public function create(Request $request) 
     {
         $product = new Product();
         $productAttr = new ProductAttr();
@@ -50,7 +63,7 @@ class AdminController extends AbstractController
                 // On crée le nom du fichier pour éviter doublon
                 $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
                 // On crée un slug associé à l'$originalFilename
-                $safeFilename = $slugger->slug($originalFilename);
+                $safeFilename = $this->slugger->slug($originalFilename);
                 // On reprend les 2étapes précédente, on ajoute un id unique et enfin l'extension du fichier
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
 
@@ -67,7 +80,7 @@ class AdminController extends AbstractController
                 $product->setPicture($newFilename);
             }
 
-            $product->setSlug(strtolower($slugger->slug($product->getName())));
+            $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             // On va chercher l'id de l'article et la qty correspondante défini dans le formulaire
             // Pour ensuite l'envoyer dans la table 
             $numberArticle = $form->get('quantity')->getData();
@@ -78,12 +91,10 @@ class AdminController extends AbstractController
             // Pour ensuite l'envoyer dans la table 
             $sizeArticle = $form->get('size')->getData();
             $productAttr->setProductSize($sizeArticle);
-            
-            // dd($productAttr);
 
-            $em->persist($product);
-            $em->persist($productAttr);
-            $em->flush();
+            $this->em->persist($product);
+            $this->em->persist($productAttr);
+            $this->em->flush();
 
             $this->addFlash('success', "Le produit a bien été crée");
 
@@ -102,11 +113,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/product/update/{id}", name="admin_product_update", requirements={"id":"\d+"})
      */
-    public function update($id, EntityManagerInterface $em, Request $request,
-                            SluggerInterface $slugger, ProductRepository $productRepository,
-                            ProductAttrRepository $productAttrRepository) 
+    public function update($id, Request $request, ProductAttrRepository $productAttrRepository) 
     {
-        $product = $productRepository->find($id);
+        $product = $this->productRepository->find($id);
         // dd($product);
         $productAttr = $productAttrRepository->findOneByProduct(['product' => $product->getId()]);
         $currentSize = $productAttr->getProductSize()->getSize();
@@ -132,7 +141,7 @@ class AdminController extends AbstractController
                 // On crée le nom du fichier pour éviter doublon
                 $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
                 // On crée un slug associé à l'$originalFilename
-                $safeFilename = $slugger->slug($originalFilename);
+                $safeFilename = $this->slugger->slug($originalFilename);
                 // On reprend les 2étapes précédente, on ajoute un id unique et enfin l'extension du fichier
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
 
@@ -150,9 +159,9 @@ class AdminController extends AbstractController
             }
 
             $productAttr->setProductSize($formProductAttr->get('newSize')->getData());  
-            $product->setSlug(strtolower($slugger->slug($product->getName())));
+            $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             
-            $em->flush();
+            $this->em->flush();
 
             $this->addFlash('success', "Le produit a bien été mis à jour");
 
@@ -172,13 +181,26 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/product/delete/{id}", name="admin_product_delete")
      */
-    public function delete(Product $product,
-                            EntityManagerInterface $em)
+    public function delete(Product $product)
     {
-        $em->remove($product);
-        $em->flush();
+        $this->em->remove($product);
+        $this->em->flush();
 
         $this->addFlash('success', 'Le produit a bien été supprimé');
+
+        return $this->redirectToRoute('admin_product');
+    }
+
+
+    /**
+     * @Route("/admin/product/activer/{id}", name="admin_active_product")
+     */
+    public function active(Product $product, $id): Response
+    {
+        $product->setActive(!$product->isActive());
+
+        $this->em->persist($product);
+        $this->em->flush();
 
         return $this->redirectToRoute('admin_product');
     }

@@ -24,10 +24,15 @@
         </ol>
     </div>
 
-    <main class="container d-flex justify-content-around">  
-        <div class="w-50">
-            <div class="">
-                <img src="{{asset('uploads/images/') ~ product.picture }}" width="700px" height="850px" alt="{{ product.name }}">
+    <main class="container d-flex flex-md-column flex-lg-row">  
+        <div class="">
+            <div class="position-relative">
+                <img src="{{asset('uploads/images/') ~ product.picture }}" class="show__picture" alt="{{ product.name }}">
+                {% if product.event == 'Nouveauté' %}
+                    <span class="position-absolute top-0 start-0 product_event p-0 text-white">Nouveautés</span>
+                {% elseif product.event == 'Promotion' %}
+                    <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Soldes</span>
+                {% endif %}
             </div>
             {# <div class="row">
                 <div class="col-4 mt-3">
@@ -41,7 +46,7 @@
                 </div>
             </div> #}
         </div>
-        <section class="w-50 product__show_details">
+        <section class="product__show_details">
             <h1>{{ product.name }}</h1>
             <h2>{{ product.price }}€</h2>
             <span class="d-flex">
@@ -56,10 +61,10 @@
 
             <div class="mt-5">
                 <div class="show__product_size d-flex justify-content-between">
-                    <p>Selectionner la taille</p>
+                    <p>Sélectionner une taille</p>
                     <a id="size_guide">Guide des tailles</a>
                     <div id="show_guide">
-                        <img src="../../Assets/img/guide_taille.png" width="900px" height="600px" alt="Guide des tailles">
+                        <img src="../../Assets/img/guide_taille.png" class="show__modal" alt="Guide des tailles">
                         <i class="fa-solid fa-xmark fa-xl position-absolute" id="closed_guide"></i>
                     </div>
 
@@ -79,7 +84,7 @@
                         {# {% endif %} #}
                     {# {% endfor %} #}
             </div>
-            <button type="submit" class="btn btn-warning mt-5 d-block fs-5" id="change_size">
+            <button type="submit" class="btn__shop btn__style mt-5 d-block fs-5" id="change_size">
                 Selectionner une taille
             </button>
             {{ form_end(form) }}
@@ -123,7 +128,6 @@
             size.addEventListener("click", function(e){ 
                 btn.childNodes[0].nodeValue = " + Ajouter au panier";
             })
-
          }
 
         {# Modal Guide des tailles #}

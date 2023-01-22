@@ -62,6 +62,6 @@ class SearchController extends AbstractController
             'searchResult' => $searchResult,
             'search' => $search
         ]);
-    }
+    } 
 
 }

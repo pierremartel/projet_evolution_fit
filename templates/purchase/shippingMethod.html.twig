@@ -6,12 +6,21 @@
 
 {% block body %}
 
-    <main class="container mt-5">
+    <div class="pt-4 pb-2 d-flex justify-content-around align-items-center d-lg-none bg-light">
+        <button id="btn__show_purchase" class="btn__back">Montrez ma commande v</button>
+        <div id="totalPriceBanner">{{ total | number_format(2) }}€</div>
+    </div>
+
+    <div class="container show__purchase" id="show__purchase">
+        {% include "purchase/_purchaseCheckoutResponsive.html.twig" %}
+    </div>
+
+    <main class="container mt-4">
         <div class="row d-flex">
-            <section class="col-7">
-                <div class="cart__checkout_title d-flex justify-content-evenly mb-4">
+            <section class="col col-sm-12 col-md-12 col-lg-7">
+                <div class="cart__checkout_title d-flex flex-md-column flex-lg-row justify-content-evenly mb-2">
                     {#  File d'ariane #}
-                    <div class="container mt-4">
+                    <div class="container mt-4 p-0">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ path('cart_show') }}" class="text-decoration-none">
@@ -74,14 +83,14 @@
                             <i class="fa-solid fa-arrow-left me-3"></i>
                                 Revenir aux informations
                         </a>
-                        <button type="submit" class="btn btn-success">Continuer vers le paiement</button>
+                        <button type="submit" class="btn__shop btn__style w-50">Continuer vers le paiement</button>
                     </div>
 
                 {{ form_end(form) }}
                 
             </section>
 
-            <aside class="col-5 cart__checkout_split cart__purchase_details">
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details">
                 <div class="h-50 overflow-auto">
                     {% for item in items %}
                         <div class="d-flex position-relative">
@@ -107,13 +116,13 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Livraison</p>
-                        <p id="value">Définir la méthode d'expédition</p>
+                        <p id="value2">Définir la méthode d'expédition</p>
                     </div>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between fw-bold text-primary">
                     <p>Total</p>
-                    <p id="totalPrice">{{ total  | number_format(2) }} €</p>
+                    <p id="totalPrice2">{{ total  | number_format(2) }} €</p>
                 </div>
 
             </aside>
@@ -128,8 +137,12 @@
         console.log(total);
 
         let price = document.getElementById("value");
-        console.log(price);
+        let price2 = document.getElementById("value2");
+
         let totalPrice = document.getElementById("totalPrice");
+        let totalPrice2 = document.getElementById("totalPrice2");
+
+        let totalPriceBanner = document.getElementById("totalPriceBanner");
         console.log(totalPrice);
         let radios = document.getElementsByName('shipping_method[name]')
         console.log(radios);
@@ -147,9 +160,25 @@
             console.log(valeur);
 
             price.innerHTML = valeur + "€";
+            price2.innerHTML = valeur + "€";
+
             totalPrice.innerHTML = (parseFloat(total) + parseFloat(valeur)).toFixed(2) + "€";
+            totalPrice2.innerHTML = (parseFloat(total) + parseFloat(valeur)).toFixed(2) + "€";
+
+            totalPriceBanner.innerHTML = (parseFloat(total) + parseFloat(valeur)).toFixed(2) + "€";
             
         });
         }
+    </script>
+
+    <script type="text/javascript">
+
+        let btnShowPurchase = document.getElementById('btn__show_purchase');
+        let showPurchase = document.getElementById('show__purchase');
+
+        btnShowPurchase.addEventListener('click', () => {
+            showPurchase.classList.toggle('show__purchase_md');
+        })
+
     </script>
 {% endblock %}

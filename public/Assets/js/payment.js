@@ -15,7 +15,6 @@ const stripe = Stripe("pk_test_51MIBHdDi8X1ZgKLhNsIkqu00ZLknmvvaGeCHjI3ZoC1LE3Ti
         const paymentElement = elements.create("payment", paymentElementOptions);
         paymentElement.mount("#payment-element");
         
-
         async function handleSubmit(e) {
             e.preventDefault();
             setLoading(true); 

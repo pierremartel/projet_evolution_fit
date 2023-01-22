@@ -1,60 +1,93 @@
 <nav class="navbar navbar-expand-lg navbar-light p-0 nav__position">
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{{ path('home_index') }}">
+        <a class="navbar-brand d-none d-lg-block" href="{{ path('home_index') }}">
             <img src="../../../assets/img/logotype.png" class="navbar__logo"/>
+        </a>
+        <a class="navbar-brand d-lg-none" href="{{ path('home_index') }}">
+            <img src="../../../assets/img/logotype_responsive.png" class="navbar__logo_tablette"/>
         </a>
 
         {# Rendu du formulaire de recherche #}
-        <div class="navbar__form">
+        {# <div class="navbar__form d-flex align-items-center"> #}
+            <div class="navbar__form">
             {{ 
                 render(controller('App\\Controller\\SearchController::searchbar')) 
             }}
-        </div>
-        <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav d-flex align-items-center">
-                {% for c in categoryRepository.findAll() %}
-                <li class="nav-item">
-                    <a class="nav-link nav-active" 
-                        href="{{ path('product_category', {'id': c.id, 'slug':c.slug}) }}">{{ c.name }}
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
-                {% endfor %}
-                
-                <li class="nav-item navbar__position_icon">
-                    {% if app.user %}
-                        <a class="nav-link" href="{{ path('profil_account') }}" title="mon compte">
-                            <i class="fa-regular fa-user fa-xl"></i>
-                            <p>{{ app.user.firstname }}</p>
-                        </a>
-                    {% else %}    
-                        <a class="nav-link" href="{{ path('security_login') }}" title="mon compte">
-                            <i class="fa-regular fa-user fa-xl"></i>
-                            
-                        </a>
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('cart_show') }}" title="panier">
+            </div>
+            <div class="navbar__panier">
+                <a class="" href="{{ path('cart_show') }}" title="panier">
+                    <div class=" d-flex position-relative">
                         <span class="navbar__shop_number">
                             {{ cartService.getDetailedCartItems | length }}
                         </span>
-                        <i class="fa-sharp fa-solid fa-bag-shopping fa-xl"></i>
-                    </a>
-                </li>
-                
-                {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin_product') }}" title="dashboard">
-                        <i class="fa-solid fa-house fa-xl"></i>
-                    </a>
-                </li>
-                {% endif %}
+                        <i class="fa-sharp fa-solid fa-bag-shopping fa-xl text-dark"></i>
+                    </div>
+                </a>
+            </div>
+        {# </div> #}
+
+        
+
+        <div class="collapse navbar-collapse ps-5" id="navbarColor03">
+            <ul class="navbar-nav">
+                <div class="d-lg-flex navbar__position_category">
+                    {% for c in categoryRepository.findAll() %}
+                    <li class="nav-item me-0">
+                        <a class="nav-link nav-active" 
+                            href="{{ path('product_category', {'id': c.id, 'slug':c.slug}) }}">{{ c.name }}
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </div>
+                <div class="navbar__position_icon d-flex align-items-center">
+                    <li class="nav-item">
+                        {% if app.user %}
+                                <div>
+                                    <a class="nav-link pb-0" href="{{ path('profil_account') }}" title="mon compte">
+                                            <i class="fa-regular fa-user fa-xl"></i>  
+                                    </a>
+                                    <p class="mb-0">{{ app.user.firstname }}</p>
+                                </div>
+                        {% else %}    
+                            <a class="nav-link d-none d-lg-block" href="{{ path('security_login') }}" title="mon compte">
+                                <i class="fa-regular fa-user fa-xl"></i>
+                            </a>
+                            {# Mode tablette #}
+                            <a class="nav-link btn__style px-2 text-danger d-lg-none" href="{{ path('security_login') }}" title="mon compte">
+                                Se connecter
+                            </a>
+
+                        {% endif %}
+                    </li>
+
+                    {# <li class="nav-item">
+                        <a class="nav-link" href="{{ path('cart_show') }}" title="panier">
+                            <div class=" d-flex position-relative">
+                                <span class="navbar__shop_number">
+                                    {{ cartService.getDetailedCartItems | length }}
+                                </span>
+                                <i class="fa-sharp fa-solid fa-bag-shopping fa-xl text-dark"></i>
+                            </div>
+                        </a>
+                    </li> #}
+                    
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_product') }}" title="dashboard">
+                            <i class="fa-solid fa-house fa-xl"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </div>
             </ul>
         </div>
+
+
     </div>
 </nav>
 

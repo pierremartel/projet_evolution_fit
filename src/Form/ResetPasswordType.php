@@ -15,7 +15,7 @@ class ResetPasswordType extends AbstractType
     {
         $builder
             ->add('password', PasswordType::class, [
-                'label' => 'Entrez votre mot de passe',
+                'label' => 'Entrez votre nouveau mot de passe',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le mot de passe est obligatoire'

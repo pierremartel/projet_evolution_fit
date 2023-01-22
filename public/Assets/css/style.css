@@ -1,7 +1,66 @@
-body {
-    background-color: #f7efe5;
+/* VARIABLE CSS */
+
+:root {
+    --color-1:#AD343E;
+    --color-2:#AE8E1C;
+    --color-3:#646E68;
+    --color-4:#0A0908;
+    --color-5:#EAE0D5;
+    --font-title:"Montserrat", sans-serif;
+    --font-content:"Oswald", sans-serif;
 }
 
+.btn__newsletter{
+    color:var(--color-2);
+}
+.btn__style {
+    font-weight: 500;
+    border: solid 1px rgba(8, 8, 8, 0.5);
+    border-radius: 3%;
+    box-shadow: 2px 2px 5px grey;
+}
+.btn__back {
+    background-color:var(--color-4);
+    color: var(--color-5);
+    padding: 10px 25px;
+}
+
+.btn__back:hover {
+    background-color: transparent;
+    color: var(--color-4);
+}
+
+.btn__filter {
+    background-color:var(--color-4);
+    color: var(--color-5);
+}
+
+.btn__shop{
+    background-color:var(--color-1);
+    color: #fff;
+    padding: 10px 25px;
+    width: 100%;
+    text-decoration: none;
+}
+
+.input__design {
+    border: solid 1px var(--color-4);
+    background-color: transparent;
+    color: var(--color-4);
+}
+
+
+html,body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+body {
+    background-color: #f7efe5;
+    font-family: Montserrat, Arial, sans-serif;
+    font-weight: 400;
+}
+/*------------------------------------------------------------------------------------------------------------- */
 /* ADMIN */
 
 .admin__main {
@@ -33,6 +92,13 @@ body {
     width: 200px;
 }
 
+.navbar__logo_tablette{
+    height: 60px;
+    width: 120px;
+    position: relative;
+    left: 125px;
+}
+
 .nav-link {
     color:#000;
 }
@@ -56,32 +122,38 @@ body {
     box-shadow: 0 0 5px #646E68 ;
 }
 
-.nav__position .form-control:focus {
+/* + .nav__position avant ?  */
+.form-control:focus {
     border-color: #6265e4 !important;
     box-shadow: 0 0 5px #6265e4 !important;
     background-color: #EAE0D5;
   }
 
+.navbar__position_category {
+    padding-left:50px;
+}
 .navbar__position_icon {
-    margin-left:450px;
+    padding-left:450px;
 }
 
 .navbar__shop_number{
     position: absolute;
-    right:40px;
-    top:45px;
+    right:-5px;
+    top:5px;
     width:16px;
     height: 18px;
     text-align:center;
     z-index: 10;
     color:#fff;
-    background-color:#AD343E;
+    background-color:var(--color-1);
     border-radius: 50%;
 }
 
-/* .navbar__form {
-    margin-right: 10px;
-} */
+.navbar__panier {
+    position: absolute;
+    right:40px;
+    top:45px;
+}
 
 /* BANNER */
 
@@ -102,9 +174,22 @@ body {
     position:absolute;
     bottom:0;
     left:200px;
+    background-color: var(--color-4);
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 3%;
+    padding:30px;
 }
 
 /* MAIN */
+
+.home__main_categorie {
+    display: flex;
+    justify-content:center;
+    flex-direction:row;
+}
+
 .home__main_picture{
     height:100%;
     width:100%;
@@ -150,6 +235,10 @@ body {
 
 /* ASSURANCE */
 
+.home__assurance {
+    background-color:transparent;
+}
+
 .home__assurance_icon {
     position:absolute;
     top:55px;
@@ -166,6 +255,18 @@ body {
 
 .home__footer {
     color:#000;
+}
+
+.home__footer_card {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-around;
+}
+
+.home__footer_copyright {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 
@@ -187,13 +288,38 @@ body {
     height:2px;
 }
 
-/* PRODUCT_SHOW  */
-/* Size */
-.product__show_details {
-    margin-left: 100px;
+.product_event{
+    background-color:var(--color-2);
 }
 
-input[type="radio"]:checked + label {
+.product__select_filter {
+    background-color: transparent;
+    width:40%;
+    border:none;
+}
+/* .choice__select_filter {
+    font-size: 11px;
+} */
+
+/* PRODUCT_SHOW  */
+
+.show__picture {
+    width: 700px;
+    height: 850px;
+}
+
+.show__modal {
+    width: 900px;
+    height: 600px
+}
+
+/* Size */
+.product__show_details {
+    width: 100%;
+    margin-left: 80px;
+}
+
+.product__show_size input[type="radio"]:checked + label {
     background-color: #000;
     color:#fff;
   }
@@ -268,7 +394,7 @@ input[type="radio"]:checked + label {
 
 .product__show_status {
     animation-name: flash;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-delay:0s;
 }
@@ -340,11 +466,19 @@ input[type="radio"]:checked + label {
     padding:20px;
 }
 
+.show__purchase {
+    display: none;
+}
+
 
 /* PROFIL ACCOUNT */
 
+.profil__account_aside {
+    background-color: var(--color-1);
+    height: 100%;
+}
+
 .profil__account_dashboard {
-    background-color:rgb(232, 224, 224);
     padding: 0px 0px;
 }
 
@@ -360,4 +494,162 @@ input[type="radio"]:checked + label {
 .profil__account_link:hover {
     background-color:#000;
     color:#fff;
+}
+
+/* Security */
+
+.pic__login {
+    width: 650px;
+    height: 750px; 
+}
+.pic__register {
+    width: 650px;
+    height: 900px; 
+}
+
+
+
+/*  --------------------- MEDIA QUERIES ------------------------- */
+
+@media screen and (min-width:319px) and (max-width:425px){
+    /* .container__mobile {
+        width:75%;
+    } */
+
+    .home__banner_container {
+        height:265px;
+    }
+
+    .home__header_btn {
+        bottom:20px;
+        left:40px;
+        padding:5px;
+        font-size: 12px;
+    }
+
+    .home__main_content {
+        height: 320px;
+        width: 250px;
+    }
+
+    .home__main_picture {
+        height:320px;
+        width:100%;
+    }
+
+    .home__section_product {
+        height: 320px;
+        width: 290px;
+    }
+
+    .home__main_categorie {
+        display: flex;
+        justify-content:center;
+        flex-direction:column;
+    }
+
+    .home__newsletter {
+        font-size: 12px;
+    }
+
+    .home__footer_card {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home__footer_copyright {
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+    }
+
+}
+
+/* max-width:1439px */
+@media screen and (min-width:768px) and (max-width:1280px) {
+    .navbar__position_icon {
+        padding-left:50px;
+    }
+
+    .home__header_btn {
+        bottom: 100px;;
+    }
+
+    .home__assurance_icon{
+        left:100px;
+    }
+    .container__tablette {
+        max-width:90%;
+    }
+
+    .shop_picture {
+        height:320px;
+        width: 220px;
+    }
+    
+    /* SHOW Product */
+    .show__picture {
+        width: 570px;
+        height: 720px;
+    }
+
+    .product__show_details {
+        margin-left:0px;
+    }
+
+    .show__modal {
+        width: 645px;
+        height: 345px;
+    }
+
+    #show_guide {
+        display: none;
+        position: absolute;
+        left:6%;
+        top:125%
+    }
+
+    .show__purchase_md {
+        display: block;
+    }
+
+    .choice__select_filter {
+        font-size: 11px;
+    }
+
+    .pic__login {
+        width: auto;
+        height: 550px;
+    }
+
+    .pic__register {
+        width: 375px;
+        height: 780px; 
+    }
+
+    .home__footer_copyright {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .home__section_product {
+        height:340px;
+        width:220px;
+    }
+
+    .home__main_content {
+        height: 280px;
+        width: 230px;
+    }
+
+    .navbar__form {
+        margin-right: 50px;
+    }
+
+    .home__banner_container {
+        width:100%;
+        height:570px;
+    }
+
 }

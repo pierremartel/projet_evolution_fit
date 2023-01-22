@@ -1,0 +1,38 @@
+<aside class="col col-sm-12 col-md-12 col-lg-5 cart__checkout_split cart__purchase_details">
+    <div class="h-50 overflow-auto">
+        {% for item in items %}
+            <div class="d-flex position-relative">
+                <div class="position-relative me-4 mb-3">
+                    <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="{{item.product.name}}" class="admin__main_picture">
+                    <span class="position-absolute top-0 start-0 bg-primary opacity-50 text-light fs-5">{{ item.qty }}</span>
+                </div>
+                <div class="">
+                    <p>{{ item.product.name }}</p>
+                    <p>Taille:
+                        {{ item.size }}</p>
+                </div>
+                <div class="position-absolute top-0 end-0">
+                    <p>{{ (item.qty * item.product.price) | number_format(2) }}€</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <div class="d-flex justify-content-between">
+            <p>Subtotal</p>
+            <p class="fw-bold text-primary">{{ total | number_format(2) }}
+                €</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p>Livraison</p>
+            <p id="value">Calculer à l'étape expedition</p>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between fw-bold text-primary">
+        <p>Total</p>
+        <p id="totalPrice">{{ total | number_format(2) }}
+            €</p>
+    </div>
+</aside>

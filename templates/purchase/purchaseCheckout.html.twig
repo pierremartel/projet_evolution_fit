@@ -5,12 +5,22 @@
 {% endblock %}
 
 {% block body %}
-    <main class="container mt-5">
+
+    <div class="pt-4 pb-2 d-flex justify-content-around align-items-center d-lg-none bg-light">
+        <button id="btn__show_purchase" class="btn__back">Montrez ma commande v</button>
+        <div>{{ total | number_format(2) }}€</div>
+    </div>
+
+    <div class="container show__purchase" id="show__purchase">
+        {% include "purchase/_purchaseCheckoutResponsive.html.twig" %}
+    </div>
+
+    <main class="container mt-4">
         <div class="row d-flex">
-            <section class="col-7">
-                <div class="cart__checkout_title d-flex justify-content-evenly">
+            <section class="col col-sm-12 col-md-12 col-lg-7">
+                <div class="cart__checkout_title d-flex flex-md-column flex-lg-row justify-content-evenly mb-2">
                     {#  File d'ariane #}
-                    <div class="container mt-4">
+                    <div class="container mt-4 p-0">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ path('cart_show') }}" class="text-decoration-none">
@@ -58,7 +68,7 @@
                             <i class="fa-solid fa-arrow-left me-3"></i>
                             Revenir au panier
                         </a>
-                        <button type="submit" class="btn btn-warning">Continuer vers la livraison</button>
+                        <button type="submit" class="btn__shop btn__style w-50">Continuer vers la livraison</button>
                     </div>
 
                     {{ form_end(form) }}
@@ -66,7 +76,7 @@
                 
             </section>
 
-            <aside class="col-5 cart__checkout_split cart__purchase_details">
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details">
                 <div class="h-50 overflow-auto">
                     {% for item in items %}
                         <div class="d-flex position-relative">
@@ -106,4 +116,17 @@
     
     </main>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+
+        let btnShowPurchase = document.getElementById('btn__show_purchase');
+        let showPurchase = document.getElementById('show__purchase');
+
+        btnShowPurchase.addEventListener('click', () => {
+            showPurchase.classList.toggle('show__purchase_md');
+        })
+
+    </script>
 {% endblock %}

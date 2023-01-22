@@ -4,12 +4,19 @@
 
 {% block body %}
 
-    <main class="container mt-5">
+    <div class="container container__tablette mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home_index') }}" class="text-decoration-none">Accueil</a></li>
+            <li class="breadcrumb-item active">Panier</li>
+        </ol>
+    </div>
+
+    <main class="container container__tablette mt-3">
     
+        {% if items | length > 0 %}
+
         <h1>Votre panier</h1>
         <div class="underline_title mb-4"></div>
-
-        {% if items | length > 0 %}
 
             <table class="table">
                 <thead class="table-dark">
@@ -35,7 +42,7 @@
                                 {{ item.product.price | number_format(2) }}€
                             </td>
                             <td>
-                                <div class="border border-dark d-flex justify-content-around w-50 px-2 py-2">
+                                <div class="border border-dark d-flex justify-content-around w-md-100 w-lg-50 px-2 py-2">
                                     <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="text-decoration-none me-2" >
                                         <i class="fa-solid fa-minus fa-sm"></i>
                                     </a>
@@ -87,12 +94,15 @@
                     </a>
                 </div>
                 <div class="">
-                    <a href="{{ path('purchase_confirm') }}" class="btn btn-warning">Acheter</a>
+                    <a href="{{ path('purchase_confirm') }}" class="btn__shop btn__style">Acheter</a>
                 </div>
             </div>
         
         {% else %}
-            <h2 class="fs-4">Le panier est vide !</h2>
+        <div class="text-center mt-5">
+            <h2 class="fs-4 mb-5">Votre panier est vide !</h2>
+            <a href="{{ path('product_shop') }}" class="btn__back text-decoration-none d-inline-block w-50">Continuer votre shopping</a>
+        </div>
 
         {% endif %}
 
