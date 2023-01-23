@@ -16,7 +16,7 @@
     <main class="container container__tablette mt-4">
         <div class="row">
             <aside class="col col-md-12 col-lg-2 col-md-12 border border-light rounded p-4 border-opacity-50 text-center profil__account_aside">
-                <div class="d-flex flex-md-row flex-lg-column justify-content-between">
+                <div class="profil__aside_content">
                     <div>
                         <h1 class="fs-5 text-capitalize mb-2">Bonjour,<br>{{ app.user.firstname }} <span class="text-uppercase">{{ app.user.lastname }}</span></h1>
                         <p class="mb-2 text-primary">{{ app.user.email }}</p>
@@ -33,45 +33,52 @@
                     </div>
                 </div>
             </aside>
-            <div class="col col-lg-1"></div>
+            {# <div class="col col-lg-1"></div> #}
             <div class="col col-md-12 col-lg-9 profil__account_dashboard">
                 <h1 class="text-center mb-3 profil__account_title">Le Dashboard de {{ app.user.firstname }}</h1>
-                <h2 class="fs-6 ms-4">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
+                <h2 class="fs-6 ms-2">Bienvenue dans votre tableau de bord client. Vous trouverez ici les commandes que vous avez passées</h2>
                 <hr class="mb-4">
 
                 {% if purchases | length > 0 %}
-                    <table class="table table-striped table-bordered">
-                        <thead class="text-primary">
-                            <tr>
-                                <th>Numéro</th>
-                                <th>Adresse</th>
-                                <th>Date de commande</th>
-                                <th>Produit(s)</th>
-                                <th>Total*</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for p in purchases %}
-                                {% if p.status is same as 'PAID' %}
-                                    <tr>
-                                        <td>#{{ p.id }}</td>
-                                        <td>{{ p.address }}<br/> {{ p.postalCode }}, {{ p.city }}</td>
-                                        <td>{{ p.purchasedAt | date('d/m/y H:i') }}</td>
-                                        <td>
-                                            <ul>
-                                                {% for item in p.purchaseItems %}
-                                                    <li>
-                                                        {{ item.quantity }}x {{ item.productName }} ({{ (item.quantity * item.productPrice) | number_format(2) }}€)
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </td>
-                                        <td>{{ p.total  | number_format(2) }}€</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
+
+                    <div class="row">
+                        <div class="col col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th>Numéro</th>
+                                            <th>Adresse</th>
+                                            <th>Date de commande</th>
+                                            <th>Produit(s)</th>
+                                            <th>Total*</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in purchases %}
+                                            {% if p.status is same as 'PAID' %}
+                                                <tr>
+                                                    <td>#{{ p.id }}</td>
+                                                    <td>{{ p.address }}<br/> {{ p.postalCode }}, {{ p.city }}</td>
+                                                    <td>{{ p.purchasedAt | date('d/m/y H:i') }}</td>
+                                                    <td>
+                                                        <ul>
+                                                            {% for item in p.purchaseItems %}
+                                                                <li>
+                                                                    {{ item.quantity }}x {{ item.productName }} ({{ (item.quantity * item.productPrice) | number_format(2) }}€)
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </td>
+                                                    <td>{{ p.total  | number_format(2) }}€</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 <span>* frais de livraison inclus </span>
                 {% else %}
                     <h2 class="ms-4 fs-5 text-capitalize">Vous n'avez pas encore passé une commande !</h2>

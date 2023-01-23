@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <div class="pt-4 pb-2 d-flex justify-content-around align-items-center d-lg-none bg-light">
+    <div class="pt-4 pb-2 bg-light details__purchase_responsive">
         <button id="btn__show_purchase" class="btn__back">Montrez ma commande v</button>
         <div>{{ total | number_format(2) }}€</div>
     </div>
@@ -18,7 +18,7 @@
     <main class="container mt-4">
         <div class="row d-flex">
             <section class="col col-sm-12 col-md-12 col-lg-7">
-                <div class="cart__checkout_title d-flex flex-md-column flex-lg-row justify-content-evenly mb-2">
+                <div class="cart__checkout_title mb-2">
                     {#  File d'ariane #}
                     <div class="container mt-4 p-0">
                         <ol class="breadcrumb">
@@ -45,14 +45,14 @@
                         </ol>
                     </div>
                 
-                    <h1 class="fs-4 mb-5 me-5">
+                    <h1 class="fs-4 mb-5 me-2">
                         Coordonnées & <br/>adresse de livraison
                         <div class="underline_title"></div>
                     </h1>
                 </div>
     
 
-                <div class="me-5">
+                <div class="cart__confirmation">
                     {{ form_start(form) }}
                     
                     {{ form_row(form.email) }}
@@ -63,12 +63,12 @@
                     {{ form_row(form.city) }}
                     {{ form_row(form.phoneNumber) }}
                 
-                    <div class="d-flex justify-content-between mt-5">
-                        <a href="{{ path('cart_show') }}" class="btn btn-dark">
+                    <div class="d-flex flex-wrap-reverse justify-content-between mt-5">
+                        <a href="{{ path('cart_show') }}" class="btn__color btn__style">
                             <i class="fa-solid fa-arrow-left me-3"></i>
                             Revenir au panier
                         </a>
-                        <button type="submit" class="btn__shop btn__style w-50">Continuer vers la livraison</button>
+                        <button type="submit" class="btn__shop btn__style">Continuer vers la livraison</button>
                     </div>
 
                     {{ form_end(form) }}
@@ -76,7 +76,7 @@
                 
             </section>
 
-            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details">
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-lg-block cart__checkout_split cart__purchase_details hide__purchase">
                 <div class="h-50 overflow-auto">
                     {% for item in items %}
                         <div class="d-flex position-relative">

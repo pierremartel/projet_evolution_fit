@@ -18,9 +18,9 @@
     <main class="container mt-4">
         <div class="row d-flex">
             <section class="col col-sm-12 col-md-12 col-lg-7">
-                <div class="cart__checkout_title d-flex flex-md-column flex-lg-row justify-content-evenly mb-2">
+                <div class="cart__checkout_title mb-2">
                     {#  File d'ariane #}
-                    <div class="container mt-4 p-0">
+                    <div class="container mt-4 mb-3 p-0">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ path('cart_show') }}" class="text-decoration-none">
@@ -52,21 +52,29 @@
                 </div>
 
                 {# Rappel Coordonées #}
-                <div class="border border-dark border-opacity-50 w-75 rounded mb-5">
-                    <table class="table mb-0 ">
-                        <tbody>
-                            <tr>
-                                <td>Contact</td>
-                                <td>{{ purchase.email }}</td>
-                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
-                            </tr>
-                            <tr>
-                                <td>Expédier à</td>
-                                <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
-                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="border border-dark border-opacity-50 w-100 rounded mb-5">
+                    <div class="row">
+                        <div class="col col-lg-12">
+                
+                            <div class="table-responsive">
+                                <table class="table mb-0 ">
+                                    <tbody>
+                                        <tr>
+                                            <td>Contact</td>
+                                            <td>{{ purchase.email }}</td>
+                                            <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expédier à</td>
+                                            <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
+                                            <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <hr>
@@ -78,19 +86,19 @@
                     <div class="border border-dark border-opacity-50 rounded p-3 mb-3">
                         {{ form_widget(form)}}
                     </div>
-                    <div class="d-flex justify-content-between mt-5">
-                        <a href="{{ path('purchase_confirm') }}" class="btn btn-dark">
+                    <div class="d-flex flex-wrap-reverse justify-content-between mt-5">
+                        <a href="{{ path('purchase_confirm') }}" class="btn__color btn__style">
                             <i class="fa-solid fa-arrow-left me-3"></i>
                                 Revenir aux informations
                         </a>
-                        <button type="submit" class="btn__shop btn__style w-50">Continuer vers le paiement</button>
+                        <button type="submit" class="btn__shop btn__style">Continuer vers le paiement</button>
                     </div>
 
                 {{ form_end(form) }}
                 
             </section>
 
-            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details">
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details hide__purchase">
                 <div class="h-50 overflow-auto">
                     {% for item in items %}
                         <div class="d-flex position-relative">

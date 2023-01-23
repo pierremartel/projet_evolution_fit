@@ -24,7 +24,7 @@
         </ol>
     </div>
 
-    <main class="container d-flex flex-md-column flex-lg-row">  
+    <main class="container main__show_responsive">  
         <div class="">
             <div class="position-relative">
                 <img src="{{asset('uploads/images/') ~ product.picture }}" class="show__picture" alt="{{ product.name }}">
@@ -34,17 +34,6 @@
                     <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Soldes</span>
                 {% endif %}
             </div>
-            {# <div class="row">
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-                <div class="col-4 mt-3">
-                    <img src="../../Assets/img/pic_12.jpg" width="215px" height="330px" alt="Nom du produit">
-                </div>
-            </div> #}
         </div>
         <section class="product__show_details">
             <h1>{{ product.name }}</h1>
@@ -60,7 +49,7 @@
             </span>
 
             <div class="mt-5">
-                <div class="show__product_size d-flex justify-content-between">
+                <div class="show__product_size">
                     <p>Sélectionner une taille</p>
                     <a id="size_guide">Guide des tailles</a>
                     <div id="show_guide">

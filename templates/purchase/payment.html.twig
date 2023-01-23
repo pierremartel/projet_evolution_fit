@@ -20,7 +20,7 @@
             <section class="col col-sm-12 col-md-12 col-lg-7">
                 <div class="cart__checkout_title d-flex flex-md-column flex-lg-row justify-content-evenly mb-2">
                     {#  File d'ariane #}
-                    <div class="container mt-4 p-0">
+                    <div class="container mt-4 mb-3 p-0">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ path('cart_show') }}" class="text-decoration-none">
@@ -52,26 +52,32 @@
                 </div>
 
                 {# Rappel Coordonées #}
-                <div class="border border-dark border-opacity-50 w-75 rounded mb-5">
-                    <table class="table mb-0 ">
-                        <tbody>
-                            <tr>
-                                <td>Contact</td>
-                                <td>{{ purchase.email }}</td>
-                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
-                            </tr>
-                            <tr>
-                                <td>Expédier à</td>
-                                <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
-                                <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
-                            </tr>
-                            <tr>
-                                <td>Méthode</td>
-                                <td>{{ purchase.purchaseShipping.name }}, {{ purchase.purchaseShipping.price }} €</td>
-                                <td><a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="text-decoration-none">Modifier</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="border border-dark border-opacity-50 w-100 rounded mb-5">
+                    <div class="row">
+                        <div class="col col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table mb-0 ">
+                                    <tbody>
+                                        <tr>
+                                            <td>Contact</td>
+                                            <td>{{ purchase.email }}</td>
+                                            <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expédier à</td>
+                                            <td>{{ purchase.address }}, {{ purchase.postalCode }} {{ purchase.city }}</td>
+                                            <td><a href="{{ path('purchase_confirm') }}" class="text-decoration-none">Modifier</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Méthode</td>
+                                            <td>{{ purchase.purchaseShipping.name }}, {{ purchase.purchaseShipping.price }} €</td>
+                                            <td><a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="text-decoration-none">Modifier</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <p class="fs-5 mb-3">Toutes les transactions sont sécurisées et chiffrées.</p>
@@ -81,12 +87,12 @@
                     <div id="payment-element" class="mb-5">
                         <!--Stripe.js injects the Payment Element-->
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="btn btn-dark">
+                    <div class="d-flex flex-wrap-reverse justify-content-between">
+                        <a href="{{ path('purchase_shipping_method', {'id':purchase.id}) }}" class="btn__color btn__style">
                             <i class="fa-solid fa-arrow-left me-3"></i>
                             Revenir à l'expédition
                         </a>
-                        <button id="submit" class="btn__shop btn__style w-50">
+                        <button id="submit" class="btn__shop btn__style">
                             <div class="spinner hidden" id="spinner"></div>
                             <span id="button-text">Payer maintenant !</span>
                         </button>
@@ -96,7 +102,7 @@
                 
             </section>
 
-            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details">
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-sm-none d-lg-block cart__checkout_split cart__purchase_details hide__purchase">
                 <div class="h-50 overflow-auto">
                     {% for item in items %}
                         <div class="d-flex position-relative">

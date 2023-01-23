@@ -1,7 +1,7 @@
 <aside class="col col-sm-12 col-md-12 col-lg-5 cart__checkout_split cart__purchase_details">
     <div class="h-50 overflow-auto">
         {% for item in items %}
-            <div class="d-flex position-relative">
+            <div class="d-flex flex-wrap position-relative">
                 <div class="position-relative me-4 mb-3">
                     <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="{{item.product.name}}" class="admin__main_picture">
                     <span class="position-absolute top-0 start-0 bg-primary opacity-50 text-light fs-5">{{ item.qty }}</span>
