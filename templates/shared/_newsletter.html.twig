@@ -1,14 +1,17 @@
-<div class="container-fluid home__newsletter bg-primary p-4">
-    <div class="home__newsletter_card d-flex justify-content-center align-items-center ">
-        <div class="home__newsletter_content mx-4">
-            <h3 class="text-light">Newsletter</h3>
-            <p>Pour recevoir des offres exclusives,<br/>nos dernières produits et plus encore</p>
+<div class="container-fluid home__newsletter bg-primary py-5">
+    <div class="home__newsletter_card d-flex flex-column justify-content-center align-items-center text-center">
+        <div class="home__newsletter_content">
+            <h3 class="text-light fs-2">Souscrire à notre newsletter</h3>
+            <p class="text-light">Pour recevoir des offres exclusives,<br/>nos dernières produits et plus encore</p>
         </div>
         <div class="home__newsletter_subscription">
-            <input type="text" name="" id="" class="p-2">
-            <a href="" class="btn btn-primary">
-                <i class="fa-solid fa-paper-plane"></i>
-            </a>
+            <form action="" method="post">
+                <input type="text" name="email" id="email" class="p-2" placeholder="Entrez votre adresse email">
+                <button type="submit" class="btn fw-bold btn__newsletter">
+                    <i class="fa-solid fa-paper-plane text-light"></i>
+                    S'incrire
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -1,0 +1,132 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Coordonnées & Adresse de livraison
+{% endblock %}
+
+{% block body %}
+
+    <div class="pt-4 pb-2 bg-light details__purchase_responsive">
+        <button id="btn__show_purchase" class="btn__back">Montrez ma commande v</button>
+        <div>{{ total | number_format(2) }}€</div>
+    </div>
+
+    <div class="container show__purchase" id="show__purchase">
+        {% include "purchase/_purchaseCheckoutResponsive.html.twig" %}
+    </div>
+
+    <main class="container mt-4">
+        <div class="row d-flex">
+            <section class="col col-sm-12 col-md-12 col-lg-7">
+                <div class="cart__checkout_title mb-2">
+                    {#  File d'ariane #}
+                    <div class="container mt-4 p-0">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('cart_show') }}" class="text-decoration-none">
+                                    Panier
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="#" class="breadcrumb-item active text-decoration-none">
+                                    Adresse
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-decoration-none">
+                                    Livraison
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-decoration-none">
+                                    Paiement
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                
+                    <h1 class="fs-4 mb-5 me-2">
+                        Coordonnées & <br/>adresse de livraison
+                        <div class="underline_title"></div>
+                    </h1>
+                </div>
+    
+
+                <div class="cart__confirmation">
+                    {{ form_start(form) }}
+                    
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.lastname) }}
+                    {{ form_row(form.firstname) }}
+                    {{ form_row(form.address) }}
+                    {{ form_row(form.postalCode) }}
+                    {{ form_row(form.city) }}
+                    {{ form_row(form.phoneNumber) }}
+                
+                    <div class="d-flex flex-wrap-reverse justify-content-between mt-5">
+                        <a href="{{ path('cart_show') }}" class="btn__color btn__style">
+                            <i class="fa-solid fa-arrow-left me-3"></i>
+                            Revenir au panier
+                        </a>
+                        <button type="submit" class="btn__shop btn__style">Continuer vers la livraison</button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+                
+            </section>
+
+            <aside class="col col-sm-12 col-md-12 col-lg-5 d-lg-block cart__checkout_split cart__purchase_details hide__purchase">
+                <div class="h-50 overflow-auto">
+                    {% for item in items %}
+                        <div class="d-flex position-relative">
+                            <div class="position-relative me-4 mb-3">
+                                <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="{{item.product.name}}" class="admin__main_picture">
+                                <span class="position-absolute top-0 start-0 bg-primary opacity-50 text-light fs-5">{{ item.qty }}</span>
+                            </div>
+                            <div class="">
+                                <p>{{ item.product.name }}</p>
+                                <p>Taille: {{ item.size }}</p>
+                            </div>
+                            <div class="position-absolute top-0 end-0">
+                                <p>{{ (item.qty * item.product.price) | number_format(2) }}€</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <p>Subtotal</p>
+                        <p class="fw-bold text-primary">{{ total | number_format(2) }} €</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Livraison</p>
+                        <p>Calculer à l'étape suivante</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold text-primary">
+                    <p>Total</p>
+                    <p>{{ total | number_format(2) }} €</p>
+                </div>
+
+            </aside>
+        </div>
+    
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+
+        let btnShowPurchase = document.getElementById('btn__show_purchase');
+        let showPurchase = document.getElementById('show__purchase');
+
+        btnShowPurchase.addEventListener('click', () => {
+            showPurchase.classList.toggle('show__purchase_md');
+        })
+
+    </script>
+{% endblock %}

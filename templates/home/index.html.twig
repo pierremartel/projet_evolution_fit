@@ -5,101 +5,67 @@
 {% block body %}
 
     <header class="home__header">
-        <div class="container-fluid">
-            <img class="home__banner_picture" src="./assets/img/banner.jpg" alt="Photo de la baniere" >
-        </div>
-        <a href="" class="btn btn-dark home__header_btn p-4 ">Découvrez notre boutique</a>
+        {% include 'home/_carousel_banner.html.twig' %}
+        <a href="{{ path('product_shop')}} " class="home__header_btn ">Découvrez notre boutique</a>
     </header>
-    <main class="home__main mt-5">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col m-4 p-0">
+    <main class="home__main mt-5 ">
+        <div class="container container__tablette container__mobile text-center">
+            <div class="home__main_categorie">
+                {% for c in categoryRepository.findAll() %}
+                <div class="m-4 p-0 ">
                     <div class="home__main_content rounded">
-                        <a href="">
-                            <img src="./assets/img/pic_1.jpg" alt="photo d'un t-shirt" class="home__main_picture">
-                            <p class="fs-2 text-white ">Catalogue Homme</p>
-                            <button class="btn btn-outline-info p-2 border rounded-2">Voir</button>
+                        <a href="{{ path('product_category', {'category':c.name, 'slug':c.slug}) }}">
+                            <img src="{{ asset('/uploads/categoryImage/' ~ c.picture) }}" alt="Catégorie {{c.name}}" class="home__main_picture">
+                            <p class="fs-2 text-white ">{{ c.name }}</p>
+                            <button class="btn btn-light p-2 border rounded-2">Voir</button>
                         </a>
                     </div> 
                 </div>
-                <div class="col m-4 p-0">
-                    <div class="home__main_content rounded">
-                        <a href="">
-                            <img src="./assets/img/pic_2.jpg" alt="photo d'un t-shirt" class="home__main_picture">
-                            <p class="fs-2 text-white ">Catalogue Femme</p>
-                            <button class="btn btn-outline-danger p-2 border rounded-2">Voir</button>
-                        </a>
-                    </div> 
-                </div>
-                <div class="col m-4 p-0">
-                    <div class="home__main_content rounded">
-                        <a href="">
-                            <img src="./assets/img/pic_3.jpg" alt="photo d'un t-shirt" class="home__main_picture">
-                            <p class="fs-2 text-white ">Catalogue Accesoires</p>
-                            <button class="btn btn-outline-warning p-2 border rounded-2">Voir</button>
-                        </a>
-                    </div> 
-                </div>
+                {% endfor %}
             </div>
         </div>
     </main>
     <section class="home__section">
-        <div class="container">
+        <div class="container container__tablette">
             <div class="home__section_title mt-5 mb-3">
-                <h1>Nos Nouveautés</h1>
-                <a href=""><h2 class="fs-5">Voir plus</h2></a>
+                <h1 class="text-capitalize">Nouveautés
+                    <div class="underline_title"></div>
+                </h1>
+                <a href="{{ path('product_news') }}"><span class="fs-5">Voir tout</span></a>
             </div>
+            
             <div class="row">
-                <div class="col col-xl-3">
-                    <a href="" class="text-decoration-none">
-                        <img src="./assets/img/pic_13.jpg" alt="photo d'un produit" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">T-shirt | Blanc</h3>
-                        <p class="text-dark">24,95€</p>
+                {% for p in products %}
+                <div class="col col-sm-12 col-md-4 col-lg-3">
+                    <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
+                        <img src="{{ asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
+                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">{{ p.name }}</h3>
+                        <p class="text-dark">{{ p.price |number_format(2) }}€</p>
                     </a>
                 </div>
-                <div class="col col-xl-3">
-                    <a href="" class="text-decoration-none">
-                        <img src="./assets/img/pic_12.jpg" alt="photo d'un produit" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">T-shirt | Blanc</h3>
-                        <p class="text-dark">24,95€</p>
-                    </a>
-                </div>
-                <div class="col col-xl-3">
-                    <a href="" class="text-decoration-none">
-                        <img src="./assets/img/pic_9.jpg" alt="photo d'un produit" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">T-shirt | Blanc</h3>
-                        <p class="text-dark">24,95€</p>
-                    </a>
-                </div>
-                <div class="col col-xl-3">
-                    <a href="" class="text-decoration-none">
-                        <img src="./assets/img/pic_14.jpg" alt="photo d'un produit" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">T-shirt | Blanc</h3>
-                        <p class="text-dark">24,95€</p>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
-    <div class="container home__assurance my-5 bg-light">
+    <div class="container container__tablette home__assurance my-5 ">
         <div class="row">
-            <div class="col col-4 d-flex flex-column align-items-center position-relative">
+            <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
                 <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
-                <h3>Satisfait ou Remboursé</h3>
+                <h3 >Satisfait ou <br>Remboursé</h3>
                 <i class="fa-solid fa-thumbs-up fa-2x home__assurance_icon"></i>
-                <p>30 jours pour nous retourner <br/> si celà ne vous convient pas</p>
+                <p >30 jours pour nous retourner <br/> si celà ne vous convient pas</p>
             </div>
-            <div class="col col-4 d-flex flex-column align-items-center position-relative">
+            <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
                 <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
-                <h3>Livraison Express</h3>
+                <h3 >Livraison Express</h3>
                 <i class="fa-solid fa-truck fa-2x home__assurance_icon"></i>
-                <p>Livraison chez vous <br/> ou en Click & Collect</p>
+                <p >Livraison chez vous <br/> ou en Click & Collect</p>
             </div>
-            <div class="col col-4 d-flex flex-column align-items-center position-relative">
+            <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
                 <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
-                <h3>Paiement Sécurisé</h3>
+                <h3 >Paiement Sécurisé</h3>
                 <i class="fa-solid fa-credit-card fa-2x home__assurance_icon"></i>
-                <p>Régler vos commandes <br/> en toute sérénité</p>
+                <p >Régler vos commandes <br/> en toute sérénité</p>
             </div>
         </div>
     </div>

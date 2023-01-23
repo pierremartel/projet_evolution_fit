@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+
+    <div class="container container__tablette mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home_index') }}" class="text-decoration-none">Accueil</a></li>
+            <li class="breadcrumb-item active">Panier</li>
+        </ol>
+    </div>
+
+    <main class="container container__tablette mt-3">
+    
+        {% if items | length > 0 %}
+
+        <h1>Votre panier</h1>
+        <div class="underline_title mb-4"></div>
+        <div class="row">
+            <div class="col col-lg-12">
+            
+                <div class="table-responsive"> 
+                <table class="table ">
+                    <thead class="table-dark table__responsive">
+                        <tr>
+                            <th>Produit</th>
+                            <th></th>
+                            <th>Quantité</th>
+                            <th>SubTotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('product_show', {'id':item.product.id, 'slug':item.product.slug, 'category':item.product.category.slug}) }}">
+                                        <img src="{{asset('uploads/images/') ~ item.product.picture }}" alt="" class="cart__main_picture">
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ item.product.name }}</br>
+                                    Taille: {{ item.size }}</br>
+                                    {{ item.product.price | number_format(2) }}€
+                                </td>
+                                <td>
+                                    <div class="border border-dark d-flex justify-content-around w-md-100 w-lg-50 px-2 py-2">
+                                        <a href="{{ path('cart_decrement', {'id':item.product.id, 'size':item.size}) }}" class="text-decoration-none me-2" >
+                                            <i class="fa-solid fa-minus fa-sm"></i>
+                                        </a>
+                                        <p class="mb-0 fs-5">{{ item.qty }}</p>
+                                        <a href="{{ path('cart_add', {'id':item.product.id, 'size':item.size}) }}" class="text-decoration-none ms-2" >
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>{{ (item.qty * item.product.price) |number_format(2) }}€</td>
+                                {# <td>
+                                    <a href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}"><i class="fa-solid fa-xmark fa-xl"></i></a>
+                                </td> #}
+                                <td class="box b1 d-inline-block p-3">
+                                    <a class="container-ligne" href="{{ path('cart_delete', {'id':item.product.id, 'size':item.size}) }}">
+                                        <div class="ligne bg-dark"></div>
+                                        <div class="ligne bg-dark"></div>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>Total :</td>
+                            <td>{{ total |number_format(2) }}€</td>
+                        </tr>
+                    </tfoot>
+                
+                </table>
+            </div>
+
+            </div>
+        </div>
+        
+            <div class="mt-4 mb-5">
+                <div class="d-flex">
+                    <i class="fa-brands fa-apple-pay fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-paypal fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-visa fa-2xl me-3"></i>
+                    <i class="fa-brands fa-cc-amex fa-2xl"></i>
+                </div>
+                <div class="mt-4">
+                    <p>Livraison offerte dès 59€ d'achat en France Métropolitaine</p>
+                </div>
+            </div>
+            <div class="cart__button">
+                <div>
+                    <a href="{{ path('home_index') }}" class="btn__color btn__style">
+                        <i class="fa-solid fa-arrow-left me-3"></i>
+                        Continuer vos achats
+                    </a>
+                </div>
+                <div class="cart__button_buy">
+                    <a href="{{ path('purchase_confirm') }}" class="btn__shop btn__style">Acheter</a>
+                </div>
+            </div>
+        
+        {% else %}
+        <div class="text-center mt-5">
+            <h2 class="fs-4 mb-5">Votre panier est vide !</h2>
+            <a href="{{ path('product_shop') }}" class="btn__back btn__style text-decoration-none d-inline-block w-50">Continuer votre shopping</a>
+        </div>
+
+        {% endif %}
+
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+     const boxes = document.querySelectorAll(".box");
+     {# console.log(boxes); #}
+
+    boxes.forEach(box => {
+
+        box.addEventListener("mouseover", e => {
+        e.target.classList.add('active');
+        e.target.classList.remove('unactive');
+        } )
+        box.addEventListener("mouseleave", e => {
+            e.target.classList.remove('active');
+            e.target.classList.add('unactive');
+        } )
+    })
+
+    
+    
+    </script>
+{% endblock %}

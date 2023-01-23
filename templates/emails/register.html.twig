@@ -1,0 +1,7 @@
+<h1>Activation de votre compte</h1>
+<p>Bonjour {{ user.firstname }}, </p>
+<p>Un compte a été crée à votre nom</p>
+<p>Pour activer votre compte, cliquer sur le lien ci-dessous</p>
+<p><a href="{{ absolute_url(path('security_check_user', {token: token})) }}">Activer votre compte</a></p>
+<p>Ce lien expire dans 3 heures</p>
+

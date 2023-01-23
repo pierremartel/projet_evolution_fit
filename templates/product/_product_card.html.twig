@@ -1,0 +1,16 @@
+<div class="shop__card">
+    <div class="shop__card_picture position-relative">
+        <img src="{{asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="shop_picture">
+        {% if p.event == 'Nouveauté' %}
+            <span class="position-absolute top-0 start-0 product_event p-0 text-white">Nouveautés</span>
+        {% elseif p.event == 'Promotion' %}
+            <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Soldes</span>
+        {% endif %}
+    </div>
+    <div class="shop__card_body">
+        <h3 class="shop__card_title fs-5 text-capitalize">{{ p.name }}</h3>
+        <p class="shop__card_price">{{ p.price |number_format(2) }}€</p>
+    </div>
+</div>
+
+

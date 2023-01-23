@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('home_index') }}" class="text-decoration-none">
+                    Accueil
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('product_category', {'slug': product.category.slug}) }}" class="text-decoration-none">
+                    {{ product.category.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                {{ product.name }}
+            </li>
+        </ol>
+    </div>
+
+    <main class="container main__show_responsive">  
+        <div class="">
+            <div class="position-relative">
+                <img src="{{asset('uploads/images/') ~ product.picture }}" class="show__picture" alt="{{ product.name }}">
+                {% if product.event == 'Nouveauté' %}
+                    <span class="position-absolute top-0 start-0 product_event p-0 text-white">Nouveautés</span>
+                {% elseif product.event == 'Promotion' %}
+                    <span class="position-absolute top-0 start-0 bg-warning p-1 text-white">Soldes</span>
+                {% endif %}
+            </div>
+        </div>
+        <section class="product__show_details">
+            <h1>{{ product.name }}</h1>
+            <h2>{{ product.price }}€</h2>
+            <span class="d-flex">
+                {% if product.status %}
+                    <i class="fa-solid fa-circle text-success product__show_status"></i>
+                    <p class="ms-2 fw-bold">En stock</p>
+                {% else %}
+                    <i class="fa-solid fa-circle text-danger product__show_status"></i>
+                    <p class="ms-2 fw-bold">Epuisé</p>
+                {% endif %}
+            </span>
+
+            <div class="mt-5">
+                <div class="show__product_size">
+                    <p>Sélectionner une taille</p>
+                    <a id="size_guide">Guide des tailles</a>
+                    <div id="show_guide">
+                        <img src="../../Assets/img/guide_taille.png" class="show__modal" alt="Guide des tailles">
+                        <i class="fa-solid fa-xmark fa-xl position-absolute" id="closed_guide"></i>
+                    </div>
+
+                </div>
+                    {{ form_start(form) }}
+                        <div class="d-flex product__show_size">
+                            {{ form_row(form.size) }}
+                        </div>
+                        
+                        {# <button class="btn btn-outline-dark">{{ productAttr.productSize.size }}</button> #}
+                        {# <input type="radio" name="size" id="size_{{ productAttr.productSize.size }}" value="{{ productAttr.productSize.size }}" class="product__select_size available">
+                        <label for="size_{{ productAttr.productSize.size }}">{{ productAttr.productSize.size }}</label> #}
+                        {# {% else %} #}
+                        {# <button class="btn btn-outline-dark disabled">{{ productAttr.productSize.size }}</button> #}
+                        {# <input type="radio" name="size" id="size_{{ productAttr.productSize.size }}" value="{{ productAttr.productSize.size }}" class="product__select_size">
+                        <label for="size_{{ productAttr.productSize.size }}" class="unavailable" >{{ productAttr.productSize.size }}</label> #}
+                        {# {% endif %} #}
+                    {# {% endfor %} #}
+            </div>
+            <button type="submit" class="btn__shop btn__style mt-5 d-block fs-5" id="change_size">
+                Selectionner une taille
+            </button>
+            {{ form_end(form) }}
+            <p class="mt-5">Description</p>
+            <p>{{ product.description }}</p>
+
+        </section>
+    </main>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        let sizes = document.getElementsByName('choice_attr[size]');
+        let checks = document.getElementsByClassName('form-check-label');
+        let btn = document.getElementById("change_size");
+        let sizeGuide = document.getElementById("size_guide");
+        let showGuide = document.getElementById("show_guide");
+        let closedGuide = document.getElementById("closed_guide");
+
+        {# console.log(btn);
+        console.log(checks); #}
+        {# console.log(sizes); #}
+
+        //for($i = 0; $i < checks.length; $i++){ 
+            //checks[$i].addEventListener("click", function(e){
+                //console.log(e.srcElement.classList[2] == "select_size");
+                //console.log(checks);
+               // if(e.target ){
+                    //e.target.classList.add("select__size");
+                //}else{
+                    //e.target.classList.remove("select__size");
+                //}
+            //})
+        //}
+
+
+        {# Modification du texte du boutton lors de la sélection de la taille #}
+         for(size of sizes){
+            size.addEventListener("click", function(e){ 
+                btn.childNodes[0].nodeValue = " + Ajouter au panier";
+            })
+         }
+
+        {# Modal Guide des tailles #}
+         sizeGuide.addEventListener("click", function(e){
+            showGuide.style.display = "block";
+         })
+         closedGuide.addEventListener("click", function(e){
+            showGuide.style.display = "none";
+         })
+        
+    </script>
+{% endblock %}
