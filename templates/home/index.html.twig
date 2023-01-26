@@ -45,7 +45,7 @@
                 </div> #}
                 <div class="me-3">
                     <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
-                        <img src="{{ asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
+                        <img src="{{ asset('./uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
                         <h3 class="mt-3 mb-2 text-uppercase fs-5 ">{{ p.name }}</h3>
                         <p class="text-dark">{{ p.price |number_format(2) }}€</p>
                     </a>
@@ -58,19 +58,19 @@
     <div class="container container__tablette home__assurance my-5 ">
         <div class="row">
             <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
-                <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
+                <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo">
                 <h3 >Satisfait ou <br>Remboursé</h3>
                 <i class="fa-solid fa-thumbs-up fa-2x home__assurance_icon"></i>
                 <p >30 jours pour nous retourner <br/> si celà ne vous convient pas</p>
             </div>
             <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
-                <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
+                <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo">
                 <h3 >Livraison Express</h3>
                 <i class="fa-solid fa-truck fa-2x home__assurance_icon"></i>
                 <p >Livraison chez vous <br/> ou en Click & Collect</p>
             </div>
             <div class="col col-sm-12 col-md-4 col-lg-4 d-flex flex-column align-items-center position-relative">
-                <img src="./assets/img/assurance.jpg" alt="logo assurance" class="home__assurance_logo">
+                <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo">
                 <h3 >Paiement Sécurisé</h3>
                 <i class="fa-solid fa-credit-card fa-2x home__assurance_icon"></i>
                 <p >Régler vos commandes <br/> en toute sérénité</p>
