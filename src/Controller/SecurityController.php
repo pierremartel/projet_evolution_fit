@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
     public function registration(Request $request, UserPasswordHasherInterface $passwordHasher)
     {
         $user = new User(); 
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         date_default_timezone_set('Europe/Paris');
         
         $form = $this->createForm(RegistrationType::class, $user);
