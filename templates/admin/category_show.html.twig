@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des catégories{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'admin/_navDashboard.html.twig' %}
+            
+            <main class="col-9 p-5 admin__main">
+                <div class="d-flex justify-content-between">
+                    <h1>Catégories</h1>
+                    <a href="{{ path('admin_category_create') }}" class="btn btn-outline-success">
+                        <i class="fa-regular fa-plus"></i>
+                    Ajouter une catégorie
+                    </a>
+                </div>
+
+                {# TABLES #}
+
+                <table class="table table-striped mt-5 bg-white">
+                    <thead class="table-dark ">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Image</th>
+                            <th scope="col" >Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in categories %}
+                        <tr>
+                            <td>{{ c.name }}</td>
+                            <td>
+                                <a>
+                                    <img src="{{ asset('uploads/images/') ~ c.picture }}" alt="{{ c.name }}" class="admin__main_picture">
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-success p-1 border rounded-2" id="btn_e">Editer</a>
+                                <a class="btn btn-info p-1 border rounded-2" id="btn_d">Désactiver</a>
+                                <a class="btn btn-danger p-1 border rounded-2" id="btn_s">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </main>
+        </div>
+    </div>
+    
+
+{% endblock %}
+

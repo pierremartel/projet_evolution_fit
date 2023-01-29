@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use App\Form\ProductType;
@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-class AdminController extends AbstractController
+class ProductController extends AbstractController
 {
     protected $em;
     protected $productRepository;
