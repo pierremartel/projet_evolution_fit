@@ -21,11 +21,13 @@ final class Version20230126145304 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE product ADD event VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD is_verified TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE product DROP event');
+        $this->addSql('ALTER TABLE user DROP is_verified');
     }
 }
