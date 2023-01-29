@@ -20,7 +20,7 @@ final class Version20230112141445 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user ADD reset_token VARCHAR(150) NOT NULL');
+        $this->addSql('ALTER TABLE user ADD reset_token VARCHAR(150) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
