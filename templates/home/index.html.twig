@@ -15,7 +15,7 @@
                 <div class="p-0 home__main_product">
                     <div class="home__main_content rounded">
                         <a href="{{ path('product_category', {'category':c.name, 'slug':c.slug}) }}">
-                            <img src="{{ asset('/uploads/images/' ~ c.picture) }}" alt="Catégorie {{c.name}}" class="home__main_picture">
+                            <img src="{{ asset('uploads/images/' ~ c.picture) }}" alt="Catégorie {{c.name}}" class="home__main_picture">
                             <p class="fs-2 text-white ">{{ c.name }}</p>
                             <button class="btn btn-light p-2 border rounded-2">Voir</button>
                         </a>
