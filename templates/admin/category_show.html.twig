@@ -33,13 +33,12 @@
                             <td>{{ c.name }}</td>
                             <td>
                                 <a>
-                                    <img src="{{ asset('uploads/images/') ~ c.picture }}" alt="{{ c.name }}" class="admin__main_picture">
+                                    <img src="{{ asset('uploads/images/' ~ c.picture )}}" alt="{{ c.name }}" class="admin__main_picture">
                                 </a>
                             </td>
                             <td>
                                 <a class="btn btn-success p-1 border rounded-2" id="btn_e">Editer</a>
-                                <a class="btn btn-info p-1 border rounded-2" id="btn_d">Désactiver</a>
-                                <a class="btn btn-danger p-1 border rounded-2" id="btn_s">Supprimer</a>
+                                <a href="{{ path('admin_category_delete', {'id': c.id}) }}" class="btn btn-danger p-1 border rounded-2" id="btn_s">Supprimer</a>
                             </td>
                         </tr>
                         {% endfor %}
