@@ -25,11 +25,6 @@ class ProductSize
     private $size;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $status;
-
-    /**
      * @ORM\OneToMany(targetEntity=ProductAttr::class, mappedBy="productSize")
      */
     private $sizes;
@@ -52,18 +47,6 @@ class ProductSize
     public function setSize(string $size): self
     {
         $this->size = $size;
-
-        return $this;
-    }
-
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

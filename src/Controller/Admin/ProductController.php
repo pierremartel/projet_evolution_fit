@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Entity\ProductAttr;
+use App\Entity\ProductSize;
 use App\Form\ProductAttrType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,8 +35,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product", name="admin_product")
      */
-    public function product()
+    public function product(Request $request)
     {
+        // Formulaire d'ajout de taille dans la bdd
+        $productSize = new ProductSize();
+        if($request->request->count() > 0){
+            $size = $request->request->get('size');
+            $productSize->setSize($size);
+            $this->em->persist($productSize);
+            $this->em->flush(); 
+        }
+
         $products = $this->productRepository->findAll();
 
         return $this->render('admin/dashboard.html.twig', [
