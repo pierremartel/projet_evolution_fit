@@ -48,7 +48,7 @@ class ProductController extends AbstractController
 
         $products = $this->productRepository->findAll();
 
-        return $this->render('admin/dashboard.html.twig', [
+        return $this->render('admin/product_show.html.twig', [
             'products' => $products,
         ]);
     }
@@ -112,7 +112,7 @@ class ProductController extends AbstractController
         }
         
 
-        return $this->render('admin/create.html.twig', [
+        return $this->render('admin/product_create.html.twig', [
             'form' => $form->createView(),
             'slugger' => $product->getSlug(),
             'product' => $product
@@ -179,7 +179,7 @@ class ProductController extends AbstractController
             }
         }
 
-        return $this->render('admin/update.html.twig', [
+        return $this->render('admin/product_update.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
             'formProductAttr' => $formProductAttr->createView(),

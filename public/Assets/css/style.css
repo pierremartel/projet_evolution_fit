@@ -79,7 +79,7 @@ body {
 }
 .admin__aside {
     /* background-color:rgb(184, 174, 174); */
-    background-color:rgb(171, 95, 95);
+    /* background-color:rgb(171, 95, 95); */
     box-shadow: 10px 3px 10px rgb(34, 30, 30);
 }
 .admin__main_picture {
