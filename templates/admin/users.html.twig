@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include 'admin/_navDashboard.html.twig' %}
+            
+            <main class="col-9 p-5 admin__main">
+                <div class="border border-2 rounded p-3 shadow-lg w-25 text-center bg-light mb-5">
+                    <h1>
+                        <i class="fa-solid fa-hashtag"></i>
+                        {{ users | length }}
+                    </h1>
+                    <p>Nombre d'utilisateurs</p>
+                </div>
+
+                <section class="d-flex border rounded ">
+                    <div class=" w-75 shadow-lg border rounded">
+                        <table class="table table-striped">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col">Utilisateurs</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"><a href="" class="">Voir tout</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <th>{{ user.firstname }} <span class="text-lowercase">{{ user.lastname }}</span></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-2 py-2 ms-2 text-center h-50 border border-2 rounded bg-info">
+                        <h2 class="fs-5">Nouveaux utilisateurs</h2>
+                        {% for rc in recentUsers %}
+                        <div class="my-3 text-capitalize text-primary">
+                            <span>{{ rc.firstname }}</span>
+                            <span class="fs-6">{{ rc.lastname }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+    
+
+{% endblock %}
+

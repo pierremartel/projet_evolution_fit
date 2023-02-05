@@ -17,6 +17,14 @@
                     </a>
                 </div>
 
+                <form action="{{ path('admin_product') }}" method="post">
+                    <div>
+                        <label for="size">Taille des produits</label>
+                        <input type="text" name="size" id="size">
+                    </div>
+                    <button type="submit" class="btn btn-info">Enregistrer</button>
+                </form>
+
                 {# TABLES #}
 
                 <table class="table table-striped mt-5 bg-white">

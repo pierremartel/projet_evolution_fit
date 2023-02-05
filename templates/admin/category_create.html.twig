@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Création d'une Catégorie
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+    <div class="row">
+        {% include 'admin/_navDashboard.html.twig' %}
+
+        <main class="col-9 p-5 admin__main">
+            <h1>Ajouter une catégorie</h1>
+            <div class="underline_title text-center mb-5"></div>
+                {{ form_start(form) }}
+
+                {{ form_row(form.name) }}
+                {{ form_row(form.picture) }}
+
+                <button type="submit" class="btn btn-success">Ajouter</button>
+
+                {{ form_end(form) }}
+        </main>
+    </div>            
+</div>
+
+{% endblock %}

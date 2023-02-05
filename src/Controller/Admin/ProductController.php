@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Entity\ProductAttr;
+use App\Entity\ProductSize;
 use App\Form\ProductAttrType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-class AdminController extends AbstractController
+class ProductController extends AbstractController
 {
     protected $em;
     protected $productRepository;
@@ -34,11 +35,20 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/product", name="admin_product")
      */
-    public function product()
+    public function product(Request $request)
     {
+        // Formulaire d'ajout de taille dans la bdd
+        $productSize = new ProductSize();
+        if($request->request->count() > 0){
+            $size = $request->request->get('size');
+            $productSize->setSize($size);
+            $this->em->persist($productSize);
+            $this->em->flush(); 
+        }
+
         $products = $this->productRepository->findAll();
 
-        return $this->render('admin/dashboard.html.twig', [
+        return $this->render('admin/product_show.html.twig', [
             'products' => $products,
         ]);
     }
@@ -102,7 +112,7 @@ class AdminController extends AbstractController
         }
         
 
-        return $this->render('admin/create.html.twig', [
+        return $this->render('admin/product_create.html.twig', [
             'form' => $form->createView(),
             'slugger' => $product->getSlug(),
             'product' => $product
@@ -169,7 +179,7 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->render('admin/update.html.twig', [
+        return $this->render('admin/product_update.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
             'formProductAttr' => $formProductAttr->createView(),

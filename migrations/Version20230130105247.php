@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221206145200 extends AbstractMigration
+final class Version20230130105247 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,12 @@ final class Version20221206145200 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE product ADD event VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE user CHANGE newsletter newsletter TINYINT(1) NULL, CHANGE created_at created_at DATETIME NULL');
+        $this->addSql('ALTER TABLE product CHANGE active active TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE product DROP event');
-        $this->addSql('ALTER TABLE user CHANGE newsletter newsletter TINYINT(1) DEFAULT NULL, CHANGE created_at created_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE product CHANGE active active TINYINT(1)  NULL');
     }
 }
