@@ -185,7 +185,7 @@ body {
     top:-140px;
     bottom:0;
     left:200px;
-    background-color: var(--color-4);
+    background-color: var(--color-1);
     color: #fff;
     font-weight: 500;
     text-decoration: none;
@@ -253,22 +253,33 @@ body {
     overflow: hidden;
 }
 
+.home__section_cart {
+    margin-right: 10px;
+}
+
 /* ASSURANCE */
 
 .home__assurance {
     background-color:transparent;
+    display: flex;
+    justify-content:space-around;
+}
+
+.home__assurance_content {
+    width: 250px;
+    text-align: center;
 }
 
 .home__assurance_icon {
     position:absolute;
     top:55px;
-    left:205px;
+    left:110px;
     color: white;
 }
 
 .home__assurance_logo {
     height:150px;
-    width: 150px;
+    width: 100%;
 }
 
 /* FOOTER */
@@ -297,9 +308,15 @@ body {
     justify-content: space-between;
 }
 
+.shop__card {
+    width: 315px;
+    margin: 4px;
+}
+
 .shop_picture {
     height:380px;
-    width:320px;
+    /* width:320px; */
+    width:100%;
 }
 
 .underline_title {
@@ -570,14 +587,15 @@ body {
     height: 900px; 
 }
 
+.security__login, .security__registration {
+    display: flex;
+}
+
 
 
 /*  --------------------- MEDIA QUERIES ------------------------- */
 
 @media screen and (min-width:319px) and (max-width:425px){
-    /* .container__mobile {
-        width:75%;
-    } */
 
     .home__banner_container {
         height:265px;
@@ -592,7 +610,7 @@ body {
 
     .home__main_content {
         height: 320px;
-        width: 250px;
+        width: 85%;
     }
 
     .home__main_picture {
@@ -602,7 +620,12 @@ body {
 
     .home__section_product {
         height: 300px;
-        width: 290px;
+        width: 100%;
+    }
+
+    .home__section_cart {
+        margin-right: 30px;
+        margin-left: 30px;
     }
 
     .home__main_categorie {
@@ -611,14 +634,31 @@ body {
         flex-direction:column;
     }
 
+    .home__assurance {
+        flex-direction:column;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .home__assurance_logo {
+        width: 90%;
+    }
+
     .home__newsletter {
         font-size: 12px;
+    }
+
+    .btn__newsletter {
+        border: #fff 1px solid;
+        border-radius:5px;
+        width: 100%;
+        padding:5px;
+        margin-top:5px;
     }
 
     .home__footer_card {
         flex-direction: column;
         justify-content: center;
-        align-items: center;
     }
 
     .home__footer_copyright {
@@ -648,8 +688,13 @@ body {
     }
 
     .shop_picture {
-        height:340px;
-        width: 290px;
+        height:220px;
+        width: 100%;
+    }
+
+    .shop__card {
+        width: 158px;
+        margin: 8px;
     }
 
     .header__title_filter {
@@ -674,7 +719,7 @@ body {
     }
 
     .show__picture {
-        width: 290px;
+        width: 100%;
         height: 365px;
     }
 
@@ -762,16 +807,24 @@ body {
         font-size:18px;
     }
 
-    .pic__login {
-        width: 300px;
-        height: 420px;
-    }
-    .pic__register {
-        width: 300px;
+    .pic__login, .pic__register {
+        width: 100%;
         height: 420px;
     }
 
+    .security__login, .security__registration {
+        flex-direction: column;
+    }
+
+    /* .pic__register {
+        width: 300px;
+        height: 420px;
+    } */
+
     .home__main_product{
+        display: flex;
+        justify-content:center;
+        align-items:center;
         margin:25px;
     }
 
@@ -792,23 +845,25 @@ body {
         left:70px;
     }
 
-    .home__assurance_icon{
-        left:100px;
-    }
     .container__tablette {
         max-width:90%;
     }
 
+    .shop__card {
+        width: 310px;
+        margin: 10px;
+    }
+
     .shop_picture {
-        height:320px;
-        width: 220px;
+        width: 100%;
     }
     
     /* SHOW Product */
     .show__picture {
-        width: 570px;
+        width: 100%;
         height: 720px;
     }
+
 
     .product__show_details {
         margin-left:0px;
@@ -842,6 +897,13 @@ body {
     .pic__register {
         width: 375px;
         height: 780px; 
+    }
+
+    .home__assurance_content {
+        width:200px;
+    }
+    .home__assurance_icon {
+        left:92px;
     }
 
     .home__footer_copyright {
