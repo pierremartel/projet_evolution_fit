@@ -1,4 +1,4 @@
-<div class="shop__card">
+{# <div class=""> #}
     <div class="shop__card_picture position-relative">
         <img src="{{asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="shop_picture">
         {% if p.event == 'Nouveauté' %}
@@ -11,6 +11,6 @@
         <h3 class="shop__card_title fs-5 text-capitalize">{{ p.name }}</h3>
         <p class="shop__card_price">{{ p.price |number_format(2) }}€</p>
     </div>
-</div>
+{# </div> #}
 
 
