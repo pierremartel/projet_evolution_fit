@@ -593,9 +593,248 @@ body {
 
 
 
-/*  --------------------- MEDIA QUERIES ------------------------- */
+/*  --------------------- MEDIA QUERIES ( 320px - 375px ) ------------------------- */
 
-@media screen and (min-width:319px) and (max-width:425px){
+@media screen and (min-width:319px) and (max-width:374px){
+
+    .navbar__logo_tablette{
+        left: -40px;
+        width: 100px;
+    }
+
+    .navbar__position_icon {
+        padding-left: 0px;
+    }
+
+    .navbar__position_category {
+        padding-left:0px;
+    }
+
+    .infos__Banner {
+        font-size : 12px;
+        height: 50px;
+    }
+
+    .home__banner_container {
+        height:215px;
+    }
+
+    .home__header_btn {
+        left:65px;
+        top:-65px;
+        padding:8px;
+        font-size: 12px;
+    }
+
+    .home__main_content {
+        height: 270px;
+        width: 100%;
+    }
+
+    .home__main_categorie {
+        display: flex;
+        justify-content:center;
+        flex-direction:column;
+    }
+
+    .home__main_picture {
+        height:270px;
+        width:100%;
+    }
+
+    .home__main_product{
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        margin:25px;
+    }
+
+    .home__section_content {
+        flex-direction: column;
+    }
+
+    .home__section_product {
+        height: 300px;
+        width: 100%;
+    }
+
+    .home__section_cart {
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+
+
+    .shop__card {
+        width: 140px;
+        margin: 4px;
+    }
+
+    .shop_picture{
+        height: 180px;
+    }
+
+    .home__assurance {
+        flex-direction:column;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .home__assurance_logo {
+        width: 90%;
+    }
+
+    .home__newsletter {
+        font-size: 12px;
+    }
+
+    .btn__newsletter {
+        border: #fff 1px solid;
+        border-radius:5px;
+        width: 100%;
+        padding:5px;
+        margin-top:5px;
+    }
+
+    .home__footer_card {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .home__footer_copyright {
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+    }
+
+    .carousel-control-next-icon, .carousel-control-prev-icon {
+        height:1rem;
+    }
+    .carousel-control-next, .carousel-control-prev {
+        top:15px;
+    }
+
+    .header__title_filter {
+        flex-direction: column;
+    }
+
+    .choice__select_filter {
+        font-size:10px;
+    }
+
+    .underline_title {
+        margin-bottom:20px;
+    }
+
+    .product__select_filter {
+        width: 100%;
+        border:1px solid #000;
+    }
+
+    .main__show_responsive {
+        flex-direction: column;
+    }
+
+    .show__picture {
+        width: 100%;
+        height: 365px;
+    }
+
+    .product__show_details {
+        margin-left:0px;
+    }
+
+    .show__product_size {
+        flex-direction: column-reverse;
+    }
+
+    #size_guide {
+        margin-bottom: 20px;
+    }
+
+    #show_guide {
+        left:2%;
+        top:125%;
+    }
+
+    .show__modal {
+        width: 295px;
+        height: 135px;
+    }
+
+    .btn__shop {
+        margin-bottom:50px;
+        padding:8px 12px;
+        width: 100%;
+    }
+
+    .cart__button {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .cart__button_buy {
+        margin-bottom: 80px;
+    }
+
+    .hide__purchase {
+        display: none;
+    }
+
+    .cart__checkout_title {
+        flex-direction: column;
+        font-size:12px;
+    }
+
+    .btn__back {
+        padding:5px 8px;
+    }
+
+    .details__purchase_responsive {
+        display: flex;
+        justify-content:space-around;
+        align-items:center;
+        font-size:14px
+    }
+
+    .show__purchase_md {
+        display: block;
+    }
+
+    
+    .btn__color {
+        padding:5px 15px;
+    }
+
+    .cart__confirmation {
+        padding: 0 30px;
+        width: 100%;
+    }
+
+    .success__purchase {
+        font-size:14px;
+    }
+
+    .profil__account_title {
+        margin: 20px 0px;
+        font-size:18px;
+    }
+
+    .pic__login, .pic__register {
+        width: 100%;
+        height: 420px;
+    }
+
+    .security__login, .security__registration {
+        flex-direction: column;
+    }
+
+}
+
+
+/*  --------------------- MEDIA QUERIES ( 375px - 425px ) ------------------------- */
+
+
+@media screen and (min-width:375px) and (max-width:425px){
 
     .home__banner_container {
         height:265px;
@@ -668,12 +907,16 @@ body {
     }
 
     .navbar__logo_tablette{
-        left: -30px;
+        left: -70px;
         width: 100px;
     }
 
     .navbar__position_icon {
-        padding-left: 50px;
+        padding-left: 0px;
+    }
+
+    .navbar__position_category {
+        padding-left: 0px;
     }
 
     .infos__Banner {
