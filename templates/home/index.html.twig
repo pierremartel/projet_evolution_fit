@@ -2,6 +2,13 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block javascripts %}
+
+    <script type="text/javascript" src="./Assets/js/carousel_new_product.js" ></script>
+
+{% endblock %}
+
+
 {% block body %}
 
     <header class="home__header">
@@ -25,34 +32,61 @@
             </div>
         </div>
     </main>
-    <section class="home__section">
-        <div class="container container__tablette">
+    <section class="home__section container">
+        <div class=" position position-relative">
             <div class="home__section_title mt-5 mb-3">
                 <h1 class="text-capitalize">Nouveautés
                     <div class="underline_title"></div>
                 </h1>
                 <a href="{{ path('product_news') }}"><span class="fs-5">Voir tout</span></a>
             </div>
-            <div class=" home__section_content">
-            {# <div class="row"> #}
+            {# <div class=" home__section_content">
                 {% for p in products %}
-                {# <div class="col col-sm-12 col-md-4 col-lg-3">
-                    <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
-                        <img src="{{ asset('uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">{{ p.name }}</h3>
-                        <p class="text-dark">{{ p.price |number_format(2) }}€</p>
-                    </a>
-                </div> #}
-                <div class="home__section_cart">
-                    <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
-                        <img src="{{ asset('./uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
-                        <h3 class="mt-3 mb-2 text-uppercase fs-5 ">{{ p.name }}</h3>
-                        <p class="text-dark">{{ p.price |number_format(2) }}€</p>
-                    </a>
-                </div>
+                    <div class="home__section_cart ">
+                        <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
+                            <img src="{{ asset('./uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
+                            <h3 class="mt-3 mb-2 text-uppercase fs-5 ">{{ p.name }}</h3>
+                            <p class="text-dark">{{ p.price |number_format(2) }}€</p>
+                        </a>
+                    </div>
                 {% endfor %}
-            {# </div> #}
+            </div> #}
+            <div class="home__section_content " id="carousel">
+                {% for p in products %}
+                    <div class="home__section_cart " id="content">
+                        <a href="{{ path('product_show', {'category':p.category.slug, 'slug':p.slug}) }}" class="text-decoration-none">
+                            <img src="{{ asset('./uploads/images/') ~ p.picture }}" alt="{{ p.name }}" class="home__section_product">
+                            <h3 class="mt-3 mb-2 text-uppercase fs-6 ">{{ p.name }}</h3>
+                            <p class="text-dark">{{ p.price |number_format(2) }}€</p>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
+
+            <button id="prev">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                >
+                <path fill="none" d="M0 0h24v24H0V0z" />
+                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                </svg>
+            </button>
+
+            <button id="next">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                >
+                <path fill="none" d="M0 0h24v24H0V0z" />
+                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                </svg>
+            </button>
+
         </div>
     </section>
     <div class="container container__tablette my-5 ">
@@ -61,22 +95,24 @@
                 <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo mb-2">
                 <h3 >Satisfait ou <br>Remboursé</h3>
                 <i class="fa-solid fa-thumbs-up fa-2x home__assurance_icon"></i>
-                <p >30 jours pour nous <br/>retourner si celà ne <br/>vous convient pas</p>
+                <p class="fs-5">30 jours pour nous <br/>retourner si celà ne <br/>vous convient pas</p>
             </div>
             <div class="position-relative home__assurance_content">
                 <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo mb-2">
                 <h3 >Livraison <br>Express</h3>
                 <i class="fa-solid fa-truck fa-2x home__assurance_icon"></i>
-                <p >Livraison chez vous <br/> ou en Click & Collect</p>
+                <p class="fs-5">Livraison chez vous <br/> ou en Click & Collect</p>
             </div>
             <div class="position-relative home__assurance_content">
                 <img src="{{ asset('./Assets/img/assurance.jpg') }}" alt="logo assurance" class="home__assurance_logo mb-2">
                 <h3 >Paiement <br>Sécurisé</h3>
                 <i class="fa-solid fa-credit-card fa-2x home__assurance_icon"></i>
-                <p >Régler vos commandes <br/> en toute sérénité</p>
+                <p class="fs-5">Régler vos commandes <br/> en toute sérénité</p>
             </div>
         </div>
     </div>
     {% include 'shared/_newsletter.html.twig' %}
 
 {% endblock %}
+
+

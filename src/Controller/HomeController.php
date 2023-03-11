@@ -18,15 +18,21 @@ class HomeController extends AbstractController
                             EntityManagerInterface $em): Response
     {
         
-        $products = $productRepository->findBy(['event' => 'Nouveauté'],[],4);
+        $products = $productRepository->findBy(['event' => 'Nouveauté'],[],8);
 
         //Request for newsletter
 
         //1 .Récupérer le user
         $user = $this->getUser();
+
         //2 .Vérifier si la request contient un élément
         //  Vérifier que l'email correspond au user
         if($request->request->count() > 0 ){
+
+            if(!$user){
+                return $this->redirectToRoute('security_login');
+            }
+
             if($request->request->get('email') !== $user->getEmail()){
                 $this->addFlash('warning', 'Un problème est survenue !');
                 return $this->redirectToRoute('home_index');

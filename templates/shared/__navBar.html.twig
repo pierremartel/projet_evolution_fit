@@ -1,0 +1,125 @@
+<nav class="container-fluid justify-content-between d-flex align-items-center py-1 navBar">
+    {# Menu Burger #}
+    <div class="navbar__menu_burger">
+      <button class="burger_box b1">
+        <div class="container-lignes">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+      </button>
+    </div>
+
+    {# Logo #}
+    <section class="d-flex section__logo">
+        <div>
+            <a class="section__logo_desk" href="{{ path('home_index') }}">
+                <img src="{{ asset('./Assets/img/logotype.png') }}" class="navbar__logo"/>
+            </a>
+            <a class="section__logo_tab" href="{{ path('home_index') }}">
+                <img src="{{ asset('./Assets/img/logotype_responsive.png') }}" class="navbar__logo_tablette"/>
+            </a>
+        </div>
+
+    {# Rendu du formulaire de recherche #}
+        <div class="ms-3 w-50 navbar__form">
+            <div class="mt-3">
+                {{ 
+                    render(controller('App\\Controller\\SearchController::searchbar')) 
+                }}
+            </div>
+        </div>
+    </section>
+    
+
+    {# Menu principal #}
+    <section class="me-5 section__menu_principal">
+        <div>
+            <ul class="navbar__menu_principal list-unstyled mt-4">
+                {% for c in categoryRepository.findAll() %}
+
+                <li class="me-5">
+                    <a class="text-decoration-none menu__principal_content" href="{{ path('product_category', {'id': c.id, 'slug':c.slug}) }}">{{ c.name }}</a>
+                </li>
+
+                {% endfor %}
+                <div class="menu__principal_btn">
+                    <a href="{{ path('security_login') }}" class="btn btn-danger">Se connecter</a>
+                    <a href="{{ path('security_registration') }}" class="btn btn-info">S'inscrire</a>
+                </div>
+            </ul>
+            
+        </div>
+    </section>
+    
+
+    {# Menu secondaire #}
+    <section class="section__menu_secondaire">
+       <div>
+            <ul class="d-flex list-unstyled mt-4">
+                <li class="me-4 menu__icon_profil">
+                    {% if app.user %}
+                        <div class="d-flex">
+                            <a class="" href="{{ path('profil_account') }}" title="mon compte">
+                                <i class="fa-regular fa-user fa-xl"></i>
+                            </a>
+                            <p class="">{{ app.user.firstname }}</p>
+                        </div>
+                    {% else %}
+                        <a class="" href="{{ path('security_login') }}" title="mon compte">
+                            <i class="fa-regular fa-user fa-xl"></i>
+                        </a>
+                        {# Mode tablette #}
+                        {# <a class="" href="{{ path('security_login') }}" title="mon compte">
+                            Se connecter
+                        </a> #}
+                    {% endif %}
+                </li>
+
+                <li class="me-4">
+                    <a class="" href="{{ path('cart_show') }}" title="panier">
+                        <div class="position-relative">
+                            <span class="navbar__shop_number">
+                                {{ cartService.getDetailedCartItems | length }}
+                            </span>
+                            <i class="fa-sharp fa-solid fa-bag-shopping fa-xl text-dark"></i>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    {# {% if is_granted('ROLE_ADMIN') %} #}
+                        {# <li class="me-5">
+                            <a class="" href="{{ path('admin_product') }}" title="dashboard">
+                                <i class="fa-solid fa-house fa-xl"></i>
+                            </a>
+                        </li> #}
+                    {# {% endif %} #}
+                </li>
+            </ul>
+        </div> 
+    </section>
+    
+</nav>
+
+{# Modal Menu Buger #}
+<div class="navbar__modal_burger"></div>
+
+
+{% block javascript %}
+    <script type="text/javascript">
+        const box = document.querySelector('.burger_box');
+        const modalbox = document.querySelector('.navbar__modal_burger');
+        const content_modalbox = document.querySelector('.section__menu_principal');
+
+        box.addEventListener('click', e => {
+            e.target.classList.toggle('active_burger');
+            modalbox.classList.toggle('show__modal_burger');
+            content_modalbox.classList.toggle('show__menu_principal');
+
+        })
+
+
+
+    </script>
+
+{% endblock %}
