@@ -106,7 +106,7 @@ li .menu__principal_content:hover:after {
     display: flex;
 }
 
-.menu__principal_btn{
+.menu__principal_btn, .menu__principal_icon{
     display: none;
 }
 
@@ -819,7 +819,7 @@ body {
         margin-bottom: 10px;
     }
 
-    .menu__principal_btn{
+    .menu__principal_btn, .menu__principal_icon{
         display: inline-block;
     }
 

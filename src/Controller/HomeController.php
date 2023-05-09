@@ -17,7 +17,6 @@ class HomeController extends AbstractController
     public function index(ProductRepository $productRepository, Request $request,
                             EntityManagerInterface $em): Response
     {
-        
         $products = $productRepository->findBy(['event' => 'Nouveauté'],[],8);
 
         //Request for newsletter

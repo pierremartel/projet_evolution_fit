@@ -45,13 +45,13 @@ class PurchasePaymentSuccessController extends AbstractController
 
         //On envoie le mail de confirmation de la commande
         $user = $this->getUser();
-        $mailService->send(
-            'no-reply@evolution-fit.fr',
-            $user->getEmail(),
-            'Confirmation de votre compte sur le site EvolutionFit',
-            'success_purchase',
-            compact('user', 'purchase')// compact() remplace un tableau clé => valeur
-        );
+        // $mailService->send(
+        //     'no-reply@evolution-fit.fr',
+        //     $user->getEmail(),
+        //     'Confirmation de votre compte sur le site EvolutionFit',
+        //     'success_purchase',
+        //     compact('user', 'purchase')// compact() remplace un tableau clé => valeur
+        // );
 
         // 4. Je redirige le user vers une page de succès
         return $this->render('purchase/successPayment.html.twig', [

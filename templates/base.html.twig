@@ -33,7 +33,7 @@
         {% endfor %}
 
         {# Message d'alerte si le compte crée n'a pas été activé #}
-        {% if app.user and app.user.isVerified == false %}
+        {# {% if app.user and app.user.isVerified == false %}
             <div class="alert alert-warning alert-dismissible text-end" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <div class="alert-message">
@@ -41,7 +41,7 @@
                     <a href="{{ path('security_resend_check') }}">renvoyer le lien d'activation</a>
                 </div>
             </div>
-        {% endif %}
+        {% endif %} #}
 
         {% block body %}{% endblock %}
 
