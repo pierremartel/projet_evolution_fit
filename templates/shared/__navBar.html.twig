@@ -43,10 +43,27 @@
                 </li>
 
                 {% endfor %}
+                {% if app.user %}
+                    <div class="menu__principal_icon">
+                        <div class="d-flex">
+                            <a class="nav-link bg-danger p-2" href="{{ path('profil_account') }}" title="mon compte">
+                                <i class="fa-regular fa-user fa-xl"></i>  
+                            </a>
+                            <p class="mb-0 ms-2 mt-2 text-light text-capitalize">{{ app.user.firstname }}</p>
+                        </div>
+                        <div class="d-flex">
+                            <a class="nav-link bg-info p-2 mt-2" href="{{ path('security_logout') }}" title="mon compte">
+                                <i class="fa-solid fa-right-from-bracket fa-xl"></i> 
+                            </a>
+                            <p></p>
+                        </div>
+                    </div>
+                {% else %}
                 <div class="menu__principal_btn">
                     <a href="{{ path('security_login') }}" class="btn btn-danger">Se connecter</a>
                     <a href="{{ path('security_registration') }}" class="btn btn-info">S'inscrire</a>
                 </div>
+                {% endif %}
             </ul>
             
         </div>

@@ -94,15 +94,16 @@ class SecurityController extends AbstractController
             //On genere le Token
             $token = $this->jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
+            //SYSTEME MAIL A CORRIGER !!!!!!!!!!!!!!!!!!!!!!!!!
 
             //On envoie le mail d'activation du compte
-            $this->mailService->send(
-                    'no-reply@evolution-fit.fr',
-                    $user->getEmail(),
-                    'Activation de votre compte sur le site EvolutionFit',
-                    'register',
-                    compact('user', 'token')// compact() remplace un tableau clé => valeur
-            );
+            // $this->mailService->send(
+            //         'no-reply@evolution-fit.fr',
+            //         $user->getEmail(),
+            //         'Activation de votre compte sur le site EvolutionFit',
+            //         'register',
+            //         compact('user', 'token')// compact() remplace un tableau clé => valeur
+            // );
 
            return $this->redirectToRoute('security_login');
 
@@ -170,13 +171,13 @@ class SecurityController extends AbstractController
 
 
         //On envoie le mail d'activation du compte
-        $this->mailService->send(
-             'no-reply@evolution-fit.fr',
-             $user->getEmail(),
-             'Activation de votre compte sur le site EvolutionFit',
-             'register',
-             compact('user', 'token')// compact() remplace un tableau clé => valeur
-        );
+        // $this->mailService->send(
+        //      'no-reply@evolution-fit.fr',
+        //      $user->getEmail(),
+        //      'Activation de votre compte sur le site EvolutionFit',
+        //      'register',
+        //      compact('user', 'token')// compact() remplace un tableau clé => valeur
+        // );
         $this->addFlash('warning', 'Email de vérification envoyé');
         return $this->redirectToRoute('home_index'); 
     }
@@ -215,13 +216,13 @@ class SecurityController extends AbstractController
             $context = compact('url', 'user');
 
             //On envoie le mail
-            $this->mailService->send(
-                        'no-reply@evoultion-fit.fr',
-                        $user->getEmail(),
-                        'Réinitialisation du mot de passe',
-                        'reset_password',
-                        $context
-            );
+            // $this->mailService->send(
+            //             'no-reply@evoultion-fit.fr',
+            //             $user->getEmail(),
+            //             'Réinitialisation du mot de passe',
+            //             'reset_password',
+            //             $context
+            // );
 
             $this->addFlash('success', 'Email envoyé avec succès !');
             return $this->redirectToRoute('security_login');

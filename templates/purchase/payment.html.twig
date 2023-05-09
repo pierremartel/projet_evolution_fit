@@ -4,6 +4,31 @@
     Paiement de la commande avec Stripe
 {% endblock %}
 
+{% block javascripts %}
+    {# Payment Stripe #}
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        const clientSecret = '{{ clientSecret }}';
+        const redirectAfterSuccessUrl = "{{ url('purchase_payment_success', {'id':purchase.id}) }}"
+    </script>
+
+    <script src="../../Assets/js/payment.js"></script>
+
+    {# Details purchase modal #}
+    <script type="text/javascript">
+
+        let btnShowPurchase = document.getElementById('btn__show_purchase');
+        let showPurchase = document.getElementById('show__purchase');
+
+        btnShowPurchase.addEventListener('click', () => {
+            showPurchase.classList.toggle('show__purchase_md');
+        })
+
+    </script>
+{% endblock %}
+
 {% block body %}
 
     <div class="pt-4 pb-2 d-flex justify-content-around align-items-center d-lg-none bg-light">
@@ -80,6 +105,9 @@
                     </div>
                 </div>
 
+                <h2 class="fs-4 ">Pour la démonstration :</h2>
+                <p class="fs-5 mb-3 fw-bold">Numéro de carte test : 4242 4242 4242 4242 </p>
+                
                 <p class="fs-5 mb-3">Toutes les transactions sont sécurisées et chiffrées.</p>
 
                 {# FORM DE PAYMENT #}
@@ -151,30 +179,4 @@
       </button>
       <div id="payment-message" class="hidden"></div>
     </form> #}
-{% endblock %}
-
-{% block javascripts %}
-
-    {# Payment Stripe #}
-    {{ parent() }}
-    <script src="https://js.stripe.com/v3/"></script>
-
-    <script>
-        const clientSecret = '{{ clientSecret }}';
-        const redirectAfterSuccessUrl = "{{ url('purchase_payment_success', {'id':purchase.id}) }}"
-    </script>
-
-    <script src="/assets/js/payment.js"></script>
-
-    {# Details purchase modal #}
-    <script type="text/javascript">
-
-        let btnShowPurchase = document.getElementById('btn__show_purchase');
-        let showPurchase = document.getElementById('show__purchase');
-
-        btnShowPurchase.addEventListener('click', () => {
-            showPurchase.classList.toggle('show__purchase_md');
-        })
-
-    </script>
 {% endblock %}
